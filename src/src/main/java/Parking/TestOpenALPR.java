@@ -1,3 +1,5 @@
+package Parking;
+
 import java.net.*;
 import java.io.*;
 import java.nio.file.*;
@@ -12,7 +14,7 @@ class TestOpenALPR {
             String secret_key = "sk_b54c60658f3340d99b2d0531";
 
             // Read image file to byte array
-            Path path = Paths.get("src/test.jpg");
+            Path path = Paths.get("src/photo.jpg");
             byte[] data = Files.readAllBytes(path);
 
             // Encode file bytes to base64
