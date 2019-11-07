@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TestOpenALPR",
+            "request": "launch",
+            "mainClass": "Parking.TestOpenALPR",
+            "projectName": "Parking"
+        }
+    ]
+}
