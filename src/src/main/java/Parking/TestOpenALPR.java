@@ -2,9 +2,14 @@ package Parking;
 
 import java.net.*;
 import java.io.*;
-import java.nio.file.*;
 import java.util.Base64;
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.Tag;
 import org.json.*;
+import net.coobird.thumbnailator.Thumbnails;
 
 class TestOpenALPR {
 
@@ -12,10 +17,17 @@ class TestOpenALPR {
         String json_content = "";
         try {
             String secret_key = "sk_b54c60658f3340d99b2d0531";
-
+            //System.out.println("hello");
             // Read image file to byte array
-            Path path = Paths.get("src/photo.jpg");
-            byte[] data = Files.readAllBytes(path);
+            //Path path = Paths.get("src/photo.jpg");
+            //byte[] data = Files.readAllBytes(path);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            Thumbnails.of("src/photo.jpg").scale(1).toOutputStream(outputStream);
+            byte[] data = outputStream.toByteArray();
+            File file = new File("src/photo.jpg");
+            Metadata metadata = ImageMetadataReader.readMetadata(file);
+            
+            print(metadata, "metadata");
 
             // Encode file bytes to base64
             byte[] encoded = Base64.getEncoder().encode(data);
@@ -52,9 +64,41 @@ class TestOpenALPR {
         catch (IOException e) {
             System.out.println("Failed to open connection");
         }
+        catch (ImageProcessingException e) {
+            e.printStackTrace();
+        }
         return json_content;
     }
 
+    private static void print(Metadata metadata, String method)
+    {
+        System.out.println();
+        System.out.println("-------------------------------------------------");
+        System.out.print(' ');
+        System.out.print(method);
+        System.out.println("-------------------------------------------------");
+        System.out.println();
+
+        //
+        // A Metadata object contains multiple Directory objects
+        //
+        for (Directory directory : metadata.getDirectories()) {
+
+            //
+            // Each Directory stores values in Tag objects
+            //
+            for (Tag tag : directory.getTags()) {
+                System.out.println(tag);
+            }
+
+            //
+            // Each Directory may also contain error messages
+            //
+            for (String error : directory.getErrors()) {
+                System.err.println("ERROR: " + error);
+            }
+        }
+    }
 
     public static void main(String[] args) {
         TestOpenALPR test = new TestOpenALPR();
