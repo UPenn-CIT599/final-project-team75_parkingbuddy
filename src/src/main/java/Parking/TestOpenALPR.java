@@ -3,11 +3,15 @@ package Parking;
 import java.net.*;
 import java.io.*;
 import java.util.Base64;
+import java.util.Date;
+
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
+import com.drew.metadata.exif.ExifSubIFDDirectory;
+
 import org.json.*;
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -99,6 +103,36 @@ class TestOpenALPR {
             }
         }
     }
+    
+    
+    public static void returnDate(Metadata metadata) {
+    	// using https://drewnoakes.com/code/exif/
+    	ExifSubIFDDirectory dir = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
+    	Date date = dir.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
+    	System.out.println(date);
+    }
+    
+    public static Metadata readMetadata() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try {
+			Thumbnails.of("src/photo.jpg").scale(1).toOutputStream(outputStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        File file = new File("src/photo.jpg");
+        Metadata metadata = null;
+        try {
+			 metadata = ImageMetadataReader.readMetadata(file);
+        }
+		catch (MalformedURLException e) {
+			System.out.println("Bad URL");
+		} catch (IOException e) {
+			System.out.println("Failed to open connection");
+		} catch (ImageProcessingException e) {
+			e.printStackTrace();
+		}
+		return metadata;
+	}
 
     public static void main(String[] args) {
         TestOpenALPR test = new TestOpenALPR();
@@ -111,6 +145,7 @@ class TestOpenALPR {
         // gets values associated with "plate" key from the first index which has highest confidence
         String licensePlate = result.getJSONObject(0).getString("plate");
         System.out.print("\nLicense plate number: " + licensePlate);
-
+        
+        returnDate(readMetadata());
         }
     }
