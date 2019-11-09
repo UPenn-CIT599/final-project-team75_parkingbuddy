@@ -111,6 +111,7 @@ class TestOpenALPR {
     	Date date = dir.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
     	System.out.println(date);
     }
+   
     
     public static Metadata readMetadata() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
