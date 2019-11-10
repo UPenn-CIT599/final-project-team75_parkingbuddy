@@ -5,6 +5,11 @@ package Parking;
  * folder of photos.
  */
 public class ParkingInstanceProcessor {
-JPEGReader jpegReader = new JPEGReader();
-LicenseOCR licenseOCR = new LicenseOCR();
+    JPEGReader jpegReader = new JPEGReader();
+    LicenseOCR licenseOCR = new LicenseOCR();
+
+
+    public ParkingInstanceProcessor() {
+
+    }
 }

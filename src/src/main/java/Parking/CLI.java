@@ -38,4 +38,12 @@ public class CLI {
         return endDate;
     }
 
+    public static void main(String[] args){
+        JPEGReader jpegReader = new JPEGReader();
+
+        ParkingInstanceProcessor parkingInstanceProcessor = new ParkingInstanceProcessor();
+        System.out.println("complete");
+
+    }
+
 }
