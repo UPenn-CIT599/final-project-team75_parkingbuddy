@@ -1,4 +1,5 @@
 package Parking;
+import java.util.Date;
 
 /**
  * ParkingInstance contains parking instance object that represents each

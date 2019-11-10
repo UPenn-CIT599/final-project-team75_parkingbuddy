@@ -10,12 +10,12 @@ class LicenseOCR {
      * @return
      */
     public Car getCar(Photo photo){
-        Car car = new Car();
-        car.setDate = photo.getCreationDate();
-        //TODO call OpenALPR
-        //TODO set car.license
-        //TODO set car.state
+        //TODO call OpenALPR to get license and state
 
+        String license = "license from Open ALPR";
+        String state = "PA";
+
+        Car car = new Car(license, state);
         return car;
     }
 
