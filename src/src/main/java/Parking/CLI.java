@@ -23,6 +23,8 @@ public class CLI {
      * @return
      */
     public Date violationStartDate(){
+        //TODO change dates to read user input
+        Date startDate = new GregorianCalendar(2004, 6, 10, 13, 45).getTime() ;
         return startDate;
     }
 
@@ -31,6 +33,8 @@ public class CLI {
      * @return
      */
     public Date violationEndDate(){
+        //TODO change dates to read user input
+        Date endDate = new GregorianCalendar(2006, 6, 10, 13, 45).getTime();
         return endDate;
     }
 

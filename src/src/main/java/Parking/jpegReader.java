@@ -13,7 +13,7 @@ import com.drew.metadata.exif.*;
  * @author minschoi
  *
  */
-public class jpegReader {
+public class JPEGReader {
 
 	/**
 	 * This method extracts the original date of the files from a folder by
@@ -65,5 +65,8 @@ public class jpegReader {
 		ArrayList<String> dates = readDates(filePath);
 		System.out.println(dates.toString());
 	}
+
+  public JPEGReader() {
+  }
 
 }
