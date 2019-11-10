@@ -1,6 +1,5 @@
 package Parking;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Database to store all the parking instances (each time a car is parked)
@@ -23,8 +22,12 @@ class ParkingInstanceDatabase {
      * @param newInstances
      */
     public void addInstances(ArrayList<ParkingInstance> newInstances) {
-        this.instances.add(newInstances);
+        this.instances.addAll(newInstances);
 
+    }
+
+    public ParkingInstanceDatabase(ArrayList<ParkingInstance> instances) {
+        this.instances = instances;
     }
 
 }
