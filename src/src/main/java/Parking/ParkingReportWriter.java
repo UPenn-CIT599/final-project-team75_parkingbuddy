@@ -16,8 +16,8 @@ public class ParkingReportWriter{
      * @return
      */
     public File write(){
-        Path path = "";
-        File violationReport = new File(path);
+        //Path path = ""  user specify where to create new fle
+        File violationReport = new File("report.csv");
         return violationReport;
     }
 
