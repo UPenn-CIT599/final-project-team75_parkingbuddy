@@ -12,6 +12,9 @@ class Photo {
 
     // hash of photo; unique identifier for each photo
     String photoHash;
+    
+    // path of photo file based on user input
+    String photoFilePath;
 
     public Photo(Byte[] data, Date creationDate, String photoHash) {
         this.data = data;
@@ -35,8 +38,12 @@ class Photo {
         this.creationDate = creationDate;
     }
 
-    public String getphotoHash() {
+    public String getPhotoHash() {
         return photoHash;
+    }
+    
+    public String getPhotoFilePath() {
+        return photoFilePath;
     }
 
     public void setHash(String photoHash) {
