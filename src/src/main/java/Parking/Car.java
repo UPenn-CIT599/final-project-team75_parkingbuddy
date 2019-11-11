@@ -8,6 +8,7 @@ package Parking;
 class Car {
     public String license;
     public String state;
+    
 
     public Car(String license, String state) {
         this.license = license;
