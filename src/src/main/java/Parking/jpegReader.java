@@ -13,7 +13,7 @@ import com.drew.metadata.exif.*;
  * @author minschoi
  *
  */
-public class jpegReader {
+public class JPEGReader {
 
 	/**
 	 * This method extracts the original date of the files from a folder by
@@ -60,10 +60,22 @@ public class jpegReader {
 		return dates;
 	}
 
+	/**
+	 * photoCreator creates a photo object from each photo
+	 * @param args
+	 */
+
+	public static void photoCreator(){
+		//TODO fill in method
+	}
+
 	public static void main(String[] args) {
 		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		ArrayList<String> dates = readDates(filePath);
 		System.out.println(dates.toString());
 	}
+
+  public JPEGReader() {
+  }
 
 }

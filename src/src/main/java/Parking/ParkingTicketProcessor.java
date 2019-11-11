@@ -1,6 +1,5 @@
 package Parking;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -23,6 +22,8 @@ public class ParkingTicketProcessor {
      */
     public ArrayList<ParkingTicket> writeTicket(Date startDate, Date endDate,
             ArrayList<ParkingInstance> parkingInstances, Path fileInputPath) {
+            
+            ArrayList<ParkingTicket> parkingTickets = new ArrayList<ParkingTicket>();
         // logic to check for overnight parking rule violation
 
         return parkingTickets;

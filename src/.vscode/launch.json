@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - CLI",
+            "request": "launch",
+            "mainClass": "Parking.CLI",
+            "projectName": "Parking"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - TestOpenALPR",
             "request": "launch",
             "mainClass": "Parking.TestOpenALPR",
