@@ -10,7 +10,7 @@ http://www.nomnoml.com.s3-website-eu-west-1.amazonaws.com/#view/%5BJpegReader%7C
 readDates method: This method extracts the original date of the files from a folder by extracting exif data and storing them in an ArrayList of String.
 src > src > main > java > Parking > JPEGReader.java
 
-Test:
+Unit test:
 src > src > test > java > Parking > JPEGReader.java
 JPEGReaderTest.java
 
