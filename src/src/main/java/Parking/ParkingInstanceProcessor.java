@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * ParkingInstanceProcessor creates an arraylist of parking instances from a
  * folder of photos.
  */
+
 public class ParkingInstanceProcessor {
     JPEGReader jpegReader = new JPEGReader();
     LicenseOCR licenseOCR = new LicenseOCR();
