@@ -7,6 +7,7 @@ import java.util.*;
  * ParkingTicketProcessor takes user inputted start and end dates, parking
  * instances, path to photos, and generates an ArrayList of parking tickets.
  */
+
 public class ParkingTicketProcessor {
     ParkingReportWriter ticketWriter;
 

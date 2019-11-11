@@ -9,9 +9,8 @@ import com.drew.metadata.*;
 import com.drew.metadata.exif.*;
 
 /**
- * This class reads image files and stores the information of multiple files.
- * 
- * @author minschoi
+ * This class reads the image files and extracts the EXIF metadata required to construct a Photo object
+ * from each image. 
  *
  */
 public class JPEGReader {
@@ -63,10 +62,10 @@ public class JPEGReader {
 	}
 
 	/**
-	 * photoCreator creates a photo object from each photo
+	 * buildPhotoObject creates a photo object from each photo.
 	 * @param args
 	 */
-	public void photoCreator(){
+	public void buildPhotoObject(){
 		//TODO fill in method
 		
 	}

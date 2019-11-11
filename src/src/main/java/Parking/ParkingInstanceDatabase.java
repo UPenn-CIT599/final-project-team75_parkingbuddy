@@ -2,8 +2,9 @@ package Parking;
 import java.util.ArrayList;
 
 /**
- * Database to store all the parking instances (each time a car is parked)
+ * Database to store all the parking instances (i.e. each time a car is parked).
  */
+
 class ParkingInstanceDatabase {
     ArrayList<ParkingInstance> instances = new ArrayList<ParkingInstance>();
 

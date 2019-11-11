@@ -1,7 +1,10 @@
 package Parking;
+
 /**
- * Command Line Interface (CLI) to ask users for user preference, and allow user
- * to input preference to upload folder or pull violation ticket.
+ * Command Line Interface (CLI) that enables users to take the following actions: 
+ * (1) Upload photos (can be in a folder) 
+ * (2) Generate report of violations within a certain time frame (user must input the start and end date)
+ * 
  */
 
 import java.util.*;
