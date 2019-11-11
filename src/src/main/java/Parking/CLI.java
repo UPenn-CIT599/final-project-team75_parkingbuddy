@@ -39,9 +39,10 @@ public class CLI {
     }
 
     public static void main(String[] args){
-        JPEGReader jpegReader = new JPEGReader();
-
         ParkingInstanceProcessor parkingInstanceProcessor = new ParkingInstanceProcessor();
+        ParkingTicketProcessor parkingTicketProcessor = new ParkingTicketProcessor();
+        ParkingInstanceDatabase parkingInstanceDatabase = new ParkingInstanceDatabase();
+
         System.out.println("complete");
 
     }

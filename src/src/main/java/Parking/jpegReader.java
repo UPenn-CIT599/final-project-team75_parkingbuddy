@@ -60,6 +60,15 @@ public class JPEGReader {
 		return dates;
 	}
 
+	/**
+	 * photoCreator creates a photo object from each photo
+	 * @param args
+	 */
+
+	public static void photoCreator(){
+		//TODO fill in method
+	}
+
 	public static void main(String[] args) {
 		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		ArrayList<String> dates = readDates(filePath);

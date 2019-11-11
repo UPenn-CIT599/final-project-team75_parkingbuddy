@@ -4,7 +4,7 @@ import java.util.Date;
 
 class Photo {
     // photo metadata
-    Byte[] Data;
+    Byte[] data;
 
     // photo creation date, i.e. time that photo was taken of car parking
     // instance
@@ -14,17 +14,17 @@ class Photo {
     String photoHash;
 
     public Photo(Byte[] data, Date creationDate, String photoHash) {
-        Data = data;
+        this.data = data;
         this.creationDate = creationDate;
         this.photoHash = photoHash;
     }
 
     public Byte[] getData() {
-        return Data;
+        return data;
     }
 
     public void setData(Byte[] data) {
-        Data = data;
+        this.data = data;
     }
 
     public Date getCreationDate() {

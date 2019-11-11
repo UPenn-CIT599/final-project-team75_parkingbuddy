@@ -30,8 +30,8 @@ class ParkingInstanceDatabase {
      * ParkingInstanceDatabase Constructor
      * @param instances
      */
-    public ParkingInstanceDatabase(ArrayList<ParkingInstance> instances) {
-        this.instances = instances;
-    }
+    public ParkingInstanceDatabase() {
+        
+        }
 
 }
