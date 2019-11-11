@@ -6,8 +6,7 @@ class Photo {
     // photo metadata
     Byte[] data;
 
-    // photo creation date, i.e. time that photo was taken of car parking
-    // instance
+    // photo creation date, i.e. time that photo was taken of car parking instance
     Date creationDate;
 
     // hash of photo; unique identifier for each photo

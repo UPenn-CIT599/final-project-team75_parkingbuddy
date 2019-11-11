@@ -2,6 +2,7 @@ package Parking;
 
 import java.io.*;
 import java.nio.file.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import com.drew.imaging.*;
 import com.drew.metadata.*;
@@ -17,15 +18,15 @@ public class JPEGReader {
 
 	/**
 	 * This method extracts the original date of the files from a folder by
-	 * extracting exif data and storing them in an ArrayList of String.
+	 * extracting exif data and storing them in an ArrayList of Strings.
 	 * 
 	 * @param path
 	 * @return ArrayList<String>
 	 */
-	public static ArrayList<String> readDates(Path path) {
+	public ArrayList<String> readDates(Path path) {
 		// initializing ArrayList to return
 		ArrayList<String> dates = new ArrayList<String>();
-
+		
 		try {
 			// store files from the folder location
 			File[] files = path.toFile().listFiles();
@@ -38,10 +39,11 @@ public class JPEGReader {
 						Metadata metadata = ImageMetadataReader.readMetadata(files[i]);
 						ExifSubIFDDirectory dir = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
 						Date date = dir.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
+						String pattern = "yyyy-MM-dd";
+						String formattedDate = new SimpleDateFormat(pattern).format(date);
+						dates.add(formattedDate);
 						
-						// add to the ArrayList;
-						dates.add(date.toString());
-					// various cases for error
+					// exception handling
 					} catch (NullPointerException e) {
 						System.out.println("File " + files[i].toString() + " doesn't have metadata.");
 					} catch (IOException e) {
@@ -64,19 +66,20 @@ public class JPEGReader {
 	 * photoCreator creates a photo object from each photo
 	 * @param args
 	 */
-
-	public static void photoCreator(){
+	public void photoCreator(){
 		//TODO fill in method
+		
 	}
 
 	public static void main(String[] args) {
+		JPEGReader r = new JPEGReader();
 		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
-		ArrayList<String> dates = readDates(filePath);
+		ArrayList<String> dates = r.readDates(filePath);
 		System.out.println(dates.toString());
 	}
 
-  public JPEGReader() {
-	  
-  }
+	public JPEGReader() {
+
+	}
 
 }
