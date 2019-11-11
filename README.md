@@ -39,7 +39,7 @@ There are 3 main functionalities of ParkingBuddy:
 
 1. Read user input and perform some action: Give users the option to either (1) upload photos, or (2) pull a report on parking violations. To upload photos, user enters folder name where vehicle pictures are stored. Parse the images from folder into image file names, and read the image EXIF data for datetime. 
 
-2. Data processing: Call OCR license plate reader OpenALPR API to automatically detect the vehicle in an image. Based on API results, log license plate, and date and time of patrol into a CSV file.
+2. Data processing: Call OCR license plate reader [OpenALPR REST API](http://www.openalpr.com/index.html) to automatically detect the vehicle in an image. Based on API results, log license plate, and date and time of patrol into a CSV file.
 
 3. Data analysis: Produce analysis of vehicles parked in the parking lot if user chooses to pull analysis report. Implement parking rules logic, and flag vehicle violations. 
 
@@ -48,4 +48,6 @@ There are 3 main functionalities of ParkingBuddy:
 - Overnight is defined as parking at anytime  between 9pm - 6am the following day. As long as a vehicle is detected to be parked between these hours, it is deemed as having parked overnight (overnight_count = 1)
 2. No day parking for more than 3 days in a 10-day period.
 - Day is defined as time between 6am - 9pm (day_count = 1).
-
+___
+## Design Milestone
+A draft of our class design with the relevant methods for each class can be seen from the following diagram: 
