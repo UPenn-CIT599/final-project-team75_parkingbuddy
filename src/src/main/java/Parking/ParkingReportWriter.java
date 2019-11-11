@@ -7,6 +7,7 @@ import java.util.ArrayList;
 /**
  * Write to output file of the parking tickets, and deal with proper formatting in output file.
  */
+
 public class ParkingReportWriter{
     ArrayList<ParkingTicket> parkingTickets;
     Car car;
