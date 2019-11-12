@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+/*
+ * This class tests the JPEGReader class by testing various cases to make
+ * sure that the class and its method of reading JPEG files is valid.
+ */
 public class JPEGReaderTest {
 	JPEGReader r = new JPEGReader();
 
@@ -16,27 +20,41 @@ public class JPEGReaderTest {
 	public void testOneImage() {
 		Path filePath = Paths.get("src/test/java/Parking/OneImageFolder/");
 		ArrayList<LocalDateTime> dates = r.readDates(filePath);
-		assertEquals("[Fri Aug 27 06:52:55 PDT 2004]",dates.toString()); 
+		assertEquals("[2004-08-27T13:52:55]", dates.toString());
 	}
-	
+
 	@Test
 	public void testEmptyFolder() {
 		Path filePath = Paths.get("/src/test/java/Parking/EmptyFolder/");
 		ArrayList<LocalDateTime> dates = r.readDates(filePath);
-		assertEquals("[]", dates.toString()); 
+		assertEquals("[]", dates.toString());
 	}
-	
+
+	@Test
+	public void testInvalidPath() {
+		Path filePath = Paths.get("//");
+		ArrayList<LocalDateTime> dates = r.readDates(filePath);
+		assertEquals("[]", dates.toString());
+	}
+
 	@Test
 	public void testMultipleFolder() {
 		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		ArrayList<LocalDateTime> dates = r.readDates(filePath);
-		assertEquals("[Fri May 30 08:56:01 PDT 2008, Fri Aug 27 06:52:55 PDT 2004]", dates.toString()); 
+		assertEquals("[2008-05-30T15:56:01, 2004-08-27T13:52:55]", dates.toString());
 	}
-	
+
 	@Test
-	public void testPngFolder() {
-		Path filePath = Paths.get("/Users/minschoi/Downloads/pngFolder/");
+	public void testPNGImagesFolder() {
+		Path filePath = Paths.get("src/test/java/Parking/PNGImagesFolder/");
 		ArrayList<LocalDateTime> dates = r.readDates(filePath);
-		assertEquals("[]", dates.toString()); 
+		assertEquals("[]", dates.toString());
+	}
+
+	@Test
+	public void testMixedImagesFolder() {
+		Path filePath = Paths.get("src/test/java/Parking/MixedImagesFolder/");
+		ArrayList<LocalDateTime> dates = r.readDates(filePath);
+		assertEquals("[2008-05-30T15:56:01, 2004-08-27T13:52:55]", dates.toString());
 	}
 }
