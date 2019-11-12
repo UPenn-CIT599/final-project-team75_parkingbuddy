@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class ParkingInstanceProcessor {
     JPEGReader jpegReader = new JPEGReader();
     LicenseOCR licenseOCR = new LicenseOCR();
-    ArrayList<Car> carsDatabase = new ArrayList<Car>();
 
 
     /**
