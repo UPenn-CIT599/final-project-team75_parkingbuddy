@@ -50,5 +50,6 @@ There are 3 main functionalities of ParkingBuddy:
 - Day is defined as time between 6am - 9pm (day_count = 1).
 ___
 ## Design Milestone
-A draft of our class design with the relevant methods for each class can be seen from the following diagram: 
+A draft of our class design with the relevant methods for each class can be seen from the following diagram:
+
 ![alt text](src/src/main/java/Images/classDiagram.png)
