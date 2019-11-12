@@ -52,4 +52,4 @@ ___
 ## Design Milestone
 A draft of our class design with the relevant methods for each class can be seen from the following diagram:
 
-![alt text](src/src/main/java/Images/classDiagram.png)
+![alt text](src/src/main/java/Images/classDiagram_updated.png)
