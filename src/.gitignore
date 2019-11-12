@@ -6,7 +6,7 @@ build
 
 
 # Ignore .ds uploads
-.DS_Store
+*.DS_Store
 
 # Ignore .class uploads
-.class
+*.class
