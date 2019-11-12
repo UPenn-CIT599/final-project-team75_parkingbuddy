@@ -1,6 +1,5 @@
 package Parking;
 
-import java.util.ArrayList;
 
 /**
  * ParkingInstanceProcessor creates an arraylist of parking instances from a
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 public class ParkingInstanceProcessor {
     JPEGReader jpegReader = new JPEGReader();
     LicenseOCR licenseOCR = new LicenseOCR();
-    ArrayList<Car> carsDatabase = new ArrayList<Car>();
 
 
     /**
