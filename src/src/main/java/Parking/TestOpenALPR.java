@@ -1,5 +1,7 @@
 package Parking;
-
+/**
+ * Test class to ensure that API call works.
+ */
 import java.net.*;
 import java.io.*;
 import java.util.Base64;

@@ -3,7 +3,7 @@ package Parking;
 import java.util.*;
 
 /**
- * Each parking ticket represents the car that violates the rule, and the
+ * Each parking ticket represents the car that violated the rule, and the
  * instances when the car violates the rule.
  */
 
