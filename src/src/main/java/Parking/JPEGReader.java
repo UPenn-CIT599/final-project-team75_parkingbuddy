@@ -10,8 +10,8 @@ import com.drew.metadata.*;
 import com.drew.metadata.exif.*;
 
 /**
- * This class reads the image files and extracts the EXIF metadata required to construct a Photo object
- * from each image. 
+ * This class reads the image files and extracts the EXIF metadata required to
+ * construct a Photo object from each image.
  *
  */
 public class JPEGReader {
@@ -26,7 +26,7 @@ public class JPEGReader {
 	public ArrayList<LocalDateTime> readDates(Path path) {
 		// initializing ArrayList of LocalDateTime objects
 		ArrayList<LocalDateTime> dates = new ArrayList<LocalDateTime>();
-		
+
 		try {
 			// store files from the folder location
 			File[] files = path.toFile().listFiles();
@@ -43,10 +43,10 @@ public class JPEGReader {
 						String pattern = "yyyy:MM:dd HH:mm:ss";
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 						LocalDateTime formattedDate = LocalDateTime.parse(dateStr, formatter);
-						
+
 						dates.add(formattedDate);
-						
-					// exception handling
+
+						// exception handling
 					} catch (NullPointerException e) {
 						System.out.println("File " + files[i].toString() + " doesn't have metadata.");
 					} catch (IOException e) {
@@ -67,11 +67,12 @@ public class JPEGReader {
 
 	/**
 	 * buildPhotoObject creates a photo object from each photo.
+	 * 
 	 * @param args
 	 */
-	public void buildPhotoObject(){
-		//TODO fill in method
-		
+	public void buildPhotoObject() {
+		// TODO fill in method
+
 	}
 
 	public static void main(String[] args) {
