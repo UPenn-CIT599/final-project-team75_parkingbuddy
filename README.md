@@ -50,6 +50,13 @@ There are 3 main functionalities of ParkingBuddy:
 - Day is defined as time between 6am - 9pm (day_count = 1).
 ___
 ## Design Milestone
+### Class Design 
 A draft of our class design with the relevant methods for each class can be seen from the following diagram:
 
 ![alt text](src/src/main/java/Images/classDiagram_updated.png)
+
+
+### Non-trivial Method and JUnit Test:
+
+- readDates() method in [JPEGReader.java](/src/src/main/java/Parking/JPEGReader.java): This method extracts the original date of the image files from a folder by extracting exif data, converting the date strings into LocalDateTime objects, and storing them in an ArrayList<LocalDateTime>
+- Various unit tests in [JPEGReaderTest.java](/src/src/test/java/Parking/JPEGReaderTest.java)
