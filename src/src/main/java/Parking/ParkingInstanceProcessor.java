@@ -1,9 +1,8 @@
 package Parking;
 
-import java.util.ArrayList;
 
 /**
- * ParkingInstanceProcessor creates an arraylist of parkng instances from a
+ * ParkingInstanceProcessor creates an arraylist of parking instances from a
  * folder of photos.
  */
 public class ParkingInstanceProcessor {
