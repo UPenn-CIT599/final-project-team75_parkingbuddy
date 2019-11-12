@@ -2,7 +2,8 @@ package Parking;
 
 import java.io.*;
 import java.nio.file.*;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import com.drew.imaging.*;
 import com.drew.metadata.*;
@@ -22,9 +23,9 @@ public class JPEGReader {
 	 * @param path
 	 * @return ArrayList<String>
 	 */
-	public ArrayList<String> readDates(Path path) {
-		// initializing ArrayList to return
-		ArrayList<String> dates = new ArrayList<String>();
+	public ArrayList<LocalDateTime> readDates(Path path) {
+		// initializing ArrayList of LocalDateTime objects
+		ArrayList<LocalDateTime> dates = new ArrayList<LocalDateTime>();
 		
 		try {
 			// store files from the folder location
@@ -37,9 +38,12 @@ public class JPEGReader {
 						// get metadata from the file and obtain Exif date and time
 						Metadata metadata = ImageMetadataReader.readMetadata(files[i]);
 						ExifSubIFDDirectory dir = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
-						Date date = dir.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
-						String pattern = "yyyy-MM-dd";
-						String formattedDate = new SimpleDateFormat(pattern).format(date);
+						String dateStr = dir.getString(ExifIFD0Directory.TAG_DATETIME_ORIGINAL);
+//						System.out.println(dateStr);
+						String pattern = "yyyy:MM:dd HH:mm:ss";
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+						LocalDateTime formattedDate = LocalDateTime.parse(dateStr, formatter);
+						
 						dates.add(formattedDate);
 						
 					// exception handling
@@ -73,7 +77,7 @@ public class JPEGReader {
 	public static void main(String[] args) {
 		JPEGReader r = new JPEGReader();
 		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
-		ArrayList<String> dates = r.readDates(filePath);
+		ArrayList<LocalDateTime> dates = r.readDates(filePath);
 		System.out.println(dates.toString());
 	}
 
