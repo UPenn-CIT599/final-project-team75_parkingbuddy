@@ -43,7 +43,13 @@ public class JPEGReader {
 						String pattern = "yyyy:MM:dd HH:mm:ss";
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 						LocalDateTime formattedDate = LocalDateTime.parse(dateStr, formatter);
-
+						
+//						// to get date from LocalDateTime object
+//						System.out.println(formattedDate.toLocalDate());
+//						// to get time from LocalDateTime object
+//						System.out.println(formattedDate.toLocalTime());
+						
+						// add each LocalDateTime object to ArrayList
 						dates.add(formattedDate);
 
 						// exception handling

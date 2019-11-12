@@ -32,7 +32,7 @@ class LicenseOCR {
      * @param photo
      * @return
      */
-    public Car buildCarObject(Photo photo){
+    public Car createCar(Photo photo){
     	String photoFilePathHardCoded = "src/photo.jpg"; // hard coding a photo file path for now
 //    	String photoFilePath = photo.getPhotoFilePath(); // we should get the photo file path from the photo object using a getter
         String license = "";
