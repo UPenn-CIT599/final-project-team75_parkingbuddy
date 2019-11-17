@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  *
  * @author sqlitetutorial.net took pointer code from this website
  */
-public class DatabaseTest {
+public class Database {
  
     /**
      * Connect to a sample database
