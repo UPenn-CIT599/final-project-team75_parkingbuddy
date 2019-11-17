@@ -1,6 +1,13 @@
+# Ignore Gradle project-specific cache directory
+.gradle
 
-*.class
+# Ignore Gradle build output directory
+build
 
+
+# Ignore .ds uploads
 *.DS_Store
 
-*.png
+
+# Ignore .class uploads
+*.class
