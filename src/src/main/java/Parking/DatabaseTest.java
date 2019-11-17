@@ -42,8 +42,9 @@ public class DatabaseTest {
         
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS cars (\n"
-                + "    carID string NOT NULL,\n"
-                + "    date datetime,\n"
+                + "    license string NOT NULL,\n"
+                + "    state string,\n"
+                + "    datetime datetime,\n"
                 + "    photoHash string NOT NULL \n"
                 + ");";
         
@@ -69,14 +70,16 @@ public class DatabaseTest {
         return conn;
     }
 
-    public void insert(String carID, LocalDateTime datetime, String photoHash) {
-        String sql = "INSERT INTO cars(carID,date,photoHash) VALUES(?,?,?)";
+    public void insert(String license, String state, LocalDateTime datetime, String photoHash) {
+        String sql = "INSERT INTO cars(license,state,datetime,photoHash) VALUES(?,?,?,?)";
  
         try (Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, carID);
-            pstmt.setTimestamp(2, Timestamp.valueOf(datetime));
-            pstmt.setString(3, photoHash);
+            pstmt.setString(1, license);
+            pstmt.setString(2, state);
+            //datetime inserts in computer's local timezone
+            pstmt.setTimestamp(3, Timestamp.valueOf(datetime));
+            pstmt.setString(4, photoHash);
             pstmt.executeUpdate();
             System.out.println("Inserted data into table");
         } catch (SQLException e) {
@@ -91,7 +94,7 @@ public class DatabaseTest {
         DatabaseTest database = new DatabaseTest();
         createNewDatabase("test.db");
         createNewTable();
-        database.insert("8XYA123", LocalDateTime.of(2017, 2, 13, 15, 56), "hashvalues");
+        database.insert("8XYA123", "PA", LocalDateTime.of(2017, 2, 13, 15, 56, 12), "hashvalues");
     }
 
     public DatabaseTest() {
