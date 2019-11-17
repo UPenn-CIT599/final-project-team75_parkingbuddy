@@ -1,15 +1,17 @@
 package Parking;
- 
+
+import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
  
 /**
  *
- * @author sqlitetutorial.net
+ * @author sqlitetutorial.net took pointer code from this website
  */
 public class DatabaseTest {
  
@@ -36,13 +38,13 @@ public class DatabaseTest {
 
     public static void createNewTable() {
         // SQLite connection string
-        String url = "jdbc:sqlite:src/sqlite/db/tests.db";
+        String url = "jdbc:sqlite:src/sqlite/db/test.db";
         
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS cars (\n"
-                + "    id integer PRIMARY KEY,\n"
-                + "    name text NOT NULL,\n"
-                + "    capacity real\n"
+                + "    carID string NOT NULL,\n"
+                + "    date datetime,\n"
+                + "    photoHash string NOT NULL \n"
                 + ");";
         
         try (Connection conn = DriverManager.getConnection(url);
@@ -54,12 +56,44 @@ public class DatabaseTest {
             System.out.println(e.getMessage());
         }
     }
+
+    private Connection connect() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:src/sqlite/db/test.db";
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
+    }
+
+    public void insert(String carID, LocalDateTime datetime, String photoHash) {
+        String sql = "INSERT INTO cars(carID,date,photoHash) VALUES(?,?,?)";
+ 
+        try (Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, carID);
+            pstmt.setTimestamp(2, Timestamp.valueOf(datetime));
+            pstmt.setString(3, photoHash);
+            pstmt.executeUpdate();
+            System.out.println("Inserted data into table");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
  
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // createNewDatabase("test.db");
+        DatabaseTest database = new DatabaseTest();
+        createNewDatabase("test.db");
         createNewTable();
+        database.insert("8XYA123", LocalDateTime.of(2017, 2, 13, 15, 56), "hashvalues");
+    }
+
+    public DatabaseTest() {
     }
 }
