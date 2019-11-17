@@ -1,6 +1,6 @@
 package Parking;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * This is the Photo class for each Photo object, representing each image file loaded into the program. 
@@ -12,10 +12,10 @@ import java.util.Date;
 
 class Photo {
     // photo metadata
-    Byte[] data;
+    byte[] data;
 
     // photo creation date, i.e. time that photo was taken of car parking instance
-    Date creationDate;
+    LocalDateTime creationDate;
 
     // hash of photo which provides us with a unique identifier for each photo to handle duplicates
     String photoHash;
@@ -29,17 +29,18 @@ class Photo {
      * @param creationDate
      * @param photoHash
      */
-    public Photo(Byte[] data, Date creationDate, String photoHash) {
+    public Photo(byte[] data, LocalDateTime creationDate, String photoHash, String photoFilePath) {
         this.data = data;
         this.creationDate = creationDate;
         this.photoHash = photoHash;
+        this.photoFilePath = photoFilePath;
     }
 
     /**
      * Getter method to get photo data
      * @return
      */
-    public Byte[] getData() {
+    public byte[] getData() {
         return data;
     }
 
@@ -47,7 +48,7 @@ class Photo {
      * Setter method to set photo data
      * @param data
      */
-    public void setData(Byte[] data) {
+    public void setData(byte[] data) {
         this.data = data;
     }
 
@@ -56,7 +57,7 @@ class Photo {
      * (i.e. when the photo was taken)
      * @return
      */
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
@@ -64,7 +65,7 @@ class Photo {
      * Setter method to set the photo's creation date
      * @param creationDate
      */
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -90,6 +91,11 @@ class Photo {
      */
     public String getPhotoFilePath() {
         return photoFilePath;
+    }
+    
+    public String getPhotoToString() {
+    	String str = this.creationDate + "," + this.photoHash + "," + this.photoFilePath;
+    	return str;
     }
 
 }
