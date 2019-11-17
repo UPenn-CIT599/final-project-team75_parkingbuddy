@@ -41,8 +41,8 @@ public class DatabaseTest {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS cars (\n"
                 + "    id integer PRIMARY KEY,\n"
-                + "    name text NOT NULL,\n"
-                + "    capacity real\n"
+                + "    date datetime,\n"
+                + "    photoHash string NOT NULL \n"
                 + ");";
         
         try (Connection conn = DriverManager.getConnection(url);
