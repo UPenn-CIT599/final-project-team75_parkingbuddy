@@ -18,6 +18,10 @@ import java.util.Base64;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Metadata;
+
 import net.coobird.thumbnailator.Thumbnails;
 
 /**
@@ -122,6 +126,7 @@ class LicenseOCR {
 	private boolean checkJSONForCar(String json_content) {
 		JSONObject obj = new JSONObject(json_content).optJSONObject("processing_time");
 		double vehicle_confidence = obj.optDouble("vehicles");
+		System.out.println(vehicle_confidence);
 
 		if (vehicle_confidence < 10) {
 			return false;

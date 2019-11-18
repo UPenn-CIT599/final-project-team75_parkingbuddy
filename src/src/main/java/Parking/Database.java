@@ -91,11 +91,12 @@ public class Database {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Database database = new Database();
+        DatabaseTest database = new DatabaseTest();
         createNewDatabase("test.db");
         createNewTable();
         database.insert("8XYA123", "PA", LocalDateTime.of(2017, 2, 13, 15, 56, 12), "hashvalues");
     }
 
- 
+    public DatabaseTest() {
+    }
 }
