@@ -11,4 +11,3 @@ build
 
 # Ignore .class uploads
 *.class
-*.class
