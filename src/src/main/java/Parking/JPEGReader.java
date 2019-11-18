@@ -15,60 +15,32 @@ import com.drew.metadata.exif.*;
  *
  */
 public class JPEGReader {
-
+	
 	/**
-	 * createPhotos creates an ArrayList of photo objects from each image file in the designated folder.
-	 * @param path
+	 * This method creates a Photo object from an image file.
+	 * @param file
 	 * @return
 	 */
-	public ArrayList<Photo> createPhotos(Path path) {
-		// initialize ArrayList of photo objects
-		ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
-
+	public Photo createPhoto(File file) {
+		Photo myPhoto = null;
+		
 		try {
-			// get paths to the image files in the folder
-			File[] files = path.toFile().listFiles();
-
-			// iterate through each image file in the folder to create a photo object
-			try {
-				for (int i = 0; i < files.length; i++) {
-					try {
-						System.out.println("Scanning photo " + (i+1) + "/" + files.length);
-
-						// get photo file path
-						String filePath = files[i].toString();
-
-						// get byte data of photo
-						Path pathToImageFile = Paths.get(filePath);
-						byte[] data = Files.readAllBytes(pathToImageFile);
-
-						// get metadata from the file and obtain Exif date and time
-						LocalDateTime formattedDate = readDates(files[i]);
-
-						// get random UUID for this photo
-						String randomUUID = generateUUID();
-
-						// create photo object
-						Photo myPhoto = new Photo(data, formattedDate, randomUUID, filePath);
-//						System.out.println(myPhoto.getPhotoToString() + "\n");
-
-						photoArrayList.add(myPhoto);
-
-						// exception handling
-					} catch (NullPointerException e) {
-						System.out.println("File " + files[i].toString() + " doesn't have metadata.");
-					} catch (IOException e) {
-						System.out.println("File \"" + files[i].toString() + "\" cannot read metadata.");
-					}
-				}
-			} catch (NullPointerException e) {
-				System.out.println("The folder is empty");
-			}
-		} catch (ProviderNotFoundException e) {
-			System.out.println("Given path is invalid");
+			String filePath = file.toString();
+			Path pathToImageFile = Paths.get(filePath);
+			byte[] data = Files.readAllBytes(pathToImageFile);
+			LocalDateTime formattedDate = readDates(file);
+			String randomUUID = generateUUID();
+			
+			// create Photo object
+			myPhoto = new Photo(data, formattedDate, randomUUID, filePath);
+		
+			// exception handling	
+		} catch (NullPointerException e) {
+			System.out.println("File " + file.toString() + " doesn't have metadata.");
+		} catch (IOException e) {
+			System.out.println("File \"" + file.toString() + "\" cannot read metadata.");
 		}
-	
-		return photoArrayList;
+		return myPhoto;
 	}
 
 
@@ -113,6 +85,62 @@ public class JPEGReader {
 		String randomUUIDString = uuid.toString();
 		return randomUUIDString;
 	}
+	
+	/**
+	 * This method creates an ArrayList of Photo objects from each image file in the designated folder.
+	 * Used primarily for testing. 
+	 * @param path
+	 * @return
+	 */
+	public ArrayList<Photo> createPhotos(Path path) {
+		// initialize ArrayList of photo objects
+		ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
+
+		try {
+			// get paths to the image files in the folder
+			File[] files = path.toFile().listFiles();
+
+			// iterate through each image file in the folder to create a photo object
+			try {
+				for (int i = 0; i < files.length; i++) {
+					try {
+						System.out.println("Scanning photo " + (i+1) + "/" + files.length);
+
+						// get photo file path
+						String filePath = files[i].toString();
+
+						// get byte data of photo
+						Path pathToImageFile = Paths.get(filePath);
+						byte[] data = Files.readAllBytes(pathToImageFile);
+
+						// get metadata from the file and obtain Exif date and time
+						LocalDateTime formattedDate = readDates(files[i]);
+
+						// get random UUID for this photo
+						String randomUUID = generateUUID();
+
+						// create photo object
+						Photo myPhoto = new Photo(data, formattedDate, randomUUID, filePath);
+						System.out.println(myPhoto.getPhotoToString() + "\n");
+
+						photoArrayList.add(myPhoto);
+
+						// exception handling
+					} catch (NullPointerException e) {
+						System.out.println("File " + files[i].toString() + " doesn't have metadata.");
+					} catch (IOException e) {
+						System.out.println("File \"" + files[i].toString() + "\" cannot read metadata.");
+					}
+				}
+			} catch (NullPointerException e) {
+				System.out.println("The folder is empty");
+			}
+		} catch (ProviderNotFoundException e) {
+			System.out.println("Given path is invalid");
+		}
+		
+		return photoArrayList;
+	}
 
 	
 	public static void main(String[] args) {
@@ -120,7 +148,6 @@ public class JPEGReader {
 		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		r.createPhotos(filePath);
 	
-		
 	}
 
 
