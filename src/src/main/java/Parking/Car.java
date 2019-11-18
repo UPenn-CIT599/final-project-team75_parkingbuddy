@@ -9,8 +9,8 @@ package Parking;
  */
 
 class Car {
-    public String license;
-    public String state;
+    private String license;
+    private String state;
     
     /**
      * Constructor for Car
