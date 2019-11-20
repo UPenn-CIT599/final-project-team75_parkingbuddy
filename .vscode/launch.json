@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - LicenseOCR",
+            "request": "launch",
+            "mainClass": "Parking.LicenseOCR",
+            "projectName": "Parking"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - CLI",
+            "request": "launch",
+            "mainClass": "Parking.CLI",
+            "projectName": "Parking"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - DatabaseTest",
             "request": "launch",
             "mainClass": "Parking.DatabaseTest",

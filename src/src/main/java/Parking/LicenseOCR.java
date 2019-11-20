@@ -157,7 +157,7 @@ class LicenseOCR {
 		LicenseOCR test = new LicenseOCR(); 
 		JPEGReader r = new JPEGReader();
 
-		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
+		Path filePath = Paths.get("src/src/test/java/Parking/MultipleImagesFolder/");
 		ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
 		photoArrayList = r.createPhotos(filePath);
 		for (Photo photo : photoArrayList) {
