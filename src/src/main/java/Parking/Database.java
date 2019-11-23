@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
+import jdk.vm.ci.hotspot.EventProvider.TimedEvent;
  
 /**
  *
@@ -41,7 +42,7 @@ public class Database {
         String url = "jdbc:sqlite:src/sqlite/db/test.db";
         
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS cars (\n"
+        String sql = "CREATE TABLE IF NOT EXISTS parkingInstances (\n"
                 + "    license string NOT NULL,\n"
                 + "    state string,\n"
                 + "    datetime datetime,\n"
@@ -70,6 +71,7 @@ public class Database {
         return conn;
     }
 
+    /** 
     public void insert(String license, String state, LocalDateTime datetime, String photoHash) {
         String sql = "INSERT INTO cars(license,state,datetime,photoHash) VALUES(?,?,?,?)";
  
@@ -80,6 +82,28 @@ public class Database {
             //datetime inserts in computer's local timezone
             pstmt.setTimestamp(3, Timestamp.valueOf(datetime));
             pstmt.setString(4, photoHash);
+            pstmt.executeUpdate();
+            System.out.println("Inserted data into table");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    */
+
+    /**
+     * insertParkingInstance inserts each new parkingInstance into the table
+     * @param parkingInstance
+     */
+    public void insertParkingInstance(ParkingInstance parkingInstance) {
+        String sql = "INSERT INTO cars(license,state,datetime,photoHash) VALUES(?,?,?,?)";
+ 
+        try (Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, parkingInstance.getCar().getLicense());
+            pstmt.setString(2, parkingInstance.getCar().getState());
+            //datetime inserts in computer's local timezone
+            pstmt.setTimestamp(3, Timestamp.valueOf(parkingInstance.getDate()));
+            pstmt.setString(4, parkingInstance.getPhotoHash());
             pstmt.executeUpdate();
             System.out.println("Inserted data into table");
         } catch (SQLException e) {
