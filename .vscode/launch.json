@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - ParkingInstanceProcessor",
+            "request": "launch",
+            "mainClass": "Parking.ParkingInstanceProcessor",
+            "projectName": "Parking"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - JPEGReader",
             "request": "launch",
             "mainClass": "Parking.JPEGReader",
