@@ -2,6 +2,7 @@ package Parking;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -17,10 +18,11 @@ class ParkingController {
      */
 
     public void uploadPhotos(Path filePath){
+        
         //Start database objects
         Database db = new Database();
         db.createNewDatabase();
-        db.createNewTable();
+        db.createTable("ParkingInstance");
 
         //handle parking instances
         ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
@@ -28,6 +30,13 @@ class ParkingController {
 		parkingInstanceArr = pip.createParkingInstanceArray(filePath);
 		pip.addParkingInstanceToDB(db, parkingInstanceArr);
 
+    }
+
+    public void pullViolationReport(LocalDate startDate, LocalDate endDate){
+        Database db = new Database();
+        db.createNewDatabase();
+        db.createTable("Violations");
+        
     }
 
     /**
