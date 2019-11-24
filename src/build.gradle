@@ -16,6 +16,9 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
+apply plugin: 'javafx-gradle-plugin'
+
+
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
@@ -53,5 +56,6 @@ application {
 
 javafx {
     version = "13"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.base', 'javafx.graphics' ]
 }
+
