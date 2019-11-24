@@ -12,7 +12,12 @@ plugins {
 
     // Apply the application plugin to add support for building a CLI application
     id 'application'
+
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
+
+apply plugin: 'javafx-gradle-plugin'
+
 
 repositories {
     // Use jcenter for resolving dependencies.
@@ -48,3 +53,9 @@ application {
     // Define the main class for the application
     mainClassName = 'Parking.App'
 }
+
+javafx {
+    version = "13"
+    modules = [ 'javafx.controls', 'javafx.base', 'javafx.graphics' ]
+}
+
