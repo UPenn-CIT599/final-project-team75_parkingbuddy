@@ -55,12 +55,20 @@ public class ParkingInstanceProcessor {
 		return parkingInstanceArrayList;
 	}
 
+	public void addParkingInstanceToDB(Database db, ArrayList<ParkingInstance> parkingInstances){
+		for (ParkingInstance pi: parkingInstances){
+			db.insertParkingInstance(pi);
+		}
+
+	}
+
 
 	public static void main(String[] args) {
 		Path filePath = Paths.get("src/src/test/java/Parking/MultipleImagesFolder/");
 		ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
 		ArrayList<ParkingInstance> parkingInstanceArr = new ArrayList<ParkingInstance>();
 		parkingInstanceArr = pip.createParkingInstanceArray(filePath);
+		
 		for (ParkingInstance pi : parkingInstanceArr) {
 			System.out.println("Parking Instance Array: " + pi.parkingInstanceToString());
 		}

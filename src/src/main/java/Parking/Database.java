@@ -20,16 +20,11 @@ import java.time.ZoneOffset;
 public class Database {
  
     /**
-     * Connect to a sample database
-     *
-     * @param fileName the database file name
+     * Create a new database
      */
     public void createNewDatabase() {
- 
-        // String url = "jdbc:sqlite:src/sqlite/db/" + fileName;
- 
+
         try (
-            // Connection conn = DriverManager.getConnection(url)) 
             Connection conn = this.connect();)
             {
             if (conn != null) {
@@ -42,17 +37,18 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * create ParkingInstances table
+     */
 
     public void createNewTable() {
-        // SQLite connection string
-        // String url = "jdbc:sqlite:src/sqlite/db/test.db";
         
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS parkingInstances (\n"
                 + "    license string NOT NULL,\n"
                 + "    state string,\n"
                 + "    datetime datetime,\n"
-                + "    photoHash string NOT NULL \n"
+                + "    photoHash string NOT NULL UNIQUE \n"
                 + ");";
         
         try (//Connection conn = DriverManager.getConnection(url);
@@ -66,11 +62,15 @@ public class Database {
         }
     }
 
+    /**
+     * Connection to a database
+     * @return
+     */
     
 
     private Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:src/sqlite/db/test.db";
+        String url = "jdbc:sqlite:src/sqlite/db/parkingBuddy.db";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
@@ -87,7 +87,7 @@ public class Database {
      * @param parkingInstance
      */
     public void insertParkingInstance(ParkingInstance parkingInstance) {
-        String sql = "INSERT INTO parkingInstances(license,state,datetime,photoHash) VALUES(?,?,?,?)";
+        String sql = "INSERT OR IGNORE INTO parkingInstances(license,state,datetime,photoHash) VALUES(?,?,?,?)";
  
         try (Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -97,13 +97,19 @@ public class Database {
             pstmt.setTimestamp(3, Timestamp.valueOf(parkingInstance.getDate()));
             pstmt.setString(4, parkingInstance.getPhotoHash());
             pstmt.executeUpdate();
-            System.out.println("Inserted data into table");
+            System.out.println("inserted into DB");
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * Get parking instances filtered by user input dates
+     * @param startDate
+     * @param endDate
+     */
 
-    public void getParkingViolationsbyDate(LocalDate startDate, LocalDate endDate){
+    public void getParkingInstancesbyDate(LocalDate startDate, LocalDate endDate){
         long unixStart = startDate.toEpochSecond(LocalTime.parse("00:00:00"), ZoneOffset.of("Z"));
         long unixEnd = endDate.toEpochSecond(LocalTime.parse("00:00:00"), ZoneOffset.of("Z"));
         
@@ -148,29 +154,11 @@ public class Database {
         database.createNewTable();
         Car carTest = new Car("7XYA124", "PA");
         ParkingInstance parkingInstance = new ParkingInstance(LocalDateTime.of(2018, 8, 13, 15, 56, 12), carTest, "hashvalues");
+        // ParkingInstance parkingInstance = new ParkingInstance("2019-10-20 20:08:41", carTest, "hashvalues");
         database.insertParkingInstance(parkingInstance);
-        database.getParkingViolationsbyDate(LocalDate.of(2017,2,11), LocalDate.of(2019,6,11));
+        database.getParkingInstancesbyDate(LocalDate.of(2017,2,11), LocalDate.of(2019,6,11));
     }
 
     public Database() {
     }
 }
-
-   /** 
-    public void insert(String license, String state, LocalDateTime datetime, String photoHash) {
-        String sql = "INSERT INTO cars(license,state,datetime,photoHash) VALUES(?,?,?,?)";
- 
-        try (Connection conn = this.connect();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, license);
-            pstmt.setString(2, state);
-            //datetime inserts in computer's local timezone
-            pstmt.setTimestamp(3, Timestamp.valueOf(datetime));
-            pstmt.setString(4, photoHash);
-            pstmt.executeUpdate();
-            System.out.println("Inserted data into table");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    */
