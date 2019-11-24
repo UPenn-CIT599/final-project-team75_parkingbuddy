@@ -21,8 +21,12 @@ public class ParkingTicketProcessor {
      * @param fileInputPath    folder where photos are stored
      * @return
      */
+    // public boolean isViolation(){
+    //     select 
+
+    // }
     public ArrayList<ParkingTicket> writeTicket(Date startDate, Date endDate,
-            ArrayList<ParkingInstance> parkingInstances, Path fileInputPath) {
+            Database db, Path fileInputPath) {
             
             ArrayList<ParkingTicket> parkingTickets = new ArrayList<ParkingTicket>();
         // logic to check for overnight parking rule violation

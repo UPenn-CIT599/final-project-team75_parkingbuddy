@@ -41,10 +41,10 @@ public class Database {
      * create ParkingInstances table
      */
 
-    public void createNewTable() {
+    public void createTable(String tabletype) {
         
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS parkingInstances (\n"
+        String sql = "CREATE TABLE IF NOT EXISTS " + tabletype + " (\n"
                 + "    license string NOT NULL,\n"
                 + "    state string,\n"
                 + "    datetime datetime,\n"
@@ -56,11 +56,13 @@ public class Database {
             Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            System.out.println("table created");
+            System.out.println(tabletype + "table created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+
+    
 
     /**
      * Connection to a database
@@ -151,7 +153,7 @@ public class Database {
     public static void main(String[] args) {
         Database database = new Database();
         database.createNewDatabase();
-        database.createNewTable();
+        database.createTable("ParkingInstance");
         Car carTest = new Car("7XYA124", "PA");
         ParkingInstance parkingInstance = new ParkingInstance(LocalDateTime.of(2018, 8, 13, 15, 56, 12), carTest, "hashvalues");
         // ParkingInstance parkingInstance = new ParkingInstance("2019-10-20 20:08:41", carTest, "hashvalues");
