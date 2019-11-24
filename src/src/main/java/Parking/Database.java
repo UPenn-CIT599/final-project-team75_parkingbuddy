@@ -97,6 +97,7 @@ public class Database {
             pstmt.setTimestamp(3, Timestamp.valueOf(parkingInstance.getDate()));
             pstmt.setString(4, parkingInstance.getPhotoHash());
             pstmt.executeUpdate();
+            System.out.println("inserted into DB");
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
