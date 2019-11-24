@@ -48,7 +48,7 @@ public class Database {
                 + "    license string NOT NULL,\n"
                 + "    state string,\n"
                 + "    datetime datetime,\n"
-                + "    photoHash string NOT NULL \n"
+                + "    photoHash string NOT NULL UNIQUE \n"
                 + ");";
         
         try (//Connection conn = DriverManager.getConnection(url);
@@ -87,7 +87,7 @@ public class Database {
      * @param parkingInstance
      */
     public void insertParkingInstance(ParkingInstance parkingInstance) {
-        String sql = "INSERT INTO parkingInstances(license,state,datetime,photoHash) VALUES(?,?,?,?)";
+        String sql = "INSERT OR IGNORE INTO parkingInstances(license,state,datetime,photoHash) VALUES(?,?,?,?)";
  
         try (Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
