@@ -33,7 +33,7 @@ public class ParkingInstanceProcessor {
 		ArrayList<ParkingInstance> parkingInstanceArrayList = new ArrayList<ParkingInstance>();
 		JPEGReader r = new JPEGReader();
 		LicenseOCR ocr = new LicenseOCR(); 
-		path = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
+		// path = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 
 		// loops through folder with image files to create from each file: (1) a Photo object, (2) a Car object, and (3) a ParkingInstance object
 		// the ParkingInstance object is stored in an ArrayList<ParkingInstance>
@@ -65,7 +65,7 @@ public class ParkingInstanceProcessor {
 
 
 	public static void main(String[] args) {
-		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
+		Path filePath = Paths.get("src/src/test/java/Parking/MultipleImagesFolder/");
 		ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
 		ArrayList<ParkingInstance> parkingInstanceArr = new ArrayList<ParkingInstance>();
 		parkingInstanceArr = pip.createParkingInstanceArray(filePath);
