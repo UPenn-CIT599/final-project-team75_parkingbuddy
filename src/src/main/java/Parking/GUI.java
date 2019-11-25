@@ -1,3 +1,5 @@
+package Parking;
+
 // Java Program to create fileChooser 
 // and add it to the stage 
 import javafx.application.Application; 

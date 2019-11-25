@@ -60,3 +60,7 @@ A draft of our class design with the relevant methods for each class can be seen
 
 - readDates() method in [JPEGReader.java](/src/src/main/java/Parking/JPEGReader.java): This method extracts the original date of the image files from a folder by extracting exif data, converting the date strings into LocalDateTime objects, and storing them in an ArrayList<LocalDateTime>
 - Various unit tests in [JPEGReaderTest.java](/src/src/test/java/Parking/JPEGReaderTest.java)
+
+## Commands
+./gradlew run -Pmain=Parking.<class name>
+./gradlew run -Pmain=Parking.JPEGReader

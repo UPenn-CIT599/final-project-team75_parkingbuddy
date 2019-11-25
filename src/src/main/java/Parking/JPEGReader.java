@@ -169,7 +169,7 @@ public class JPEGReader {
 	public static void main(String[] args) {
 		JPEGReader r = new JPEGReader();
 		Path filePath =
-				Paths.get("src/src/test/java/Parking/MultipleImagesFolder/");
+				Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		r.createPhotos(filePath);
 
 	}
