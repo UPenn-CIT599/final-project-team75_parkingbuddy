@@ -16,5 +16,4 @@ build
 # Ignore .classpath, .settings, .project
 /.classpath
 /*.project
-/.settings
 /.settings/org.eclipse.jdt.core.prefs
