@@ -16,7 +16,7 @@ import java.util.*;
 
 public class CLI {
 
-	public static void createInterface() {
+	public void createInterface() {
 
 		// setting canvas to an appropriate size (3 x 2)
 		PennDraw.setCanvasSize(1200, 800);
@@ -40,9 +40,9 @@ public class CLI {
 		PennDraw.filledRectangle(0.6, 0.8, 0.08, 0.05);
 		PennDraw.setPenColor(PennDraw.BLACK);
 		PennDraw.text(0.6, 0.8, "Upload Photos");
-		
+
 		String filePath = "";
-		
+
 		boolean isUpload = isUploadFolder();
 
 		while (true) {
@@ -52,11 +52,11 @@ public class CLI {
 			if (isUpload) {
 				filePath =  chooseFolder();
 			} else {
-				
+
 				PennDraw.enableAnimation(30);
 
 				Date startDate = new Date();
-				
+
 				Calendar startCal = Calendar.getInstance(); // creates calendar
 				startCal.setTime(startDate); // sets calendar time/date
 				startCal.set(Calendar.HOUR_OF_DAY, 0);
@@ -97,7 +97,7 @@ public class CLI {
 				PennDraw.filledRectangle(0.5, 0.5, 0.2, 0.02);
 				PennDraw.setPenColor(PennDraw.BLACK);
 				PennDraw.text(0.5, 0.5, "Choose the end date of violation");
-				
+
 				PennDraw.setPenColor(220, 220, 220);
 				PennDraw.filledRectangle(0.5, 0.3, 0.05, 0.02);
 				PennDraw.setPenColor(PennDraw.BLACK);
@@ -267,7 +267,7 @@ public class CLI {
 							&& !clickedLastTime) {
 						startDate = startCal.getTime();
 						endDate = endCal.getTime();
-						
+
 						if (!(startDate.before(endDate))) {
 							PennDraw.setPenColor(PennDraw.WHITE);
 							PennDraw.filledRectangle(0.5, 0.2, 0.1, 0.02);
@@ -336,7 +336,7 @@ public class CLI {
 				return true;
 			} 
 		}
-		
+
 	}
 
 	/**
@@ -363,7 +363,8 @@ public class CLI {
 	}
 
 	public static void main(String[] args) {
-		createInterface();
+		CLI cli = new CLI();
+		cli.createInterface();
 
 		// ParkingInstanceProcessor parkingInstanceProcessor = new
 		// ParkingInstanceProcessor();
