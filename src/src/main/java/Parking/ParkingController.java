@@ -47,7 +47,7 @@ class ParkingController {
 
     public static void main(String[] args) {
         ParkingController pc = new ParkingController();
-        Path filePath = Paths.get("src/src/test/java/Parking/MultipleImagesFolder/");
+        Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
         pc.uploadPhotos(filePath);
         
     }
