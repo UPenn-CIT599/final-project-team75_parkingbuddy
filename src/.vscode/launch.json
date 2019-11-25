@@ -2,6 +2,28 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - GUI",
+            "request": "launch",
+            "mainClass": "Parking.GUI",
+            "projectName": "Parking",
+            "vmArgs": "--module-path  ~/Downloads/javafx-sdk-13.0.1/lib --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - JPEGReader",
+            "request": "launch",
+            "mainClass": "Parking.JPEGReader",
+            "projectName": "Parking"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - ParkingInstanceProcessor",
+            "request": "launch",
+            "mainClass": "Parking.ParkingInstanceProcessor",
+            "projectName": "Parking"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - CLI",
             "request": "launch",
             "mainClass": "Parking.CLI",

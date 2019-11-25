@@ -64,7 +64,7 @@ public class ParkingInstanceProcessor {
 
 
 	public static void main(String[] args) {
-		Path filePath = Paths.get("src/src/test/java/Parking/MultipleImagesFolder/");
+		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
 		ArrayList<ParkingInstance> parkingInstanceArr = new ArrayList<ParkingInstance>();
 		parkingInstanceArr = pip.createParkingInstanceArray(filePath);
