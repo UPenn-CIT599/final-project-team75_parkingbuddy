@@ -12,3 +12,8 @@ build
 # Ignore .class uploads
 *.class
 *.class
+
+# Ignore .classpath, .settings, .project
+/.classpath
+/*.project
+/.settings/org.eclipse.jdt.core.prefs
