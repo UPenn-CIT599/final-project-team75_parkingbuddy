@@ -2,6 +2,7 @@ package Parking;
 
 import java.io.*;
 import java.nio.file.*;
+import java.security.MessageDigest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -18,7 +19,79 @@ import org.apache.commons.io.FilenameUtils;
 public class JPEGReader {
 
 	/**
-	 * This method creates a Photo object from an image file.
+	 * This method creates an ArrayList of Photo objects from each image file in
+	 * the designated folder.
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public ArrayList<Photo> createPhotos(Path path) {
+		// initialize ArrayList of photo objects
+		ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
+
+		try {
+			// get paths to the image files in the folder
+			File[] aFiles = path.toFile().listFiles();
+			ArrayList<File> files = new ArrayList<File>();
+			for (File file : aFiles) {
+				String ext = FilenameUtils.getExtension(file.getName());
+				if (!ext.equals("jpeg") && !ext.equals("jpg")) {
+					continue;
+				}
+				files.add(file);
+			}
+
+			// iterate through each image file in the folder to create a photo
+			// object
+			try {
+				for (int i = 0; i < files.size(); i++) {
+					try {
+						System.out.println("Scanning photo " + (i + 1) + "/"
+								+ files.size());
+
+						// get photo file path
+						String filePath = files.get(i).toString();
+
+						// get byte data of photo
+						Path pathToImageFile = Paths.get(filePath);
+						byte[] data = Files.readAllBytes(pathToImageFile);
+
+						// get metadata from the file and obtain Exif date and
+						// time
+						LocalDateTime formattedDate = readDates(files.get(i));
+
+						// get random UUID for this photo
+						String md5String = getMd5(filePath);
+
+						// create photo object
+						Photo myPhoto = new Photo(data, formattedDate, md5String, filePath);
+						System.out.println(myPhoto.getPhotoToString() + "\n");
+
+						photoArrayList.add(myPhoto);
+
+						// exception handling
+					} catch (NullPointerException e) {
+						System.out.println("File " + files.get(i).toString()
+								+ " doesn't have metadata.");
+					} catch (IOException e) {
+						System.out.println("File \"" + files.get(i).toString()
+								+ "\" cannot read metadata.");
+					}
+				}
+			} catch (NullPointerException e) {
+				System.out.println("The folder is empty");
+			}
+		} catch (ProviderNotFoundException e) {
+			System.out.println("Given path is invalid");
+		}
+
+		return photoArrayList;
+	}
+
+	
+	/**
+	 * This method creates a Photo object from an image file. 
+	 * Used to create individual photo objects from the File argument.
 	 * 
 	 * @param file
 	 * @return
@@ -31,10 +104,10 @@ public class JPEGReader {
 			Path pathToImageFile = Paths.get(filePath);
 			byte[] data = Files.readAllBytes(pathToImageFile);
 			LocalDateTime formattedDate = readDates(file);
-			String randomUUID = generateUUID();
+			String md5String = getMd5(filePath);
 
 			// create Photo object
-			myPhoto = new Photo(data, formattedDate, randomUUID, filePath);
+			myPhoto = new Photo(data, formattedDate, md5String, filePath);
 
 			// exception handling
 		} catch (NullPointerException e) {
@@ -81,95 +154,59 @@ public class JPEGReader {
 		return formattedDate;
 	}
 
-
+	
 	/**
-	 * This is a private helper method that generates a random uuid string for
-	 * each image file to be used as a unique identifier.
-	 * 
+	 * This is a private method to generate the md5 hash of an image file.
+	 * Referred to the following StackOverflow post: "https://stackoverflow.com/questions/13152736/how-to-generate-an-md5-checksum-for-a-file-in-android"
+	 * @param filePath
 	 * @return
 	 */
-	private String generateUUID() {
-		UUID uuid = UUID.randomUUID();
-		String randomUUIDString = uuid.toString();
-		return randomUUIDString;
-	}
-
-	/**
-	 * This method creates an ArrayList of Photo objects from each image file in
-	 * the designated folder. Used primarily for testing.
-	 * 
-	 * @param path
-	 * @return
-	 */
-	public ArrayList<Photo> createPhotos(Path path) {
-		// initialize ArrayList of photo objects
-		ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
-
+	private String getMd5(String filePath) {
+		InputStream inputStream = null;
 		try {
-			// get paths to the image files in the folder
-			File[] aFiles = path.toFile().listFiles();
-			ArrayList<File> files = new ArrayList<File>();
-			for (File file : aFiles) {
-				String ext = FilenameUtils.getExtension(file.getName());
-				if (!ext.equals("jpeg") && !ext.equals("jpg")) {
-					continue;
-				}
-				files.add(file);
-			}
-
-			// iterate through each image file in the folder to create a photo
-			// object
-			try {
-				for (int i = 0; i < files.size(); i++) {
-					try {
-						System.out.println("Scanning photo " + (i + 1) + "/"
-								+ files.size());
-
-						// get photo file path
-						String filePath = files.get(i).toString();
-
-						// get byte data of photo
-						Path pathToImageFile = Paths.get(filePath);
-						byte[] data = Files.readAllBytes(pathToImageFile);
-
-						// get metadata from the file and obtain Exif date and
-						// time
-						LocalDateTime formattedDate = readDates(files.get(i));
-
-						// get random UUID for this photo
-						String randomUUID = generateUUID();
-
-						// create photo object
-						Photo myPhoto = new Photo(data, formattedDate,
-								randomUUID, filePath);
-						System.out.println(myPhoto.getPhotoToString() + "\n");
-
-						photoArrayList.add(myPhoto);
-
-						// exception handling
-					} catch (NullPointerException e) {
-						System.out.println("File " + files.get(i).toString()
-								+ " doesn't have metadata.");
-					} catch (IOException e) {
-						System.out.println("File \"" + files.get(i).toString()
-								+ "\" cannot read metadata.");
-					}
-				}
-			} catch (NullPointerException e) {
-				System.out.println("The folder is empty");
-			}
-		} catch (ProviderNotFoundException e) {
-			System.out.println("Given path is invalid");
-		}
-
-		return photoArrayList;
+	        inputStream = new FileInputStream(filePath);
+	        byte[] buffer = new byte[1024];
+	        MessageDigest digest = MessageDigest.getInstance("MD5");
+	        int numRead = 0;
+	        while (numRead != -1) {
+	            numRead = inputStream.read(buffer);
+	            if (numRead > 0)
+	                digest.update(buffer, 0, numRead);
+	        }
+	        byte [] md5Bytes = digest.digest();
+	        
+	        return convertHashToString(md5Bytes);
+	        
+	    } catch (Exception e) {
+	        return null;
+	        
+	    } finally {
+	        if (inputStream != null) {
+	            try {
+	                inputStream.close();
+	            } catch (Exception e) { }
+	        }
+	    }
 	}
 
+	/**
+	 * This is a method to convert the md5 hash in byte to String.
+	 * Referred to the following StackOverflow post: "https://stackoverflow.com/questions/13152736/how-to-generate-an-md5-checksum-for-a-file-in-android"
+	 * @param md5Bytes
+	 * @return
+	 */
+	private String convertHashToString(byte[] md5Bytes) {
+		String returnVal = "";
+		for (int i = 0; i < md5Bytes.length; i++) {
+			returnVal += Integer.toString(( md5Bytes[i] & 0xff ) + 0x100, 16).substring(1);
+		}
+		return returnVal.toUpperCase();
+	}
 
+	
 	public static void main(String[] args) {
 		JPEGReader r = new JPEGReader();
-		Path filePath =
-				Paths.get("src/test/java/Parking/MultipleImagesFolder/");
+		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		r.createPhotos(filePath);
 
 	}
