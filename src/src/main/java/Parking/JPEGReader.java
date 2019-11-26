@@ -2,6 +2,7 @@ package Parking;
 
 import java.io.*;
 import java.nio.file.*;
+import java.security.MessageDigest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -60,11 +61,10 @@ public class JPEGReader {
 						LocalDateTime formattedDate = readDates(files.get(i));
 
 						// get random UUID for this photo
-						String randomUUID = generateUUID();
+						String md5String = getMd5(filePath);
 
 						// create photo object
-						Photo myPhoto = new Photo(data, formattedDate,
-								randomUUID, filePath);
+						Photo myPhoto = new Photo(data, formattedDate, md5String, filePath);
 						System.out.println(myPhoto.getPhotoToString() + "\n");
 
 						photoArrayList.add(myPhoto);
@@ -104,10 +104,10 @@ public class JPEGReader {
 			Path pathToImageFile = Paths.get(filePath);
 			byte[] data = Files.readAllBytes(pathToImageFile);
 			LocalDateTime formattedDate = readDates(file);
-			String randomUUID = generateUUID();
+			String md5String = getMd5(filePath);
 
 			// create Photo object
-			myPhoto = new Photo(data, formattedDate, randomUUID, filePath);
+			myPhoto = new Photo(data, formattedDate, md5String, filePath);
 
 			// exception handling
 		} catch (NullPointerException e) {
@@ -156,19 +156,54 @@ public class JPEGReader {
 
 	
 	/**
-	 * This is a private helper method that generates a random uuid string for
-	 * each image file to be used as a unique identifier.
-	 * 
+	 * This is a private method to generate the md5 hash of an image file.
+	 * Referred to the following StackOverflow post: "https://stackoverflow.com/questions/13152736/how-to-generate-an-md5-checksum-for-a-file-in-android"
+	 * @param filePath
 	 * @return
 	 */
-	private String generateUUID() {
-		UUID uuid = UUID.randomUUID();
-		String randomUUIDString = uuid.toString();
-		return randomUUIDString;
+	private String getMd5(String filePath) {
+		InputStream inputStream = null;
+		try {
+	        inputStream = new FileInputStream(filePath);
+	        byte[] buffer = new byte[1024];
+	        MessageDigest digest = MessageDigest.getInstance("MD5");
+	        int numRead = 0;
+	        while (numRead != -1) {
+	            numRead = inputStream.read(buffer);
+	            if (numRead > 0)
+	                digest.update(buffer, 0, numRead);
+	        }
+	        byte [] md5Bytes = digest.digest();
+	        
+	        return convertHashToString(md5Bytes);
+	        
+	    } catch (Exception e) {
+	        return null;
+	        
+	    } finally {
+	        if (inputStream != null) {
+	            try {
+	                inputStream.close();
+	            } catch (Exception e) { }
+	        }
+	    }
+	}
+
+	/**
+	 * This is a method to convert the md5 hash in byte to String.
+	 * Referred to the following StackOverflow post: "https://stackoverflow.com/questions/13152736/how-to-generate-an-md5-checksum-for-a-file-in-android"
+	 * @param md5Bytes
+	 * @return
+	 */
+	private String convertHashToString(byte[] md5Bytes) {
+		String returnVal = "";
+		for (int i = 0; i < md5Bytes.length; i++) {
+			returnVal += Integer.toString(( md5Bytes[i] & 0xff ) + 0x100, 16).substring(1);
+		}
+		return returnVal.toUpperCase();
 	}
 
 	
-
 	public static void main(String[] args) {
 		JPEGReader r = new JPEGReader();
 		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
