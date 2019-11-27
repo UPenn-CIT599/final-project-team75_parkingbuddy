@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Database",
+            "request": "launch",
+            "mainClass": "Parking.Database",
+            "projectName": "Parking"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - ParkingController",
             "request": "launch",
             "mainClass": "Parking.ParkingController",
