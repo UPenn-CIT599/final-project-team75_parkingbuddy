@@ -1,11 +1,16 @@
 package Parking;
+
+import java.util.ArrayList;
+
 /**
- * Each ParkingAggregate object has the count of number of times that license parked overnight.
+ * Each ParkingAggregate object has the count of number of times that license
+ * parked overnight.
  */
 public class ParkingAggregate{
     String license;
     String state;
     int overnightCount;
+    ArrayList<ParkingInstance> ParkingInstances;
 
     public ParkingAggregate(String license, String state, int overnightCount) {
         this.license = license;
@@ -35,6 +40,14 @@ public class ParkingAggregate{
 
     public void setOvernightCount(int overnightCount) {
         this.overnightCount = overnightCount;
+    }
+
+    public ArrayList<ParkingInstance> getParkingInstances() {
+        return ParkingInstances;
+    }
+
+    public void setParkingInstance(ArrayList<ParkingInstance> parkingInstance) {
+        ParkingInstances = parkingInstance;
     }
 
 }

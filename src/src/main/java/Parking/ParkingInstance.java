@@ -1,20 +1,22 @@
 package Parking;
+
 import java.time.LocalDateTime;
+
 
 /**
  * ParkingInstance contains parking instance object that represents each
  * instance that a car is parked at the parking lot.
  */
-class ParkingInstance {
-    private LocalDateTime date;
-    private Car car;
-    private String photoHash;
+public class ParkingInstance {
+    LocalDateTime date;
+    Car car;
+	String photoHash;
     
     public ParkingInstance(LocalDateTime date, Car car, String photoHash) {
     	this.date = date;
     	this.car = car;
     	this.photoHash = photoHash;
-    }
+	}
 
 	public LocalDateTime getDate() {
 		return date;
@@ -40,7 +42,7 @@ class ParkingInstance {
 		this.photoHash = photoHash;
 	}
     
-	public String parkingInstanceToString() {
+	public String toString() {
 		String dateStr = date.toString();
 		String carStr = car.getLicense() + "," + car.getState();
 		String photoHashStr = photoHash;
