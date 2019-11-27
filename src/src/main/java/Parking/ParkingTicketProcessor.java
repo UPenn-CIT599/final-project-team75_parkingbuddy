@@ -21,10 +21,7 @@ public class ParkingTicketProcessor {
      * @param fileInputPath    folder where photos are stored
      * @return
      */
-    // public boolean isViolation(){
-    //     select 
 
-    // }
     public ArrayList<ParkingTicket> writeTicket(Date startDate, Date endDate,
             Database db, Path fileInputPath) {
             

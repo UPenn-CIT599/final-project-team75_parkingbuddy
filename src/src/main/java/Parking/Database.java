@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -19,62 +20,24 @@ import java.time.ZoneOffset;
  */
 public class Database {
 
-	/**
-	 * Create a new database
-	 */
-	public void createNewDatabase() {
+	final DateTimeFormatter formatter =
+			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-		try (
-				Connection conn = this.connect();)
-		{
-			if (conn != null) {
-				DatabaseMetaData meta = conn.getMetaData();
-				System.out.println("The driver name is " + meta.getDriverName());
-				System.out.println("A new database has been created.");
-			}
+	Connection conn;
 
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+	public Database() {
+		conn = connect("jdbc:sqlite:sqlite/db/parkingBuddy.db");
+		createNewDatabase();
+		createTable("ParkingInstances");
 	}
-	/**
-	 * create ParkingInstances table
-	 */
-
-	public void createTable(String tableName) {
-
-		// SQL statement for creating a new table
-		String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
-				+ "    license string NOT NULL,\n"
-				+ "    state string,\n"
-				+ "    datetime datetime,\n"
-				+ "    photoHash string NOT NULL PRIMARY KEY, \n"
-				+ "    UNIQUE(photoHash) \n"
-				+ ");";
-
-		try (//Connection conn = DriverManager.getConnection(url);
-				Connection conn = this.connect();
-				Statement stmt = conn.createStatement()) {
-			// create a new table
-			stmt.execute(sql);
-			System.out.println(tableName + "table created");
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-
 
 	/**
 	 * Connection to a database
+	 * 
 	 * @return
 	 */
-
-
-	private Connection connect() {
+	private Connection connect(String url) {
 		// SQLite connection string
-		String url = "jdbc:sqlite:sqlite/db/parkingBuddy.db";
-		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url);
 		} catch (SQLException e) {
@@ -83,71 +46,128 @@ public class Database {
 		return conn;
 	}
 
-
-
 	/**
-	 * insertParkingInstance inserts each new parkingInstance into the table
-	 * @param parkingInstance
+	 * Create a new database
 	 */
-	public void insertParkingInstance(ParkingInstance parkingInstance, String tableName) {
-		String sql = "INSERT OR IGNORE INTO " 
-		+  tableName
-		+ "(license,state,datetime,photoHash) VALUES(?,?,?,?)";
-
-		try (Connection conn = this.connect();
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, parkingInstance.getCar().getLicense());
-			pstmt.setString(2, parkingInstance.getCar().getState());
-			//datetime inserts in computer's local timezone
-			pstmt.setTimestamp(3, Timestamp.valueOf(parkingInstance.getDate()));
-			pstmt.setString(4, parkingInstance.getPhotoHash());
-			pstmt.executeUpdate();
-			System.out.println("inserted into DB");
-
+	public void createNewDatabase() {
+		try {
+			DatabaseMetaData meta = conn.getMetaData();
+			System.out.println("The driver name is " + meta.getDriverName());
+			System.out.println("A new database has been created.");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	/**
+	 * create ParkingInstances table
+	 */
+
+	public void createTable(String tableName) {
+
+		// SQL statement for creating a new table
+		String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
+				+ "    license TEXT NOT NULL,\n" + "    state TEXT,\n"
+				+ "    datetime TEXT,\n"
+				+ "    photoHash TEXT NOT NULL PRIMARY KEY, \n"
+				+ "    UNIQUE(photoHash) \n" + ");";
+
+		try {
+			Statement stmt = conn.createStatement();
+			// create a new table
+			stmt.execute(sql);
+			System.out.println(tableName + "table created");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	/**
+	 * insertParkingInstance inserts each new parkingInstance into the table
+	 * 
+	 * @param parkingInstance
+	 */
+	public void insertParkingInstance(ParkingInstance parkingInstance) {
+		String sql = "INSERT OR IGNORE INTO ParkingInstances \n"
+				+ "(license,state,datetime,photoHash) VALUES(?,?,?,?)";
+
+
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, parkingInstance.getCar().getLicense());
+			pstmt.setString(2, parkingInstance.getCar().getState());
+			// datetime inserts in computer's local timezone
+			pstmt.setString(3, parkingInstance.getDate().format(formatter));
+			pstmt.setString(4, parkingInstance.getPhotoHash());
+			pstmt.executeUpdate();
+			System.out.println("inserted into DB");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 	/**
 	 * Get parking instances filtered by user input dates
+	 * 
 	 * @param startDate
 	 * @param endDate
 	 */
 
-	public void getParkingInstancesbyDate(LocalDate startDate, LocalDate endDate){
-		long unixStart = startDate.toEpochSecond(LocalTime.parse("00:00:00"), ZoneOffset.of("Z"));
-		long unixEnd = endDate.toEpochSecond(LocalTime.parse("00:00:00"), ZoneOffset.of("Z"));
+	public void getParkingInstancesbyDate(LocalDate startDate,
+			LocalDate endDate) {
 
-		String sql = "SELECT license, state, datetime FROM parkingInstances \n"
-				+   
-				"WHERE datetime BETWEEN \n"
-				+
-				unixStart
-				+
-				"000"
-				+
-				" AND "
-				+
-				unixEnd
-				+
-				"000";
+		String sql =
+				"SELECT state, license, datetime FROM parkingInstances\n"
+						+ "WHERE TIME(datetime) > TIME('20:00:00') OR TIME(datetime) < TIME('06:00:00')";
 
-		try(Connection conn = this.connect();
-				Statement statement = conn.createStatement();
-				ResultSet results = statement.executeQuery(sql)){
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet results = statement.executeQuery(sql);
 			System.out.println("Selecting data");
-			System.out.println(unixEnd);
-			while (results.next()){
-
-				System.out.println(results.getString("license") + "\t" +
-						results.getString("state") + "\t" +
-						results.getDate("datetime")) 
-				;
+			while (results.next()) {
+				System.out.println(results.getString("state") + "\t"
+						+ results.getString("license") + "\t"
+						+ results.getString("datetime"));
 			}
-
-		} catch (SQLException e){
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	/**
+	 * Get parking instances filtered by user input dates
+	 * 
+	 * @param startDate
+	 * @param endDate
+	 */
+
+	public void getAggregatedParkingInstances(LocalDate startDate,
+			LocalDate endDate) {
+		String sql = "SELECT state, license, count(*) as count from\n" + "(\n"
+				+ "  SELECT * from\n" + "  (\n"
+				+ "	SELECT state, license, (DATE(datetime)) as date  FROM parkingInstances\n"
+				+ "	WHERE time(datetime) > time('20:00:00')\n"
+				+ "	GROUP BY state, license, date\n" + "	UNION ALL\n"
+				+ "	SELECT state, license, DATE(JULIANDAY(DATE(datetime)) -1) as date FROM parkingInstances\n"
+				+ "	WHERE time(datetime) < time('06:00:00')\n"
+				+ "	GROUP BY state, license, date\n" + "	)\n"
+				+ "  GROUP BY state, license, date\n" + ")\n"
+				+ "GROUP BY state, license\n";
+
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet results = statement.executeQuery(sql);
+			System.out.println("Selecting data");
+			while (results.next()) {
+				System.out.println(results.getString("state") + "\t"
+						+ results.getString("license") + "\t"
+						+ results.getInt("count"));
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 
 	/**
@@ -155,17 +175,19 @@ public class Database {
 	 */
 	public static void main(String[] args) {
 		Database database = new Database();
-		database.createNewDatabase();
-		database.createTable("ParkingInstance");
-		Car carTest = new Car("7XYA124", "PA");
-		ParkingInstance parkingInstance = new ParkingInstance(LocalDateTime.of(2018, 8, 13, 15, 56, 12), carTest, "hashvalues");
-		// ParkingInstance parkingInstance = new ParkingInstance("2019-10-20 20:08:41", carTest, "hashvalues");
-		database.insertParkingInstance(parkingInstance, "ParkingInstances");
-		database.getParkingInstancesbyDate(LocalDate.of(2017,2,11), LocalDate.of(2019,6,11));
+		// database.createNewDatabase();
+		// database.createTable("ParkingInstances");
+		// Car carTest = new Car("7XYA125", "PA");
+		// ParkingInstance parkingInstance =
+		// new ParkingInstance(LocalDateTime.of(2018, 9, 14, 03, 56, 12),
+		// carTest, "hashvalues5");
+		// database.insertParkingInstance(parkingInstance, "ParkingInstances");
+		// database.getParkingInstancesbyDate(LocalDate.of(2017,2,11),
+		// LocalDate.of(2019,6,11));
+		database.getParkingInstancesbyDate(LocalDate.of(2010, 2, 11),
+				LocalDate.of(2019, 6, 11));
+		database.getAggregatedParkingInstances(LocalDate.of(2010, 2, 11),
+				LocalDate.of(2019, 6, 11));
 	}
 
-	public Database() {
-		
-	}
-	
 }
