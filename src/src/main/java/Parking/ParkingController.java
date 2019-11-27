@@ -23,7 +23,11 @@ class ParkingController {
         pip.addParkingInstances(db, filePath);
     }
 
-    public void pullViolationReport(LocalDate startDate, LocalDate endDate){
+    public ArrayList<ParkingAggregate> pullViolationReport(LocalDate startDate, LocalDate endDate){
+        ArrayList<ParkingAggregate> parkingResults =  db.getAggregatedParkingInstances(startDate,endDate);
+        System.out.println(parkingResults.toString());
+        return parkingResults;
+         
     }
 
     /**
@@ -34,8 +38,9 @@ class ParkingController {
 
     public static void main(String[] args) {
         ParkingController pc = new ParkingController();
-        Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
-        pc.uploadPhotos(filePath);
+        // Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
+        // pc.uploadPhotos(filePath);
+        pc.pullViolationReport(LocalDate.of(2010, 2, 11),LocalDate.of(2019, 6, 11));
     }
 
 
