@@ -27,6 +27,8 @@ public class Database {
 
 	public Database() {
 		conn = connect("jdbc:sqlite:sqlite/db/parkingBuddy.db");
+		createNewDatabase();
+		createTable("ParkingInstances");
 	}
 
 	/**
@@ -85,9 +87,8 @@ public class Database {
 	 * 
 	 * @param parkingInstance
 	 */
-	public void insertParkingInstance(ParkingInstance parkingInstance,
-			String tableName) {
-		String sql = "INSERT OR IGNORE INTO " + tableName
+	public void insertParkingInstance(ParkingInstance parkingInstance) {
+		String sql = "INSERT OR IGNORE INTO ParkingInstances \n"
 				+ "(license,state,datetime,photoHash) VALUES(?,?,?,?)";
 
 

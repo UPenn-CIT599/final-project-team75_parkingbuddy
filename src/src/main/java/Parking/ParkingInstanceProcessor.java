@@ -55,11 +55,17 @@ public class ParkingInstanceProcessor {
 		return parkingInstanceArrayList;
 	}
 
-	public void addParkingInstanceToDB(Database db, String tableName, ArrayList<ParkingInstance> parkingInstances){
+	public void addParkingInstanceToDB(Database db, ArrayList<ParkingInstance> parkingInstances){
 		for (ParkingInstance pi: parkingInstances){
-			db.insertParkingInstance(pi, tableName);
+			db.insertParkingInstance(pi);
 		}
 
+	}
+
+	public void addParkingInstances(Database db,Path filePath){
+		ArrayList<ParkingInstance> parkingInstanceArr = new ArrayList<ParkingInstance>();
+		parkingInstanceArr = createParkingInstanceArray(filePath);
+		addParkingInstanceToDB(db, parkingInstanceArr);
 	}
 
 

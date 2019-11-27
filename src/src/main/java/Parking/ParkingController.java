@@ -11,6 +11,8 @@ import java.util.ArrayList;
  */
 
 class ParkingController {
+    Database db = new Database();
+    ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
 
     /**
      * Logic to call all the other classes to process tickets or add parking
@@ -18,25 +20,10 @@ class ParkingController {
      */
 
     public void uploadPhotos(Path filePath){
-        
-        //Start database objects
-        Database db = new Database();
-        db.createNewDatabase();
-        db.createTable("ParkingInstances");
-
-        //handle parking instances
-        ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
-        ArrayList<ParkingInstance> parkingInstanceArr = new ArrayList<ParkingInstance>();
-		parkingInstanceArr = pip.createParkingInstanceArray(filePath);
-		pip.addParkingInstanceToDB(db, "ParkingInstances", parkingInstanceArr);
-
+        pip.addParkingInstances(db, filePath);
     }
 
     public void pullViolationReport(LocalDate startDate, LocalDate endDate){
-        Database db = new Database();
-        db.createNewDatabase();
-        db.createTable("Violations");
-        
     }
 
     /**
@@ -49,7 +36,6 @@ class ParkingController {
         ParkingController pc = new ParkingController();
         Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
         pc.uploadPhotos(filePath);
-        
     }
 
 
