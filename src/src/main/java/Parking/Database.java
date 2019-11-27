@@ -1,19 +1,17 @@
 package Parking;
 
-import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -117,9 +115,8 @@ public class Database {
 	public void getParkingInstancesbyDate(LocalDate startDate,
 			LocalDate endDate) {
 
-		String sql =
-				"SELECT state, license, datetime FROM parkingInstances\n"
-						+ "WHERE TIME(datetime) > TIME('20:00:00') OR TIME(datetime) < TIME('06:00:00')";
+		String sql = "SELECT state, license, datetime FROM parkingInstances\n"
+				+ "WHERE TIME(datetime) > TIME('20:00:00') OR TIME(datetime) < TIME('06:00:00')";
 
 		try {
 			Statement statement = conn.createStatement();
@@ -167,6 +164,11 @@ public class Database {
 				int overnightCount = results.getInt("count");
 
 				ParkingAggregate aggregate = new ParkingAggregate(license, state, overnightCount);
+				aggregate.setParkingInstance(
+					new ArrayList<>(Arrays.asList(
+						new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test"),
+						new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test")
+						)));
 				parkingResults.add(aggregate);
 				System.out.println(aggregate.getLicense());
 				// System.out.println(results.getString("state") + "\t"

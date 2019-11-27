@@ -76,7 +76,7 @@ public class ParkingInstanceProcessor {
 		parkingInstanceArr = pip.createParkingInstanceArray(filePath);
 		
 		for (ParkingInstance pi : parkingInstanceArr) {
-			System.out.println("Parking Instance Array: " + pi.parkingInstanceToString());
+			System.out.println("Parking Instance Array: " + pi.toString());
 		}
 	}
 	
