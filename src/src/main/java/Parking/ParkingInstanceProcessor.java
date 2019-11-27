@@ -55,9 +55,9 @@ public class ParkingInstanceProcessor {
 		return parkingInstanceArrayList;
 	}
 
-	public void addParkingInstanceToDB(Database db, ArrayList<ParkingInstance> parkingInstances){
+	public void addParkingInstanceToDB(Database db, String tableName, ArrayList<ParkingInstance> parkingInstances){
 		for (ParkingInstance pi: parkingInstances){
-			db.insertParkingInstance(pi);
+			db.insertParkingInstance(pi, tableName);
 		}
 
 	}
