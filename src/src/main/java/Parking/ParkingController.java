@@ -22,13 +22,13 @@ class ParkingController {
         //Start database objects
         Database db = new Database();
         db.createNewDatabase();
-        db.createTable("ParkingInstance");
+        db.createTable("ParkingInstances");
 
         //handle parking instances
         ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
         ArrayList<ParkingInstance> parkingInstanceArr = new ArrayList<ParkingInstance>();
 		parkingInstanceArr = pip.createParkingInstanceArray(filePath);
-		pip.addParkingInstanceToDB(db, parkingInstanceArr);
+		pip.addParkingInstanceToDB(db, "ParkingInstances", parkingInstanceArr);
 
     }
 

@@ -41,14 +41,15 @@ public class Database {
 	 * create ParkingInstances table
 	 */
 
-	public void createTable(String tabletype) {
+	public void createTable(String tableName) {
 
 		// SQL statement for creating a new table
-		String sql = "CREATE TABLE IF NOT EXISTS " + tabletype + " (\n"
+		String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
 				+ "    license string NOT NULL,\n"
 				+ "    state string,\n"
 				+ "    datetime datetime,\n"
-				+ "    photoHash string NOT NULL UNIQUE \n"
+				+ "    photoHash string NOT NULL PRIMARY KEY, \n"
+				+ "    UNIQUE(photoHash) \n"
 				+ ");";
 
 		try (//Connection conn = DriverManager.getConnection(url);
@@ -56,7 +57,7 @@ public class Database {
 				Statement stmt = conn.createStatement()) {
 			// create a new table
 			stmt.execute(sql);
-			System.out.println(tabletype + "table created");
+			System.out.println(tableName + "table created");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -88,8 +89,10 @@ public class Database {
 	 * insertParkingInstance inserts each new parkingInstance into the table
 	 * @param parkingInstance
 	 */
-	public void insertParkingInstance(ParkingInstance parkingInstance) {
-		String sql = "INSERT OR IGNORE INTO parkingInstances(license,state,datetime,photoHash) VALUES(?,?,?,?)";
+	public void insertParkingInstance(ParkingInstance parkingInstance, String tableName) {
+		String sql = "INSERT OR IGNORE INTO " 
+		+  tableName
+		+ "(license,state,datetime,photoHash) VALUES(?,?,?,?)";
 
 		try (Connection conn = this.connect();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -157,7 +160,7 @@ public class Database {
 		Car carTest = new Car("7XYA124", "PA");
 		ParkingInstance parkingInstance = new ParkingInstance(LocalDateTime.of(2018, 8, 13, 15, 56, 12), carTest, "hashvalues");
 		// ParkingInstance parkingInstance = new ParkingInstance("2019-10-20 20:08:41", carTest, "hashvalues");
-		database.insertParkingInstance(parkingInstance);
+		database.insertParkingInstance(parkingInstance, "ParkingInstances");
 		database.getParkingInstancesbyDate(LocalDate.of(2017,2,11), LocalDate.of(2019,6,11));
 	}
 
