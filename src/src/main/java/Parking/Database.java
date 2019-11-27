@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
@@ -141,7 +142,7 @@ public class Database {
 	 * @param endDate
 	 */
 
-	public void getAggregatedParkingInstances(LocalDate startDate,
+	public ArrayList<ParkingAggregate> getAggregatedParkingInstances(LocalDate startDate,
 			LocalDate endDate) {
 		String sql = "SELECT state, license, count(*) as count from\n" + "(\n"
 				+ "  SELECT * from\n" + "  (\n"
@@ -153,21 +154,32 @@ public class Database {
 				+ "	GROUP BY state, license, date\n" + "	)\n"
 				+ "  GROUP BY state, license, date\n" + ")\n"
 				+ "GROUP BY state, license\n";
-
+		
+		ArrayList<ParkingAggregate> parkingResults = new ArrayList<ParkingAggregate>();
 		try {
 			Statement statement = conn.createStatement();
 			ResultSet results = statement.executeQuery(sql);
-			System.out.println("Selecting data");
+			
+			// ArrayList<ParkingAggregator> parkingResults = new ArrayList<ParkingAggregator>();
 			while (results.next()) {
-				System.out.println(results.getString("state") + "\t"
-						+ results.getString("license") + "\t"
-						+ results.getInt("count"));
+				String license = results.getString("license");
+				String state = results.getString("state");
+				int overnightCount = results.getInt("count");
+
+				ParkingAggregate aggregate = new ParkingAggregate(license, state, overnightCount);
+				parkingResults.add(aggregate);
+				System.out.println(aggregate.getLicense());
+				// System.out.println(results.getString("state") + "\t"
+				// 		+ results.getString("license") + "\t"
+				// 		+ results.getInt("count"));
 			}
+			return parkingResults;
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 
+		return parkingResults;
 	}
 
 	/**
