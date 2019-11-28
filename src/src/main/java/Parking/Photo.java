@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 /**
  * This is the Photo class for each Photo object, representing each image file loaded into the program. 
- * A Photo object has 3 paramters: 
+ * A Photo object has 3 parameters: 
  * (1) Photo metadata
  * (2) The date of the image file's creation, i.e. when the photo was taken
  * (3) The hash string of the photo as a unique identifier for each photo
