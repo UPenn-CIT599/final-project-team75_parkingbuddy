@@ -177,15 +177,6 @@ public class GUI extends Application {
 	    // create a tile pane
 	    HBox tile = new HBox(20, labelStart, dateStart, labelEnd, dateEnd);
 	    tile.setAlignment(Pos.TOP_CENTER);
-	    
-	    /*
-	    tile.getChildren().add(labelStart);
-	    tile.getChildren().add(dateStart);
-	    tile.getChildren().add(labelEnd);
-	    tile.getChildren().add(dateEnd);
-	    tile.setAlignment(Pos.TOP_CENTER);
-	    */
-	    
 
 	    // create a input stream
 	    FileInputStream input = new FileInputStream("src/main/java/Graphics/darkParking.jpg");
