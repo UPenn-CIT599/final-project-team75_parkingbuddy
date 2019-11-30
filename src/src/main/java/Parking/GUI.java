@@ -159,10 +159,10 @@ public class GUI extends Application {
 			});
 
 			// create a VBox composite of all buttons and labels
-			VBox vbox = new VBox(30, empty1, empty2, welLabel, label1, label2, imageButtons, label3, dates, datePickers,
+			VBox vBox = new VBox(30, empty1, empty2, welLabel, label1, label2, imageButtons, label3, dates, datePickers,
 					button3, warning);
-			// set Alignment
-			vbox.setAlignment(Pos.CENTER);
+			// set alignment to center
+			vBox.setAlignment(Pos.CENTER);
 
 			// set background image for the window
 			FileInputStream input = new FileInputStream("src/main/java/Graphics/darkParking.jpg");
@@ -171,10 +171,10 @@ public class GUI extends Application {
 					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 					new BackgroundSize(1.0, 1.0, true, true, false, false));
 			Background background = new Background(backgroundimage);
-			vbox.setBackground(background);
+			vBox.setBackground(background);
 
 			// scroll bar for window
-			ScrollPane s1 = new ScrollPane(vbox);
+			ScrollPane s1 = new ScrollPane(vBox);
 			s1.setFitToHeight(true);
 			s1.setFitToWidth(true);
 			s1.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
