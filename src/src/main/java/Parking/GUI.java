@@ -171,8 +171,6 @@ public class GUI extends Application {
 
 	    // when datePicker is pressed
 	    dateEnd.setOnAction(eventEnd);
-
-	    // add buttons and labels
 	    
 	    // create a tile pane
 	    HBox tile = new HBox(20, labelStart, dateStart, labelEnd, dateEnd);
