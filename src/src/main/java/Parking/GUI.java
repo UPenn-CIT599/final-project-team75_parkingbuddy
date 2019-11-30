@@ -173,12 +173,12 @@ public class GUI extends Application {
 			Background background = new Background(backgroundimage);
 			vbox.setBackground(background);
 			
-			// scroll bar for the window
+			// scroll bar for window
 		    ScrollPane s1 = new ScrollPane(vbox);
 		    s1.setFitToHeight(true);
 		    s1.setFitToWidth(true);
 		    s1.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-	        
+		    
 		    // set up the scene and display
 		    Scene scene = new Scene(s1, 400, 400);
 			stage.setScene(scene);
