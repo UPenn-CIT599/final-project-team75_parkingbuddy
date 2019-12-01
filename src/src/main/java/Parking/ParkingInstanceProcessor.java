@@ -1,6 +1,5 @@
 package Parking;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.ProviderNotFoundException;
@@ -8,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * ParkingInstanceProcessor creates an arraylist of parking instances from a
+ * ParkingInstanceProcessor creates an Arraylist of parking instances from a
  * folder of photos.
  */
 
@@ -28,12 +27,25 @@ public class ParkingInstanceProcessor {
 		return parkingInstance;
 	}
 
+	
+	/**
+	 * This method creates an ArrayList of parking instance objects. 
+	 * @param path
+	 * @return
+	 */
 	public ArrayList<ParkingInstance> createParkingInstanceArray(Path path) {
 		ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
 		ArrayList<ParkingInstance> parkingInstanceArrayList = new ArrayList<ParkingInstance>();
 		JPEGReader r = new JPEGReader();
 		LicenseOCR ocr = new LicenseOCR(); 
 
+		// check if folder is empty
+		String pathString = path.toString();
+		if (isEmpty(pathString) == true) {
+			System.out.println("Folder is empty.");
+			return parkingInstanceArrayList;
+		} 
+		
 		try {
 	
 			try {
@@ -54,18 +66,27 @@ public class ParkingInstanceProcessor {
 
 		return parkingInstanceArrayList;
 	}
+	
 
-	public void addParkingInstanceToDB(Database db, ArrayList<ParkingInstance> parkingInstances){
-		for (ParkingInstance pi: parkingInstances){
-			db.insertParkingInstance(pi);
+	private static boolean isEmpty(String path) {
+		if (Paths.get(path).toFile().listFiles().length == 0) {
+			return true;
 		}
-
+		
+		return false;
 	}
 
-	public void addParkingInstances(Database db,Path filePath){
+	/** 
+	 * This method adds multiple parking instance objects from an ArrayList to the Database.
+	 * @param db
+	 * @param filePath
+	 */
+	public void addParkingInstancesToDB(Database db, Path filePath){
 		ArrayList<ParkingInstance> parkingInstanceArr = new ArrayList<ParkingInstance>();
 		parkingInstanceArr = createParkingInstanceArray(filePath);
-		addParkingInstanceToDB(db, parkingInstanceArr);
+		for (ParkingInstance pi : parkingInstanceArr) {
+			db.insertParkingInstance(pi);
+		}
 	}
 
 
