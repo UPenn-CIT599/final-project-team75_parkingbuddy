@@ -18,7 +18,7 @@ public class ParkingTicketProcessor {
      * @param startDate
      * @param endDate
      * @param parkingInstances ArrayList of all the parking instances
-     * @param fileInputPath    folder where photos are stored
+     * @param fileInputPath folder where photos are stored
      * @return
      */
 

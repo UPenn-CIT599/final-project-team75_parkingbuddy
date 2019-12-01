@@ -1,5 +1,7 @@
 package Parking;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -48,6 +50,15 @@ public class ParkingAggregate{
 
     public void setParkingInstance(ArrayList<ParkingInstance> parkingInstance) {
         ParkingInstances = parkingInstance;
+    }
+    
+    public ArrayList<LocalDate> getDatesOfParkingInstances(ArrayList<ParkingInstance> parkingInstanceArrayList) {
+		ArrayList<LocalDate> datesParked = new ArrayList<LocalDate>();
+    	for (ParkingInstance pi : parkingInstanceArrayList) {
+			LocalDate date = pi.getDate().toLocalDate();
+			datesParked.add(date);
+		}
+    	return datesParked;
     }
     
     public String getParkingAggregateString() {
