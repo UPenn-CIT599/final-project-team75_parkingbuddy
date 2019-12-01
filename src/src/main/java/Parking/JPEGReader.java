@@ -28,7 +28,14 @@ public class JPEGReader {
 	public ArrayList<Photo> createPhotos(Path path) {
 		// initialize ArrayList of photo objects
 		ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
-
+		
+		// check if folder is empty
+		String pathString = path.toString();
+		if (isEmpty(pathString) == true) {
+			System.out.println("Folder is empty.");
+			return photoArrayList;
+		} 
+		
 		try {
 			// get paths to the image files in the folder
 			File[] aFiles = path.toFile().listFiles();
@@ -36,13 +43,14 @@ public class JPEGReader {
 			for (File file : aFiles) {
 				String ext = FilenameUtils.getExtension(file.getName());
 				if (!ext.equals("jpeg") && !ext.equals("jpg")) {
+					System.out.println("File format for " + file.getName() + " is invalid. Please upload only jpeg or jpg files.");
 					continue;
 				}
+				
 				files.add(file);
 			}
 
-			// iterate through each image file in the folder to create a photo
-			// object
+			// iterate through each image file in the folder to create a photo object
 			try {
 				for (int i = 0; i < files.size(); i++) {
 					try {
@@ -78,7 +86,8 @@ public class JPEGReader {
 								+ "\" cannot read metadata.");
 					}
 				}
-			} catch (NullPointerException e) {
+			}
+			catch (NullPointerException e) {
 				System.out.println("The folder is empty");
 			}
 		} catch (ProviderNotFoundException e) {
@@ -87,6 +96,7 @@ public class JPEGReader {
 
 		return photoArrayList;
 	}
+	
 
 	
 	/**
@@ -202,13 +212,32 @@ public class JPEGReader {
 		}
 		return returnVal.toUpperCase();
 	}
+	
+//	public static boolean isValidPath(String path) {
+//	    try {
+//	        Paths.get(path);
+//	    } catch (InvalidPathException | NullPointerException ex) {
+//	        return false;
+//	    }
+//	    return true;
+//	}
+	
+	public static boolean isEmpty(String path) {
+		if (Paths.get(path).toFile().listFiles().length == 0) {
+			return true;
+		}
+		return false;
+	}
 
 	
 	public static void main(String[] args) {
 		JPEGReader r = new JPEGReader();
-		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
-		r.createPhotos(filePath);
-
+		Path filePath = Paths.get("src/test/java/Parking/EmptyFolder/");
+		ArrayList<Photo> pal = r.createPhotos(filePath);
+		for (Photo photo : pal) {
+			System.out.println(photo.getPhotoToString());
+		}
+		
 	}
 
 

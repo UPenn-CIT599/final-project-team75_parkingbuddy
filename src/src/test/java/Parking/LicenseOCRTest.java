@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 public class LicenseOCRTest {
-
+	
+	private LicenseOCR test = new LicenseOCR(); 
+	private JPEGReader r = new JPEGReader();
+	private ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
+	private ArrayList<Car> carArrayList = new ArrayList<Car>();
+	
 	/**
 	 * Test OpenALPR API for image files without a car. 
 	 * API should return a string "null,null" since there is no license plate and state information from the image file.
@@ -17,14 +22,9 @@ public class LicenseOCRTest {
 	 */
 	@Test
 	public void testAPIForNullCar() {
-		LicenseOCR test = new LicenseOCR(); 
-		JPEGReader r = new JPEGReader();
-
 		Path filePath = Paths.get("src/test/java/Parking/NullCarFolder/");
-		ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
 		photoArrayList = r.createPhotos(filePath);
 		
-		ArrayList<Car> carArrayList = new ArrayList<Car>();
 		for (Photo photo : photoArrayList) {
 			Car myCar = test.createCar(photo);
 			carArrayList.add(myCar);
@@ -42,14 +42,9 @@ public class LicenseOCRTest {
 	 */
 	@Test
 	public void testAPIForCar() {
-		LicenseOCR test = new LicenseOCR(); 
-		JPEGReader r = new JPEGReader();
-
 		Path filePath = Paths.get("src/test/java/Parking/CarFolder/");
-		ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
 		photoArrayList = r.createPhotos(filePath);
 		
-		ArrayList<Car> carArrayList = new ArrayList<Car>();
 		for (Photo photo : photoArrayList) {
 			Car myCar = test.createCar(photo);
 			carArrayList.add(myCar);

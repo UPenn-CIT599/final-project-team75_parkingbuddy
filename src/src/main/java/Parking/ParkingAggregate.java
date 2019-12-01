@@ -49,5 +49,10 @@ public class ParkingAggregate{
     public void setParkingInstance(ArrayList<ParkingInstance> parkingInstance) {
         ParkingInstances = parkingInstance;
     }
+    
+    public String getParkingAggregateString() {
+    	String str = license + "," + state + "," + overnightCount;
+    	return str;
+    }
 
 }
