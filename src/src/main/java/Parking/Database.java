@@ -18,8 +18,7 @@ import java.util.Arrays;
  * @author sqlitetutorial.net took pointer code from this website
  */
 public class Database {
-
-	final DateTimeFormatter formatter =
+	final static DateTimeFormatter formatter =
 			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 	Connection conn;
@@ -99,8 +98,8 @@ public class Database {
 			pstmt.setString(2, parkingInstance.getCar().getState());
 			
 			// datetime inserts in computer's local timezone
-			pstmt.setString(3, parkingInstance.getDate().format(formatter));
-			pstmt.setString(4, parkingInstance.getPhotoHash());
+			pstmt.setString(3, parkingInstance.getDateTime().format(formatter));
+			pstmt.setString(4, parkingInstance.getPhotoMd5Hash());
 			pstmt.executeUpdate();
 			System.out.println("inserted into DB");
 		} catch (SQLException e) {
@@ -163,16 +162,17 @@ public class Database {
 			while (results.next()) {
 				String license = results.getString("license");
 				String state = results.getString("state");
+				Car car = new Car(state, license);
 				int overnightCount = results.getInt("count");
 
-				ParkingAggregate aggregate = new ParkingAggregate(license, state, overnightCount);
-				aggregate.setParkingInstance(
-					new ArrayList<>(Arrays.asList(
-						new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test"),
-						new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test")
-						)));
+				ParkingAggregate aggregate = new ParkingAggregate(car, overnightCount);
+				// aggregate.setParkingInstance(
+				// 	new ArrayList<>(Arrays.asList(
+				// 		new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test"),
+				// 		new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test")
+				// 		)));
 				parkingResults.add(aggregate);
-				System.out.println(aggregate.getLicense());
+				System.out.println(aggregate.getCar().getLicense());
 				// System.out.println(results.getString("state") + "\t"
 				// 		+ results.getString("license") + "\t"
 				// 		+ results.getInt("count"));

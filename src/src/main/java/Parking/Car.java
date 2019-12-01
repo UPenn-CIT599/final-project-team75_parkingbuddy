@@ -8,18 +8,18 @@ package Parking;
  * 
  */
 
-class Car {
-    private String license;
+public class Car {
     private String state;
+    private String license;
     
     /**
      * Constructor for Car
      * @param license
      * @param state
      */
-    public Car(String license, String state) {
-        this.license = license;
+    public Car(String state, String license) {
         this.state = state;
+        this.license = license;
     }
 
     /**
@@ -31,14 +31,6 @@ class Car {
     }
 
     /**
-     * Setter method to set the car license plate number
-     * @param license
-     */
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    /**
      * Getter method to get the state that the car is registered under 
      * (e.g. California would be "CA")
      * @return
@@ -46,18 +38,9 @@ class Car {
     public String getState() {
         return state;
     }
-
-    /**
-     * Setter method to set the state that the car is registered under
-     * @param state
-     */
-    public void setState(String state) {
-        this.state = state;
-    }
     
-    public String getLicensePlateAndState() {
-    	String str = license + "," + state;
-    	return str;
+    public String toString() {
+    	return state + ", " + license;
     }
 
 }

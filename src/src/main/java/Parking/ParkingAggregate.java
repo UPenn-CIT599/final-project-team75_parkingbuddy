@@ -9,61 +9,34 @@ import java.util.ArrayList;
  * parked overnight.
  */
 public class ParkingAggregate{
-    String license;
-    String state;
+    Car car;
     int overnightCount;
     ArrayList<ParkingInstance> ParkingInstances;
 
-    public ParkingAggregate(String license, String state, int overnightCount) {
-        this.license = license;
-        this.state = state;
+    public ParkingAggregate(Car car, int overnightCount) {
+        this.car = car;
         this.overnightCount = overnightCount;
     }
 
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
+    public Car getCar() {
+        return car;
     }
 
     public int getOvernightCount() {
         return overnightCount;
     }
 
-    public void setOvernightCount(int overnightCount) {
-        this.overnightCount = overnightCount;
-    }
-
     public ArrayList<ParkingInstance> getParkingInstances() {
         return ParkingInstances;
     }
 
+    // TODO: Remove this.
     public void setParkingInstance(ArrayList<ParkingInstance> parkingInstance) {
         ParkingInstances = parkingInstance;
     }
     
-    public ArrayList<LocalDate> getDatesOfParkingInstances(ArrayList<ParkingInstance> parkingInstanceArrayList) {
-		ArrayList<LocalDate> datesParked = new ArrayList<LocalDate>();
-    	for (ParkingInstance pi : parkingInstanceArrayList) {
-			LocalDate date = pi.getDate().toLocalDate();
-			datesParked.add(date);
-		}
-    	return datesParked;
-    }
-    
-    public String getParkingAggregateString() {
-    	String str = license + "," + state + "," + overnightCount;
+    public String toString() {
+    	String str = car.getState() + ", " + car.getLicense() + ", " + overnightCount;
     	return str;
     }
-
 }

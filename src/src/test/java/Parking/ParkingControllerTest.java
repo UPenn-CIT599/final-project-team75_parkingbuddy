@@ -22,5 +22,4 @@ public class ParkingControllerTest {
 		assertEquals(1, results.get(0).getOvernightCount());
 		assertEquals(2, results.get(1).getOvernightCount());
 	}
-
 }

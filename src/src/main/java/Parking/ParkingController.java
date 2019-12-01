@@ -22,8 +22,8 @@ class ParkingController {
      * Add parking instances to the database based on folder or image file input.
      * @param filePath
      */
-    public void uploadPhotos(Path filePath){
-        pip.addParkingInstancesToDB(db, filePath);
+    public void uploadPhotos(Path filePath) throws PhotoException {
+        pip.addParkingInstances(db, filePath);
     }
 
     /**
@@ -51,11 +51,9 @@ class ParkingController {
         ArrayList<ParkingAggregate> results = new ArrayList<ParkingAggregate>();
         results = pc.pullViolationReport(LocalDate.of(2010, 2, 11),LocalDate.of(2019, 6, 11));
         for (ParkingAggregate result : results) {
-        	String str = result.getParkingAggregateString();
+        	String str = result.toString();
         	System.out.println(str);
         }
  
     }
-
-
 }
