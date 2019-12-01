@@ -23,7 +23,7 @@ import java.io.InputStream;
 public class Photo {
     final static DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
+    // Actual Image
     BufferedImage image;
 
     // photo creation date, i.e. time that photo was taken of car parking
@@ -45,7 +45,7 @@ public class Photo {
      * @param photoHash
      */
     public Photo(BufferedImage image, LocalDateTime dateTime, String md5Hash,
-            String path) throws IOException {
+            String path) throws PhotoException {
         this.image = image;
         this.dateTime = dateTime;
         this.md5Hash = md5Hash;
@@ -53,12 +53,17 @@ public class Photo {
     }
 
     public Photo(byte[] photoBytes, LocalDateTime dateTime, String md5Hash,
-            String path) throws IOException {
-        InputStream inputStream = new ByteArrayInputStream(photoBytes);
-        this.image = Thumbnails.of(inputStream).scale(1).asBufferedImage();
-        this.dateTime = dateTime;
-        this.md5Hash = md5Hash;
-        this.path = path;
+            String path) throws PhotoException {
+        try {
+            InputStream inputStream = new ByteArrayInputStream(photoBytes);
+            this.image = Thumbnails.of(inputStream).scale(1).asBufferedImage();
+            this.dateTime = dateTime;
+            this.md5Hash = md5Hash;
+            this.path = path;
+        } catch (IOException e) {
+            throw new PhotoException(
+                    "Unable to load from Photo bytes: " + e.getMessage());
+        }
     }
 
     /**
@@ -115,12 +120,25 @@ public class Photo {
 
     public BufferedImage getThumbnail() {
         try {
-           return Thumbnails.of(image).size(256,256).keepAspectRatio(true).asBufferedImage();
-        }
-        catch (Exception e) {
+            return Thumbnails.of(image).size(256, 256).keepAspectRatio(true)
+                    .asBufferedImage();
+        } catch (Exception e) {
             // This should not happen if image is valid.
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Photo oPhoto = (Photo) o;
+        return dateTime.equals(oPhoto.dateTime)
+                && md5Hash.equals(oPhoto.md5Hash) && path.equals(oPhoto.path);
     }
 }

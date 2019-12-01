@@ -14,10 +14,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-/**
- *
- * @author sqlitetutorial.net took pointer code from this website
- */
 public class Database {
 	final static DateTimeFormatter formatter =
 			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -28,10 +24,16 @@ public class Database {
 	 * Initialize the database
 	 */
 	public Database() {
-		conn = connect("jdbc:sqlite:sqlite/db/parkingBuddy.db");
+		this(Paths.get("sqlite/db/parkingBuddy.db"));
+	}
+
+	public Database(Path path) {
+		conn = connect("jdbc:sqlite:" + path.toString());
 		createNewDatabase();
 		createParkingInstanceTable();
 	}
+
+
 
 	/**
 	 * Set up the connection to database
@@ -97,17 +99,17 @@ public class Database {
 				+ "(state,license,datetime,photoHash,photoPath,photoImage) VALUES(?,?,?,?,?,?)";
 
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, parkingInstance.getCar().getState());
-			pstmt.setString(2, parkingInstance.getCar().getLicense());
+			PreparedStatement prepStatement = conn.prepareStatement(sql);
+			prepStatement.setString(1, parkingInstance.getCar().getState());
+			prepStatement.setString(2, parkingInstance.getCar().getLicense());
 
 
 			// datetime inserts in computer's local timezone
-			pstmt.setString(3, parkingInstance.getDateTime().format(formatter));
-			pstmt.setString(4, parkingInstance.getPhotoMd5Hash());
-			pstmt.setString(5, parkingInstance.getPhoto().getPath());
-			pstmt.setBytes(6, parkingInstance.getPhoto().toJpegBytes());
-			pstmt.executeUpdate();
+			prepStatement.setString(3, parkingInstance.getDateTime().format(formatter));
+			prepStatement.setString(4, parkingInstance.getPhotoMd5Hash());
+			prepStatement.setString(5, parkingInstance.getPhoto().getPath());
+			prepStatement.setBytes(6, parkingInstance.getPhoto().toJpegBytes());
+			prepStatement.executeUpdate();
 			System.out.println("inserted into DB");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -130,10 +132,10 @@ public class Database {
 						+ "AND state = ? AND license = ?";
 
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, car.getState());
-			pstmt.setString(2, car.getLicense());
-			ResultSet results = pstmt.executeQuery();
+			PreparedStatement prepStatement = conn.prepareStatement(sql);
+			prepStatement.setString(1, car.getState());
+			prepStatement.setString(2, car.getLicense());
+			ResultSet results = prepStatement.executeQuery();
 			System.out.println("Selecting data");
 			while (results.next()) {
 				try {

@@ -43,5 +43,18 @@ public class ParkingInstance {
 
 	public Photo getPhoto() {
 		return photo;
-	}    
+	}  
+	
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ParkingInstance oParkingInstance = (ParkingInstance) o;
+        return car.equals(oParkingInstance.car)
+                && photo.equals(oParkingInstance.photo);
+    }
 }
