@@ -56,7 +56,7 @@ public class Table extends Application {
         constructTable();
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.setPadding(new Insets(10, 10, 10, 10));
         vbox.getChildren().addAll(label, table);
 
         ((Group) scene.getRoot()).getChildren().addAll(vbox);
