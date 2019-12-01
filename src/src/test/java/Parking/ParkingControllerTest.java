@@ -19,7 +19,7 @@ public class ParkingControllerTest {
 	@Test
 	public void testViolationReport() {
 		results = pc.pullViolationReport(LocalDate.of(2010, 2, 11),LocalDate.of(2019, 6, 11));
-		assertEquals("PA, 7XYA124, 1", results.get(0));
-		assertEquals("PA 7XYA125, 2", results.get(1));
+		assertEquals("PA, 7XYA124, 1", results.get(0).toString());
+		assertEquals("PA, 7XYA125, 2", results.get(1).toString());
 	}
 }

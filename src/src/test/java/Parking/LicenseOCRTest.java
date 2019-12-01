@@ -19,10 +19,7 @@ public class LicenseOCRTest {
 	 * We test a folder of image files with no cars.  
 	 */
 	@Test
-	public void testAPIForNullCar() throws PhotoException {
-		LicenseOCR test = new LicenseOCR(); 
-		ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
-		
+	public void testAPIForNullCar() throws PhotoException {		
 		for (Photo photo : photoArrayList) {
 			Car myCar = test.getCarWithOpenALPR(photo);
 			carArrayList.add(myCar);
@@ -38,10 +35,7 @@ public class LicenseOCRTest {
 	 */
 	@Test
 	public void testAPIForCar() throws PhotoException {
-		LicenseOCR test = new LicenseOCR(); 
-
 		Path filePath = Paths.get("src/test/java/Parking/CarFolder/");
-		ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
 		photoArrayList = PhotoFactory.createPhotos(filePath);
 		
 		for (Photo photo : photoArrayList) {

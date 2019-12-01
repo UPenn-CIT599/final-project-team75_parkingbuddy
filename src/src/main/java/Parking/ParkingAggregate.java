@@ -34,7 +34,7 @@ public class ParkingAggregate{
     }
     
     public String toString() {
-    	String str = car.getState() + "," + car.getLicense() + "," + overnightCount;
+    	String str = car.getState() + ", " + car.getLicense() + ", " + overnightCount;
     	return str;
     }
 }

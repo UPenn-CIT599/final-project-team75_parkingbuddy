@@ -9,9 +9,13 @@ import java.io.IOException;
 
 /**
  * This is the Photo class for each Photo object, representing each image file
- * loaded into the program. A Photo object has 3 parameters: (1) Photo metadata
- * (2) The date of the image file's creation, i.e. when the photo was taken (3)
- * The hash string of the photo as a unique identifier for each photo
+ * loaded into the program. A Photo object has 3 parameters:
+ * 
+ * (1) Photo metadata
+ * 
+ * (2) The date of the image file's creation, i.e. when the photo was taken
+ * 
+ * (3) The hash string of the photo as a unique identifier for each photo
  */
 
 public class Photo {
@@ -83,7 +87,8 @@ public class Photo {
     public byte[] toJpegBytes() {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         try {
-            Thumbnails.of(image).scale(1).outputFormat("jpeg").toOutputStream(outStream);
+            Thumbnails.of(image).scale(1).outputFormat("jpeg")
+                    .toOutputStream(outStream);
         } catch (Exception e) {
             // This should not happen if image is valid.
             e.printStackTrace();
