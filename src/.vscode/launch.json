@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - PhotoFactory",
+            "request": "launch",
+            "mainClass": "Parking.PhotoFactory",
+            "projectName": "Parking"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - LicenseOCR",
             "request": "launch",
             "mainClass": "Parking.LicenseOCR",
@@ -13,7 +20,7 @@
             "request": "launch",
             "mainClass": "Parking.Table",
             "projectName": "Parking",
-            "vmArgs": "--module-path  ./javafx-sdk-13.0.1/lib --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path  ./javafx-sdk-13.0.1/lib --add-modules javafx.controls,javafx.fxml,javafx.swing"
         },
         {
             "type": "java",

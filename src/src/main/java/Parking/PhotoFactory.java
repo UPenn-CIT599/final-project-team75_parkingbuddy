@@ -35,15 +35,14 @@ public class PhotoFactory {
 	 * @param path
 	 * @return
 	 */
-	public static ArrayList<Photo> createPhotos(Path path)
-			throws PhotoException {
+	public static ArrayList<Photo> createPhotos(Path path) throws PhotoException {
 		// initialize ArrayList of photo objects
 		ArrayList<Photo> photos = new ArrayList<Photo>();
 		// get paths to the image files in the folder
 		File[] files = path.toFile().listFiles();
 		if (files == null || files.length == 0) {
 			throw new PhotoException("Invalid dir: " + path.toString());
-		}
+		} 
 		ArrayList<File> filteredFiles = new ArrayList<File>();
 		for (File file : files) {
 			String ext = FilenameUtils.getExtension(file.getName());
@@ -53,9 +52,8 @@ public class PhotoFactory {
 			filteredFiles.add(file);
 		}
 		if (filteredFiles.size() == 0) {
-			throw new PhotoException(
-					"No valid photo files: " + path.toString());
-		}
+			throw new PhotoException("No valid photo files: " + path.toString());
+		} 
 
 		// iterate through each image file in the folder to create a photo
 		// object
@@ -78,32 +76,23 @@ public class PhotoFactory {
 	}
 
 	public static Photo createPhoto(Path path) throws PhotoException {
+		Photo photo = null;
 		try {
 			byte[] bytes = Files.readAllBytes(path);
 			InputStream inputStream = new ByteArrayInputStream(bytes);
-			return createPhoto(inputStream, path.toString());
-		} catch (IOException e) {
-			throw new PhotoException(
-					"Unable to read Photo file: " + e.getMessage());
-		}
-	}
-
-	public static Photo createPhoto(InputStream inputStream, String path)
-			throws PhotoException {
-		Photo photo = null;
-		try {
 			// Make the image smaller while keeping aspect ratio.
-			BufferedImage image = Thumbnails.of(inputStream).size(1024, 1024)
-					.keepAspectRatio(true).asBufferedImage();
+			BufferedImage image = Thumbnails.of(inputStream).size(1024,1024).keepAspectRatio(true).asBufferedImage();
 			inputStream.reset();
 			LocalDateTime dateTime = getDateTime(inputStream);
 			inputStream.reset();
 			String md5Hash = DigestUtils.md5Hex(inputStream).toUpperCase();
 			// create Photo object
-			photo = new Photo(image, dateTime, md5Hash, path);
+			photo = new Photo(image, dateTime, md5Hash,
+					path.toString());
+
 		} catch (IOException e) {
 			throw new PhotoException(
-					"Unable to read Photo stream: " + e.getMessage());
+					"Unable to read Photo file: " + e.getMessage());
 		}
 		return photo;
 	}

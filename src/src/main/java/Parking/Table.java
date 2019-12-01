@@ -12,15 +12,20 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import java.awt.image.BufferedImage;
+import javafx.embed.swing.SwingFXUtils;
+
 
 public class Table extends Application {
     private ParkingController parkingController = new ParkingController();
@@ -35,8 +40,8 @@ public class Table extends Application {
     public void start(Stage stage) {
         Scene scene = new Scene(new Group());
         stage.setTitle("Table View Sample");
-        stage.setWidth(450);
-        stage.setHeight(500);
+        stage.setWidth(1024);
+        stage.setHeight(768);
 
         final Label label = new Label("Parking Aggregates");
         label.setFont(new Font("Arial", 20));
@@ -56,25 +61,28 @@ public class Table extends Application {
     private void constructTable() {
         TableColumn<ParkingAggregate, String> state =
                 new TableColumn<ParkingAggregate, String>("State");
-        state.setMinWidth(100);
+        
+        state.setMinWidth(250);
         state.setCellValueFactory(
                 new PropertyValueFactory<ParkingAggregate, String>("state"));
 
         TableColumn<ParkingAggregate, String> license =
                 new TableColumn<ParkingAggregate, String>("License");
-        license.setMinWidth(100);
+        license.setMinWidth(250);
         license.setCellValueFactory(
                 new PropertyValueFactory<ParkingAggregate, String>("license"));
 
         TableColumn<ParkingAggregate, Integer> count =
                 new TableColumn<ParkingAggregate, Integer>("Count");
-        count.setMinWidth(200);
+        count.setMinWidth(250);
         count.setCellValueFactory(
                 new PropertyValueFactory<ParkingAggregate, Integer>(
                         "overnightCount"));
 
         table.setItems(getData());
         table.getColumns().addAll(state, license, count);
+        table.setMinWidth(1000);
+        table.setMinHeight(700);
 
         table.setRowFactory(tv -> new TableRow<ParkingAggregate>() {
             Node detailsPane;
@@ -128,15 +136,16 @@ public class Table extends Application {
         dateCol.setMinWidth(200);
         dateCol.setCellValueFactory(
                 new PropertyValueFactory<ParkingInstance, LocalDateTime>(
-                        "date"));
+                        "dateTime"));
         dateCol.setCellFactory(column -> {
             TableCell<ParkingInstance, LocalDateTime> cell =
                     new TableCell<ParkingInstance, LocalDateTime>() {
-                        final DateTimeFormatter formatter =
-                          DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                        final DateTimeFormatter formatter = DateTimeFormatter
+                                .ofPattern("yyyy-MM-dd HH:mm:ss");
 
                         @Override
-                        protected void updateItem(LocalDateTime date, boolean empty) {
+                        protected void updateItem(LocalDateTime date,
+                                boolean empty) {
                             super.updateItem(date, empty);
                             if (empty) {
                                 setText(null);
@@ -149,10 +158,40 @@ public class Table extends Application {
 
             return cell;
         });
+        TableColumn<ParkingInstance, BufferedImage> photoCol =
+                new TableColumn<ParkingInstance, BufferedImage>("Photo");
+        photoCol.setMinWidth(400);
+        photoCol.setCellValueFactory(
+                new PropertyValueFactory<ParkingInstance, BufferedImage>(
+                        "thumbnail"));
+        photoCol.setCellFactory(column -> {
+            TableCell<ParkingInstance, BufferedImage> cell =
+                    new TableCell<ParkingInstance, BufferedImage>() {
+                        @Override
+                        protected void updateItem(BufferedImage image,
+                                boolean empty) {
+                            super.updateItem(image, empty);
+                            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                            ImageView imageView = new ImageView();
+                            if (empty || image == null) {
+                                imageView.setImage(null);
+                                setText(null);
+                                setGraphic(null);
+                                return;
+                            }
+
+                            imageView.setImage(SwingFXUtils.toFXImage(image, null));
+                            setGraphic(imageView);
+                        }
+                    };
+
+            return cell;
+        });
+
 
         subTable.setItems(FXCollections.observableArrayList(parkingInstances));
-        subTable.getColumns().addAll(dateCol);
-        subTable.setPrefHeight(30 + (parkingInstances.size() * 30));
+        subTable.getColumns().addAll(dateCol, photoCol);
+        subTable.setPrefHeight(50 + (parkingInstances.size() * 270));
         subTable.setStyle("-fx-border-color: #42bff4;");
         return subTable;
     }
