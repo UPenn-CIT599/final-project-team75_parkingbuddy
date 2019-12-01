@@ -13,7 +13,9 @@ public class ParkingInstanceProcessor {
 	LicenseOCR ocr = new LicenseOCR();
 
 	/**
-	 * This method creates a ParkingInstance object from two arguments: Car and Photo. 
+	 * This method creates a ParkingInstance object from two arguments: Car and
+	 * Photo.
+	 * 
 	 * @param car
 	 * @param photo
 	 * @return
@@ -28,9 +30,16 @@ public class ParkingInstanceProcessor {
 		}
 		return parkingInstances;
 	}
-	
-	/** 
-	 * This method adds multiple parking instance objects from an ArrayList to the Database.
+
+	public ArrayList<ParkingInstance> createParkingInstances(Path path) throws PhotoException {
+		ArrayList<Photo> photos = PhotoFactory.createPhotos(path);
+		return createParkingInstances(photos);
+	}
+
+	/**
+	 * This method adds multiple parking instance objects from an ArrayList to
+	 * the Database.
+	 * 
 	 * @param db
 	 * @param filePath
 	 */
@@ -41,12 +50,9 @@ public class ParkingInstanceProcessor {
 		}
 	}
 
-	public void addParkingInstances(Database db, Path path) throws PhotoException {
-		ArrayList<Photo> photos = PhotoFactory.createPhotos(path);
-		ArrayList<ParkingInstance> parkingInstances =
-				new ArrayList<ParkingInstance>();
-		parkingInstances = createParkingInstances(photos);
-		addParkingInstancesToDB(db, parkingInstances);
+	public void addParkingInstances(Database db, Path path)
+			throws PhotoException {
+		addParkingInstancesToDB(db, createParkingInstances(path));
 	}
 
 
@@ -56,7 +62,8 @@ public class ParkingInstanceProcessor {
 		try {
 			ArrayList<Photo> photos = PhotoFactory.createPhotos(filePath);
 			ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
-			ArrayList<ParkingInstance> parkingInstances = pip.createParkingInstances(photos);
+			ArrayList<ParkingInstance> parkingInstances =
+					pip.createParkingInstances(photos);
 			for (ParkingInstance parkingInstance : parkingInstances) {
 				System.out.println(parkingInstance);
 			}
