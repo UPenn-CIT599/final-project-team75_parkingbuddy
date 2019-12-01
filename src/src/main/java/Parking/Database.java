@@ -99,7 +99,7 @@ public class Database {
 			
 			// datetime inserts in computer's local timezone
 			pstmt.setString(3, parkingInstance.getDateTime().format(formatter));
-			pstmt.setString(4, parkingInstance.getPhotoHash());
+			pstmt.setString(4, parkingInstance.getPhotoMd5Hash());
 			pstmt.executeUpdate();
 			System.out.println("inserted into DB");
 		} catch (SQLException e) {
@@ -166,11 +166,11 @@ public class Database {
 				int overnightCount = results.getInt("count");
 
 				ParkingAggregate aggregate = new ParkingAggregate(car, overnightCount);
-				aggregate.setParkingInstance(
-					new ArrayList<>(Arrays.asList(
-						new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test"),
-						new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test")
-						)));
+				// aggregate.setParkingInstance(
+				// 	new ArrayList<>(Arrays.asList(
+				// 		new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test"),
+				// 		new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test")
+				// 		)));
 				parkingResults.add(aggregate);
 				System.out.println(aggregate.getCar().getLicense());
 				// System.out.println(results.getString("state") + "\t"

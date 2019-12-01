@@ -26,6 +26,9 @@ public class ParkingInstanceProcessor {
 				new ArrayList<ParkingInstance>();
 		for (Photo photo : photos) {
 			Car myCar = ocr.getCarWithOpenALPR(photo);
+			if (myCar == null) {
+				continue;
+			}
 			parkingInstances.add(new ParkingInstance(myCar, photo));
 		}
 		return parkingInstances;
@@ -60,15 +63,11 @@ public class ParkingInstanceProcessor {
 		Path filePath =
 				Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		try {
-			ArrayList<Photo> photos = PhotoFactory.createPhotos(filePath);
 			ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
 			ArrayList<ParkingInstance> parkingInstances =
-					pip.createParkingInstances(photos);
+					pip.createParkingInstances(filePath);
 			for (ParkingInstance parkingInstance : parkingInstances) {
 				System.out.println(parkingInstance);
-			}
-			for (Photo photo : photos) {
-				System.out.println(photo);
 			}
 		} catch (PhotoException e) {
 			e.printStackTrace();

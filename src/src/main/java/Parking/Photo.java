@@ -79,9 +79,11 @@ public class Photo {
     }
 
     public String toString() {
-        String str = this.dateTime.format(formatter) + ", " + this.md5Hash
-                + ", " + this.path;
-        return str;
+       return toShortString() + ", " + path;
+    }
+
+    public String toShortString() {
+        return dateTime.format(formatter) + ", " + md5Hash;
     }
 
     public byte[] toJpegBytes() {
