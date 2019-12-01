@@ -8,22 +8,28 @@ import java.time.LocalDateTime;
  * instance that a car is parked at the parking lot.
  */
 public class ParkingInstance {
-    LocalDateTime date;
+    LocalDateTime dateTime;
     Car car;
 	String photoHash;
+
+	public ParkingInstance(Car car, Photo photo) {
+    	this.dateTime = photo.getDateTime();
+    	this.car = car;
+    	this.photoHash = photo.getMd5Hash();
+	}
     
     public ParkingInstance(LocalDateTime date, Car car, String photoHash) {
-    	this.date = date;
+    	this.dateTime = date;
     	this.car = car;
     	this.photoHash = photoHash;
 	}
 
-	public LocalDateTime getDate() {
-		return date;
+	public LocalDateTime getDateTime() {
+		return dateTime;
 	}
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+	public void setDateTime(LocalDateTime date) {
+		this.dateTime = date;
 	}
 
 	public Car getCar() {
@@ -43,7 +49,7 @@ public class ParkingInstance {
 	}
     
 	public String toString() {
-		String dateStr = date.toString();
+		String dateStr = dateTime.toString();
 		String carStr = car.getLicense() + "," + car.getState();
 		String photoHashStr = photoHash;
 		String parkingInstanceStr = dateStr + "," + carStr + "," + photoHashStr;

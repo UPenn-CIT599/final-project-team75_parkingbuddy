@@ -18,12 +18,14 @@ import java.util.Arrays;
  * @author sqlitetutorial.net took pointer code from this website
  */
 public class Database {
-
-	final DateTimeFormatter formatter =
+	final static DateTimeFormatter formatter =
 			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 	Connection conn;
 
+	/**
+	 * Initialize the database 
+	 */
 	public Database() {
 		conn = connect("jdbc:sqlite:sqlite/db/parkingBuddy.db");
 		createNewDatabase();
@@ -31,7 +33,7 @@ public class Database {
 	}
 
 	/**
-	 * Connection to a database
+	 * Set up the connection to database
 	 * 
 	 * @return
 	 */
@@ -59,9 +61,8 @@ public class Database {
 	}
 
 	/**
-	 * create ParkingInstances table
+	 * Create ParkingInstances table
 	 */
-
 	public void createTable(String tableName) {
 
 		// SQL statement for creating a new table
@@ -75,14 +76,14 @@ public class Database {
 			Statement stmt = conn.createStatement();
 			// create a new table
 			stmt.execute(sql);
-			System.out.println(tableName + "table created");
+			System.out.println(tableName + " table created");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
 	/**
-	 * insertParkingInstance inserts each new parkingInstance into the table
+	 * Insert each new parkingInstance into the table
 	 * 
 	 * @param parkingInstance
 	 */
@@ -95,8 +96,9 @@ public class Database {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, parkingInstance.getCar().getLicense());
 			pstmt.setString(2, parkingInstance.getCar().getState());
+			
 			// datetime inserts in computer's local timezone
-			pstmt.setString(3, parkingInstance.getDate().format(formatter));
+			pstmt.setString(3, parkingInstance.getDateTime().format(formatter));
 			pstmt.setString(4, parkingInstance.getPhotoHash());
 			pstmt.executeUpdate();
 			System.out.println("inserted into DB");
@@ -106,12 +108,11 @@ public class Database {
 	}
 
 	/**
-	 * Get parking instances filtered by user input dates
+	 * Get parking instances filtered by user input dates.
 	 * 
 	 * @param startDate
 	 * @param endDate
 	 */
-
 	public void getParkingInstancesbyDate(LocalDate startDate,
 			LocalDate endDate) {
 
@@ -133,12 +134,12 @@ public class Database {
 	}
 
 	/**
-	 * Get parking instances filtered by user input dates
+	 * Get parking instances filtered by user input dates and return an
+	 * ArrayList of the aggregated parking instances for each car.
 	 * 
 	 * @param startDate
 	 * @param endDate
 	 */
-
 	public ArrayList<ParkingAggregate> getAggregatedParkingInstances(LocalDate startDate,
 			LocalDate endDate) {
 		String sql = "SELECT state, license, count(*) as count from\n" + "(\n"
@@ -161,16 +162,17 @@ public class Database {
 			while (results.next()) {
 				String license = results.getString("license");
 				String state = results.getString("state");
+				Car car = new Car(state, license);
 				int overnightCount = results.getInt("count");
 
-				ParkingAggregate aggregate = new ParkingAggregate(license, state, overnightCount);
+				ParkingAggregate aggregate = new ParkingAggregate(car, overnightCount);
 				aggregate.setParkingInstance(
 					new ArrayList<>(Arrays.asList(
 						new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test"),
 						new ParkingInstance(LocalDateTime.now(), new Car("7XYA125", "PA"), "test")
 						)));
 				parkingResults.add(aggregate);
-				System.out.println(aggregate.getLicense());
+				System.out.println(aggregate.getCar().getLicense());
 				// System.out.println(results.getString("state") + "\t"
 				// 		+ results.getString("license") + "\t"
 				// 		+ results.getInt("count"));
@@ -184,9 +186,7 @@ public class Database {
 		return parkingResults;
 	}
 
-	/**
-	 * @param args the command line arguments
-	 */
+
 	public static void main(String[] args) {
 		Database database = new Database();
 		// database.createNewDatabase();
