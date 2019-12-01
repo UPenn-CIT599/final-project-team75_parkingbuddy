@@ -1,6 +1,7 @@
 package Parking;
 
 import java.time.LocalDateTime;
+import java.awt.image.BufferedImage;
 
 
 /**
@@ -35,5 +36,12 @@ public class ParkingInstance {
 	public String toString() {
 		return car.toString() + ", " + photo.toShortString();
 	}
-    
+
+	public BufferedImage getThumbnail() {
+		return photo.getThumbnail();
+	}
+
+	public Photo getPhoto() {
+		return photo;
+	}    
 }

@@ -4,8 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import net.coobird.thumbnailator.Thumbnails;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * This is the Photo class for each Photo object, representing each image file
@@ -50,6 +52,15 @@ public class Photo {
         this.path = path;
     }
 
+    public Photo(byte[] photoBytes, LocalDateTime dateTime, String md5Hash,
+            String path) throws IOException {
+        InputStream inputStream = new ByteArrayInputStream(photoBytes);
+        this.image = Thumbnails.of(inputStream).scale(1).asBufferedImage();
+        this.dateTime = dateTime;
+        this.md5Hash = md5Hash;
+        this.path = path;
+    }
+
     /**
      * Getter method to get the photo's creation date (i.e. when the photo was
      * taken)
@@ -79,7 +90,7 @@ public class Photo {
     }
 
     public String toString() {
-       return toShortString() + ", " + path;
+        return toShortString() + ", " + path;
     }
 
     public String toShortString() {
@@ -96,5 +107,20 @@ public class Photo {
             e.printStackTrace();
         }
         return outStream.toByteArray();
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public BufferedImage getThumbnail() {
+        try {
+           return Thumbnails.of(image).size(256,256).keepAspectRatio(true).asBufferedImage();
+        }
+        catch (Exception e) {
+            // This should not happen if image is valid.
+            e.printStackTrace();
+        }
+        return null;
     }
 }

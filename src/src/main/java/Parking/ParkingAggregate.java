@@ -20,6 +20,14 @@ public class ParkingAggregate{
         return car;
     }
 
+    public String getState() {
+        return car.getState();
+    }
+
+    public String getLicense() {
+        return car.getLicense();
+    }
+
     public int getOvernightCount() {
         return overnightCount;
     }

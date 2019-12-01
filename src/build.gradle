@@ -55,6 +55,6 @@ application {
 
 javafx {
     version = "13"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls','javafx.fxml','javafx.swing' ]
 }
 
