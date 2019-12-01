@@ -30,8 +30,9 @@ public class GUI extends Application {
 
 		try {
 			// make the window into a full screen
-			Screen screen = Screen.getPrimary();
-			stage.setFullScreen(true);
+			stage.setFullScreen(false);
+			stage.setWidth(1024);
+			stage.setHeight(768);
 
 			// set title and text for the stage
 			stage.setTitle("Parking Buddy");
@@ -174,6 +175,8 @@ public class GUI extends Application {
 					// 	warning.setText("The dates are invalid.");
 					// }
 					Stage popupwindow = new Stage();
+					stage.setWidth(1024);
+					stage.setHeight(768);
 
 					popupwindow.initModality(Modality.WINDOW_MODAL);
 					popupwindow.setTitle("Parking Aggregates");
