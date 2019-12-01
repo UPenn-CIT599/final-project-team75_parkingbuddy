@@ -50,7 +50,7 @@ dependencies {
 
 application {
     // Define the main class for the application
-    mainClassName = project.hasProperty("main") ? getProperty("main") : "Parking.Table"
+    mainClassName = project.hasProperty("main") ? getProperty("main") : "Parking.GUI"
 }
 
 javafx {
