@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifIFD0Directory;
@@ -18,6 +19,7 @@ import com.drew.metadata.exif.ExifSubIFDDirectory;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
 import net.coobird.thumbnailator.Thumbnails;
+import java.util.List;
 
 /**
  * This class reads the image files and extracts the EXIF metadata required to
@@ -36,12 +38,20 @@ public class PhotoFactory {
 	 * @return
 	 */
 	public static ArrayList<Photo> createPhotos(Path path) throws PhotoException {
-		// initialize ArrayList of photo objects
-		ArrayList<Photo> photos = new ArrayList<Photo>();
 		// get paths to the image files in the folder
 		File[] files = path.toFile().listFiles();
 		if (files == null || files.length == 0) {
 			throw new PhotoException("Invalid dir: " + path.toString());
+		} 
+		return createPhotos(Arrays.asList(files));
+	}
+
+	public static ArrayList<Photo> createPhotos(List<File> files) throws PhotoException {
+		// initialize ArrayList of photo objects
+		ArrayList<Photo> photos = new ArrayList<Photo>();
+		// get paths to the image files in the folder
+		if (files == null || files.size() == 0) {
+			throw new PhotoException("Invalid files: " + files);
 		} 
 		ArrayList<File> filteredFiles = new ArrayList<File>();
 		for (File file : files) {
@@ -52,7 +62,7 @@ public class PhotoFactory {
 			filteredFiles.add(file);
 		}
 		if (filteredFiles.size() == 0) {
-			throw new PhotoException("No valid photo files: " + path.toString());
+			throw new PhotoException("No valid photo files: " + files);
 		} 
 
 		// iterate through each image file in the folder to create a photo

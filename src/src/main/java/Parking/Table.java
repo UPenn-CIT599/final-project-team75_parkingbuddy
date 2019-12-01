@@ -204,7 +204,7 @@ public class Table extends Application {
 
     private ObservableList<ParkingAggregate> getData() {
         return FXCollections.observableArrayList(
-                parkingController.pullViolationReport(LocalDate.of(2010, 2, 11),
+                parkingController.getParkingAggregates(LocalDate.of(2010, 2, 11),
                         LocalDate.of(2019, 6, 11)));
     }
 }
