@@ -157,12 +157,20 @@ class LicenseOCR {
 		LicenseOCR test = new LicenseOCR(); 
 		JPEGReader r = new JPEGReader();
 
-		Path filePath = Paths.get("src/src/test/java/Parking/MultipleImagesFolder/");
+		Path filePath = Paths.get("src/test/java/Parking/CarFolder/");
 		ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
 		photoArrayList = r.createPhotos(filePath);
+		
+		ArrayList<Car> carArrayList = new ArrayList<Car>();
 		for (Photo photo : photoArrayList) {
-			test.createCar(photo);
+			Car myCar = test.createCar(photo);
+			carArrayList.add(myCar);
 		}
+		
+		for (Car car : carArrayList) {
+			System.out.println(car.getLicensePlateAndState());
+		}
+		
 	}
 
 }

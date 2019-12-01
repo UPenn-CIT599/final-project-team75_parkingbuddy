@@ -54,5 +54,10 @@ class Car {
     public void setState(String state) {
         this.state = state;
     }
+    
+    public String getLicensePlateAndState() {
+    	String str = license + "," + state;
+    	return str;
+    }
 
 }
