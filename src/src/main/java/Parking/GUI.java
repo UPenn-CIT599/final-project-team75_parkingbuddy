@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class GUI extends Application {
 	private ParkingController parkingController = new ParkingController();
+	private Table parkingTable = new Table();
 
 	// launching the application
 	public void start(Stage stage) {
@@ -56,7 +58,8 @@ public class GUI extends Application {
 			final DirectoryChooser directoryChooser = new DirectoryChooser();
 			// setting up directory chooser
 			directoryChooser.setTitle("Select the folder with images.");
-			directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+			directoryChooser.setInitialDirectory(
+					new File(System.getProperty("user.home")));
 			// create event handler in case of button pressed
 			button1.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -68,7 +71,7 @@ public class GUI extends Application {
 						textArea.setText(null);
 					}
 					try {
-					    parkingController.uploadPhotos(dir.toPath());
+						parkingController.uploadPhotos(dir.toPath());
 					} catch (PhotoException e) {
 						e.printStackTrace();
 					}
@@ -78,15 +81,18 @@ public class GUI extends Application {
 			// create the button to upload files using file chooser
 			Button button2 = new Button("Upload file(s)");
 			final FileChooser fileChooser = new FileChooser();
-			// the user is defaulted to uploading jpeg files when using file chooser
-			fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+			// the user is defaulted to uploading jpeg files when using file
+			// chooser
+			fileChooser.getExtensionFilters().addAll(
+					new FileChooser.ExtensionFilter("JPG", "*.jpg"),
 					new FileChooser.ExtensionFilter("PNG", "*.png"),
 					new FileChooser.ExtensionFilter("All Files", "*.*"));
 			// create event handler in case of button pressed
 			button2.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent event) {
 					textArea.clear();
-					List<File> files = fileChooser.showOpenMultipleDialog(stage);
+					List<File> files =
+							fileChooser.showOpenMultipleDialog(stage);
 				}
 			});
 
@@ -116,22 +122,24 @@ public class GUI extends Application {
 			DatePicker dateEnd = new DatePicker();
 
 			// start date picker event handler
-			EventHandler<ActionEvent> eventStart = new EventHandler<ActionEvent>() {
-				public void handle(ActionEvent e) {
-					LocalDate startDate = dateStart.getValue();
-					labelStart.setText("Start Date: " + startDate);
-				}
-			};
+			EventHandler<ActionEvent> eventStart =
+					new EventHandler<ActionEvent>() {
+						public void handle(ActionEvent e) {
+							LocalDate startDate = dateStart.getValue();
+							labelStart.setText("Start Date: " + startDate);
+						}
+					};
 			dateStart.setShowWeekNumbers(true);
 			dateStart.setOnAction(eventStart);
 
 			// end date picker event handler
-			EventHandler<ActionEvent> eventEnd = new EventHandler<ActionEvent>() {
-				public void handle(ActionEvent e) {
-					LocalDate endDate = dateEnd.getValue();
-					labelEnd.setText("End Date: " + endDate);
-				}
-			};
+			EventHandler<ActionEvent> eventEnd =
+					new EventHandler<ActionEvent>() {
+						public void handle(ActionEvent e) {
+							LocalDate endDate = dateEnd.getValue();
+							labelEnd.setText("End Date: " + endDate);
+						}
+					};
 			dateEnd.setShowWeekNumbers(true);
 			dateEnd.setOnAction(eventEnd);
 
@@ -154,28 +162,44 @@ public class GUI extends Application {
 					textArea.clear();
 					LocalDate startDate = dateStart.getValue();
 					LocalDate endDate = dateEnd.getValue();
-					// only process report if the dates are valid, display warning if not
-					if (startDate.isBefore(endDate) && endDate.isBefore(LocalDate.now())) {
-						warning.setText("");
-						List<File> files = fileChooser.showOpenMultipleDialog(stage);
-					} else {
-						warning.setText("The dates are invalid.");
-					}
+					// TODO: Fix null pointer exception when date is not set.
+					// only process report if the dates are valid, display
+					// warning if not
+					// if (startDate.isBefore(endDate)
+					// 		&& endDate.isBefore(LocalDate.now())) {
+					// 	warning.setText("");
+					// 	// List<File> files =
+					// 	// 		fileChooser.showOpenMultipleDialog(stage);
+					// } else {
+					// 	warning.setText("The dates are invalid.");
+					// }
+					Stage popupwindow = new Stage();
+
+					popupwindow.initModality(Modality.WINDOW_MODAL);
+					popupwindow.setTitle("Parking Aggregates");
+
+
 					
+
+					popupwindow.setScene(parkingTable.tableScene());
+
+					popupwindow.show();;
 				}
 			});
 
 			// create a VBox composite of all buttons and labels
-			VBox vBox = new VBox(30, empty1, empty2, welLabel, label1, label2, imageButtons, label3, dates, datePickers,
-					button3, warning);
+			VBox vBox = new VBox(30, empty1, empty2, welLabel, label1, label2,
+					imageButtons, label3, dates, datePickers, button3, warning);
 			// set alignment to center
 			vBox.setAlignment(Pos.CENTER);
 
 			// set background image for the window
-			FileInputStream input = new FileInputStream("src/main/java/Graphics/darkParking.jpg");
+			FileInputStream input = new FileInputStream(
+					"src/main/java/Graphics/darkParking.jpg");
 			Image image = new Image(input);
-			BackgroundImage backgroundimage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+			BackgroundImage backgroundimage = new BackgroundImage(image,
+					BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+					BackgroundPosition.DEFAULT,
 					new BackgroundSize(1.0, 1.0, true, true, false, false));
 			Background background = new Background(backgroundimage);
 			vBox.setBackground(background);
