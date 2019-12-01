@@ -2,6 +2,7 @@ package Parking;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.application.Application;
@@ -84,7 +85,7 @@ public class Table extends Application {
                         "overnightCount"));
 
         table.setItems(getData());
-        table.getColumns().addAll(state, license, count);
+        table.getColumns().addAll(Arrays.asList(state, license, count));
         table.setMinWidth(1000);
         table.setMinHeight(700);
 
@@ -194,7 +195,7 @@ public class Table extends Application {
 
 
         subTable.setItems(FXCollections.observableArrayList(parkingInstances));
-        subTable.getColumns().addAll(dateCol, photoCol);
+        subTable.getColumns().addAll(Arrays.asList(dateCol, photoCol));
         subTable.setPrefHeight(50 + (parkingInstances.size() * 270));
         subTable.setStyle("-fx-border-color: #42bff4;");
         return subTable;
