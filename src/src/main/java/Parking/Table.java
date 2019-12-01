@@ -38,11 +38,17 @@ public class Table extends Application {
 
     @Override
     public void start(Stage stage) {
-        Scene scene = new Scene(new Group());
         stage.setTitle("Table View Sample");
         stage.setWidth(1024);
         stage.setHeight(768);
 
+        stage.setScene(tableScene());
+        stage.show();
+    }
+
+    public Scene tableScene() {
+        Scene scene = new Scene(new Group());
+        
         final Label label = new Label("Parking Aggregates");
         label.setFont(new Font("Arial", 20));
 
@@ -53,9 +59,7 @@ public class Table extends Application {
         vbox.getChildren().addAll(label, table);
 
         ((Group) scene.getRoot()).getChildren().addAll(vbox);
-
-        stage.setScene(scene);
-        stage.show();
+        return scene;
     }
 
     private void constructTable() {
