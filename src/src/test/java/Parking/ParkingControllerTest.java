@@ -18,7 +18,7 @@ public class ParkingControllerTest {
 	 */
 	@Test
 	public void testViolationReport() {
-		results = pc.pullViolationReport(LocalDate.of(2010, 2, 11),LocalDate.of(2019, 6, 11));
+		results = pc.getParkingAggregates(LocalDate.of(2010, 2, 11),LocalDate.of(2019, 6, 11));
 		assertEquals(1, results.get(0).getOvernightCount());
 		assertEquals(2, results.get(1).getOvernightCount());
 	}

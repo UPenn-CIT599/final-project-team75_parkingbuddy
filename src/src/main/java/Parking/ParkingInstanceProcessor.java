@@ -1,8 +1,11 @@
 package Parking;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ParkingInstanceProcessor creates an Arraylist of parking instances from a
@@ -39,6 +42,11 @@ public class ParkingInstanceProcessor {
 		return createParkingInstances(photos);
 	}
 
+	public ArrayList<ParkingInstance> createParkingInstances(List<File> files) throws PhotoException {
+		ArrayList<Photo> photos = PhotoFactory.createPhotos(files);
+		return createParkingInstances(photos);
+	}
+
 	/**
 	 * This method adds multiple parking instance objects from an ArrayList to
 	 * the Database.
@@ -53,9 +61,18 @@ public class ParkingInstanceProcessor {
 		}
 	}
 
-	public void addParkingInstances(Database db, Path path)
+	public ArrayList<ParkingInstance> addParkingInstances(Database db, Path path)
 			throws PhotoException {
-		addParkingInstancesToDB(db, createParkingInstances(path));
+		ArrayList<ParkingInstance> parkings = createParkingInstances(path);
+		addParkingInstancesToDB(db, parkings);
+		return parkings;
+	}
+
+	public ArrayList<ParkingInstance> addParkingInstances(Database db, List<File> files)
+			throws PhotoException {
+		ArrayList<ParkingInstance> parkings = createParkingInstances(files);
+		addParkingInstancesToDB(db, parkings);
+		return parkings;
 	}
 
 

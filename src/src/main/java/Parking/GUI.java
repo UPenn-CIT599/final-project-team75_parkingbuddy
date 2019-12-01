@@ -23,7 +23,7 @@ import java.util.List;
 
 public class GUI extends Application {
 	private ParkingController parkingController = new ParkingController();
-	private Table parkingTable = new Table();
+	private Table parkingTable;
 
 	// launching the application
 	public void start(Stage stage) {
@@ -94,6 +94,11 @@ public class GUI extends Application {
 					textArea.clear();
 					List<File> files =
 							fileChooser.showOpenMultipleDialog(stage);
+					try {
+						parkingController.uploadPhotos(files);
+					} catch (PhotoException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 
@@ -107,8 +112,9 @@ public class GUI extends Application {
 			imageButtons.setAlignment(Pos.CENTER);
 
 			// label to show the date
-			Label labelStart = new Label("Choose the start date.");
-			Label labelEnd = new Label("Choose the end date.");
+			Label labelStart =
+					new Label("Choose the start date.\n(Default 30 days ago)");
+			Label labelEnd = new Label("Choose the end date.\n(Default Today)");
 			labelStart.setFont(Font.font("Verdana", 15));
 			labelStart.setTextFill(Color.web("#ffff"));
 			labelEnd.setFont(Font.font("Verdana", 15));
@@ -120,7 +126,9 @@ public class GUI extends Application {
 
 			// create a date picker
 			DatePicker dateStart = new DatePicker();
+			dateStart.setEditable(false);
 			DatePicker dateEnd = new DatePicker();
+			dateEnd.setEditable(false);
 
 			// start date picker event handler
 			EventHandler<ActionEvent> eventStart =
@@ -132,6 +140,7 @@ public class GUI extends Application {
 					};
 			dateStart.setShowWeekNumbers(true);
 			dateStart.setOnAction(eventStart);
+			dateStart.setValue(LocalDate.now().minusDays(30));
 
 			// end date picker event handler
 			EventHandler<ActionEvent> eventEnd =
@@ -143,6 +152,7 @@ public class GUI extends Application {
 					};
 			dateEnd.setShowWeekNumbers(true);
 			dateEnd.setOnAction(eventEnd);
+			dateEnd.setValue(LocalDate.now());
 
 			// HBoxes for date titles and date pickers
 			HBox dates = new HBox(50, labelStart, labelEnd);
@@ -163,29 +173,25 @@ public class GUI extends Application {
 					textArea.clear();
 					LocalDate startDate = dateStart.getValue();
 					LocalDate endDate = dateEnd.getValue();
-					// TODO: Fix null pointer exception when date is not set.
-					// only process report if the dates are valid, display
-					// warning if not
-					// if (startDate.isBefore(endDate)
-					// 		&& endDate.isBefore(LocalDate.now())) {
-					// 	warning.setText("");
-					// 	// List<File> files =
-					// 	// 		fileChooser.showOpenMultipleDialog(stage);
-					// } else {
-					// 	warning.setText("The dates are invalid.");
-					// }
+					if (startDate == null || endDate == null) {
+						warning.setText("Please enter Start / End Dates");
+						return;
+					}
+					System.out.println(startDate);
+					System.out.println(endDate);
+					if (startDate.isAfter(endDate)
+							|| endDate.isAfter(LocalDate.now())) {
+						warning.setText("The dates are invalid.");
+						return;
+					}
 					Stage popupwindow = new Stage();
 					stage.setWidth(1024);
 					stage.setHeight(768);
+					parkingTable = new Table();
 
 					popupwindow.initModality(Modality.WINDOW_MODAL);
 					popupwindow.setTitle("Parking Aggregates");
-
-
-					
-
 					popupwindow.setScene(parkingTable.tableScene());
-
 					popupwindow.show();;
 				}
 			});
