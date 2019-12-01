@@ -232,7 +232,7 @@ public class JPEGReader {
 	
 	public static void main(String[] args) {
 		JPEGReader r = new JPEGReader();
-		Path filePath = Paths.get("src/test/java/Parking/EmptyFolder/");
+		Path filePath = Paths.get("src/test/java/Parking/OneImageFolder/");
 		ArrayList<Photo> pal = r.createPhotos(filePath);
 		for (Photo photo : pal) {
 			System.out.println(photo.getPhotoToString());
