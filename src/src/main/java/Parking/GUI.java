@@ -132,6 +132,7 @@ public class GUI extends Application {
 					};
 			dateStart.setShowWeekNumbers(true);
 			dateStart.setOnAction(eventStart);
+			dateStart.setValue(LocalDate.now().minusDays(30));
 
 			// end date picker event handler
 			EventHandler<ActionEvent> eventEnd =
@@ -143,6 +144,7 @@ public class GUI extends Application {
 					};
 			dateEnd.setShowWeekNumbers(true);
 			dateEnd.setOnAction(eventEnd);
+			dateEnd.setValue(LocalDate.now());
 
 			// HBoxes for date titles and date pickers
 			HBox dates = new HBox(50, labelStart, labelEnd);
@@ -163,29 +165,18 @@ public class GUI extends Application {
 					textArea.clear();
 					LocalDate startDate = dateStart.getValue();
 					LocalDate endDate = dateEnd.getValue();
-					// TODO: Fix null pointer exception when date is not set.
-					// only process report if the dates are valid, display
-					// warning if not
-					// if (startDate.isBefore(endDate)
-					// 		&& endDate.isBefore(LocalDate.now())) {
-					// 	warning.setText("");
-					// 	// List<File> files =
-					// 	// 		fileChooser.showOpenMultipleDialog(stage);
-					// } else {
-					// 	warning.setText("The dates are invalid.");
-					// }
+					if (startDate.isAfter(endDate)
+							|| endDate.isAfter(LocalDate.now())) {
+						warning.setText("The dates are invalid.");
+						return;
+					}
 					Stage popupwindow = new Stage();
 					stage.setWidth(1024);
 					stage.setHeight(768);
 
 					popupwindow.initModality(Modality.WINDOW_MODAL);
 					popupwindow.setTitle("Parking Aggregates");
-
-
-					
-
 					popupwindow.setScene(parkingTable.tableScene());
-
 					popupwindow.show();;
 				}
 			});
