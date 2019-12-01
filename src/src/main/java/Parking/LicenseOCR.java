@@ -86,7 +86,7 @@ class LicenseOCR {
 	 * OpenALPR API call, and seeing if the confidence of a vehicle present in
 	 * the image passes a certain threshold.
 	 * 
-	 * @param json_content
+	 * @param jsonContent
 	 * @return
 	 */
 	private boolean checkJSONForCar(String jsonContent) {

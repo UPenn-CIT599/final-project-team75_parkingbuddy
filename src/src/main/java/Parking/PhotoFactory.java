@@ -85,7 +85,7 @@ public class PhotoFactory {
 			inputStream.reset();
 			LocalDateTime dateTime = getDateTime(inputStream);
 			inputStream.reset();
-			String md5Hash = DigestUtils.md5Hex(inputStream);
+			String md5Hash = DigestUtils.md5Hex(inputStream).toUpperCase();
 			// create Photo object
 			photo = new Photo(image, dateTime, md5Hash,
 					path.toString());
