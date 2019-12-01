@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class GUI extends Application {
+	private ParkingController parkingController = new ParkingController();
 
 	// launching the application
 	public void start(Stage stage) {
@@ -65,6 +66,11 @@ public class GUI extends Application {
 						textArea.setText(dir.getAbsolutePath());
 					} else {
 						textArea.setText(null);
+					}
+					try {
+					    parkingController.uploadPhotos(dir.toPath());
+					} catch (PhotoException e) {
+						e.printStackTrace();
 					}
 				}
 			});
@@ -155,6 +161,7 @@ public class GUI extends Application {
 					} else {
 						warning.setText("The dates are invalid.");
 					}
+					
 				}
 			});
 
