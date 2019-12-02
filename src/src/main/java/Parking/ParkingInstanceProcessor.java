@@ -13,6 +13,11 @@ import java.util.List;
 
 public class ParkingInstanceProcessor {
 	LicenseOCR ocr = new LicenseOCR();
+	Database db;
+
+	public ParkingInstanceProcessor(Database db) {
+		this.db = db;
+	}
 
 	/**
 	 * This method creates a ParkingInstance object from two arguments: Car and
@@ -53,24 +58,27 @@ public class ParkingInstanceProcessor {
 	 * @param db
 	 * @param filePath
 	 */
-	public void addParkingInstancesToDB(Database db,
+	public void addParkingInstancesToDB(
 			ArrayList<ParkingInstance> parkingInstances) throws ParkingException {
+		if (db == null) {
+			throw new ParkingException("Invalid database");
+		}
 		for (ParkingInstance pi : parkingInstances) {
 			db.insertParkingInstance(pi);
 		}
 	}
 
-	public ArrayList<ParkingInstance> addParkingInstances(Database db, Path path)
+	public ArrayList<ParkingInstance> addParkingInstances(Path path)
 			throws ParkingException {
 		ArrayList<ParkingInstance> parkings = createParkingInstances(path);
-		addParkingInstancesToDB(db, parkings);
+		addParkingInstancesToDB(parkings);
 		return parkings;
 	}
 
-	public ArrayList<ParkingInstance> addParkingInstances(Database db, List<File> files)
+	public ArrayList<ParkingInstance> addParkingInstances(List<File> files)
 			throws ParkingException {
 		ArrayList<ParkingInstance> parkings = createParkingInstances(files);
-		addParkingInstancesToDB(db, parkings);
+		addParkingInstancesToDB(parkings);
 		return parkings;
 	}
 
@@ -79,7 +87,7 @@ public class ParkingInstanceProcessor {
 		Path filePath =
 				Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		try {
-			ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
+			ParkingInstanceProcessor pip = new ParkingInstanceProcessor(null);
 			ArrayList<ParkingInstance> parkingInstances =
 					pip.createParkingInstances(filePath);
 			for (ParkingInstance parkingInstance : parkingInstances) {

@@ -14,9 +14,17 @@ import java.util.List;
  * call all relevant classes to process tickets or add parking instances to the SQL database.
  */
 
-class ParkingController {
-    Database db = new Database();
-    ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
+public class ParkingController {
+    Database db;
+    ParkingInstanceProcessor pip;
+
+    /**
+     * Parking Controller constructor
+     */
+    public ParkingController() {
+        db = new Database();
+        pip = new ParkingInstanceProcessor(db);
+    }
 
 
     /**
@@ -24,11 +32,11 @@ class ParkingController {
      * @param filePath
      */
     public ArrayList<ParkingInstance> uploadPhotos(Path filePath) throws ParkingException {
-        return pip.addParkingInstances(db, filePath);
+        return pip.addParkingInstances(filePath);
     }
 
     public ArrayList<ParkingInstance> uploadPhotos(List<File> files) throws ParkingException {
-        return pip.addParkingInstances(db, files);
+        return pip.addParkingInstances(files);
     }
 
     /**
@@ -38,14 +46,8 @@ class ParkingController {
      * @return
      */
     public ArrayList<ParkingAggregate> getParkingAggregates(LocalDate startDate, LocalDate endDate){
-        ArrayList<ParkingAggregate> parkingResults =  db.getAggregatedParkingInstances(startDate,endDate);
+        ArrayList<ParkingAggregate> parkingResults =  db.getParkingAggregates(startDate,endDate);
         return parkingResults;
-    }
-
-    /**
-     * Parking Controller constructor
-     */
-    public ParkingController() {
     }
 
     public static void main(String[] args) {

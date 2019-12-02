@@ -172,7 +172,7 @@ public class Database {
 	 * @param startDate
 	 * @param endDate
 	 */
-	public ArrayList<ParkingAggregate> getAggregatedParkingInstances(
+	public ArrayList<ParkingAggregate> getParkingAggregates(
 			LocalDate startDate, LocalDate endDate) {
 		String sql = "SELECT state, license, count(*) as count from\n" + "(\n"
 				+ "  SELECT * from\n" // line break
@@ -262,7 +262,7 @@ public class Database {
 
 			database.getParkingInstancesbyDate(new Car("PA", "7XYA125"),
 					LocalDate.of(2010, 2, 11), LocalDate.of(2019, 6, 11));
-			database.getAggregatedParkingInstances(LocalDate.of(2010, 2, 11),
+			database.getParkingAggregates(LocalDate.of(2010, 2, 11),
 					LocalDate.of(2019, 6, 11));
 		} catch (Exception e) {
 			e.printStackTrace();
