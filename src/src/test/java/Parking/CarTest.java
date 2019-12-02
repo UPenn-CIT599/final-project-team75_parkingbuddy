@@ -12,10 +12,11 @@ public class CarTest {
 	Car newCar1 = new Car("CA", "1234567");
 	Car newCar2 = new Car("", "1234567");
 	Car newCar3 = new Car("PA", "");
+	Car newCar4 = new Car("CA", "1234567");
 
 	/**
-	 * Test whether the constructor works well taking in the variables, even with
-	 * empty parameters.
+	 * Test whether the constructor works well taking in the variables,
+	 * even with empty parameters.
 	 */
 	@Test
 	public void TestConstandGetters() {
@@ -33,5 +34,14 @@ public class CarTest {
 
 		assertEquals("CA, 1234567", newCar1.toString());
 	}
+	
+	/**
+	 * Test the equals method that compares two car objects
+	 */
+	@Test
+	public void TestEquals() {
 
+		assertTrue(newCar1.equals(newCar4));
+		assertFalse(newCar1.equals(newCar2));
+	}
 }
