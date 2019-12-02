@@ -13,11 +13,6 @@ import java.util.List;
 
 public class ParkingInstanceProcessor {
 	LicenseOCR ocr = new LicenseOCR();
-	Database db;
-
-	public ParkingInstanceProcessor(Database db) {
-		this.db = db;
-	}
 
 	/**
 	 * This method creates a ParkingInstance object from two arguments: Car and
@@ -27,7 +22,8 @@ public class ParkingInstanceProcessor {
 	 * @param photo
 	 * @return
 	 */
-	public ArrayList<ParkingInstance> createParkingInstances(ArrayList<Photo> photos) {
+	public ArrayList<ParkingInstance> createParkingInstances(
+			ArrayList<Photo> photos) {
 		ArrayList<ParkingInstance> parkingInstances = new ArrayList<ParkingInstance>();
 		for (Photo photo : photos) {
 			Car myCar = ocr.getCarWithOpenALPR(photo);
@@ -52,42 +48,41 @@ public class ParkingInstanceProcessor {
 	}
 
 	/**
-	 * This method adds multiple parking instance objects from an ArrayList to the
-	 * Database.
+	 * This method adds multiple parking instance objects from an ArrayList to
+	 * the Database.
 	 * 
 	 * @param db
 	 * @param filePath
 	 */
-	public void addParkingInstancesToDB(
-			ArrayList<ParkingInstance> parkingInstances) throws ParkingException {
-		if (db == null) {
-			throw new ParkingException("Invalid database");
-		}
+	public void addParkingInstancesToDB(Database db,
+			ArrayList<ParkingInstance> parkingInstances)
+			throws ParkingException {
 		for (ParkingInstance pi : parkingInstances) {
 			db.insertParkingInstance(pi);
 		}
 	}
 
-	public ArrayList<ParkingInstance> addParkingInstances(Path path)
-			throws ParkingException {
+	public ArrayList<ParkingInstance> addParkingInstances(Database db,
+			Path path) throws ParkingException {
 		ArrayList<ParkingInstance> parkings = createParkingInstances(path);
-		addParkingInstancesToDB(parkings);
+		addParkingInstancesToDB(db, parkings);
 		return parkings;
 	}
 
-	public ArrayList<ParkingInstance> addParkingInstances(List<File> files)
-			throws ParkingException {
+	public ArrayList<ParkingInstance> addParkingInstances(Database db,
+			List<File> files) throws ParkingException {
 		ArrayList<ParkingInstance> parkings = createParkingInstances(files);
-		addParkingInstancesToDB(parkings);
+		addParkingInstancesToDB(db, parkings);
 		return parkings;
 	}
 
 	public static void main(String[] args) {
-		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
+		Path filePath = Paths
+				.get("src/test/java/Parking/MultipleImagesFolder/");
 		try {
-			ParkingInstanceProcessor pip = new ParkingInstanceProcessor(null);
-			ArrayList<ParkingInstance> parkingInstances =
-					pip.createParkingInstances(filePath);
+			ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
+			ArrayList<ParkingInstance> parkingInstances = pip
+					.createParkingInstances(filePath);
 			for (ParkingInstance parkingInstance : parkingInstances) {
 				System.out.println(parkingInstance);
 			}

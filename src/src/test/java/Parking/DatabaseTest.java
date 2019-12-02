@@ -105,7 +105,7 @@ public class DatabaseTest {
 
 	@Test
 	public void testAggregate() throws ParkingException {
-		ArrayList<ParkingAggregate> parkings = db.getParkingAggregates(LocalDate.of(2010, 2, 11),
+		ArrayList<ParkingAggregate> parkings = db.getAggregatedParkingInstances(LocalDate.of(2010, 2, 11),
 				LocalDate.of(2019, 6, 11));
 		assertEquals(2, parkings.size());
 		assertEquals(new Car("PA", "7XYA124"), parkings.get(0).getCar());
