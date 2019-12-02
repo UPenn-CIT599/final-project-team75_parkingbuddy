@@ -4,6 +4,8 @@
 # Ignore Gradle build output directory
 build
 
+# Ignore bin
+bin/
 
 # Ignore .ds uploads
 *.DS_Store
