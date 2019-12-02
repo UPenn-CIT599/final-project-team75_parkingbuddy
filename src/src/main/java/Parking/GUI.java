@@ -15,7 +15,6 @@ import javafx.event.EventHandler;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import java.io.File;
 import java.io.FileInputStream;
 import java.time.LocalDate;
@@ -130,7 +129,7 @@ public class GUI extends Application {
 			// empty labels for spacing
 			Label empty1 = new Label("");
 			Label empty2 = new Label("");
-			Label empty3 = new Label("");
+			// Label empty3 = new Label("");
 
 			// create a date picker
 			DatePicker dateStart = new DatePicker();
