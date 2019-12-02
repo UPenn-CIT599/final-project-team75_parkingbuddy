@@ -121,8 +121,7 @@ public class GUI extends Application {
 			// label to show the date
 			Label labelStart = new Label(
 					"Choose the start date.\n(Default 30 days ago)");
-			Label labelEnd = new Label(
-					"Choose the end date.\n(Default today)");
+			Label labelEnd = new Label("Choose the end date.\n(Default today)");
 			labelStart.setFont(Font.font("Verdana", 15));
 			labelStart.setTextFill(Color.web("#ffff"));
 			labelEnd.setFont(Font.font("Verdana", 15));
