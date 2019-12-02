@@ -14,7 +14,7 @@ public class ParkingControllerTest {
 	
 	/**
 	 * Test for violation report to ensure the correct information for the car violations within the 
-	 * inputted timeframe is returned.
+	 * Inputed time frame is returned.
 	 */
 	@Test
 	public void testViolationReport() {
