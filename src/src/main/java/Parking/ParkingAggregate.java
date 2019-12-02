@@ -36,7 +36,6 @@ public class ParkingAggregate{
         return ParkingInstances;
     }
 
-    // TODO: Remove this.
     public void setParkingInstance(ArrayList<ParkingInstance> parkingInstance) {
         ParkingInstances = parkingInstance;
     }
