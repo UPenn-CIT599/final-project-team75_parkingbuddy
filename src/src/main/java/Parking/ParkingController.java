@@ -23,11 +23,13 @@ class ParkingController {
      * Add parking instances to the database based on folder or image file input.
      * @param filePath
      */
-    public ArrayList<ParkingInstance> uploadPhotos(Path filePath) throws ParkingException {
+    public ArrayList<ParkingInstance> uploadPhotos(Path filePath) 
+    		throws ParkingException {
         return pip.addParkingInstances(db, filePath);
     }
 
-    public ArrayList<ParkingInstance> uploadPhotos(List<File> files) throws ParkingException {
+    public ArrayList<ParkingInstance> uploadPhotos(List<File> files) 
+    		throws ParkingException {
         return pip.addParkingInstances(db, files);
     }
 
@@ -37,8 +39,10 @@ class ParkingController {
      * @param endDate
      * @return
      */
-    public ArrayList<ParkingAggregate> getParkingAggregates(LocalDate startDate, LocalDate endDate){
-        ArrayList<ParkingAggregate> parkingResults =  db.getAggregatedParkingInstances(startDate,endDate);
+    public ArrayList<ParkingAggregate> getParkingAggregates(
+    		LocalDate startDate, LocalDate endDate){
+        ArrayList<ParkingAggregate> parkingResults =  
+        		db.getAggregatedParkingInstances(startDate,endDate);
         return parkingResults;
     }
 
@@ -50,10 +54,10 @@ class ParkingController {
 
     public static void main(String[] args) {
         ParkingController pc = new ParkingController();
-        // Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
-        // pc.uploadPhotos(filePath);
+        
         ArrayList<ParkingAggregate> results = new ArrayList<ParkingAggregate>();
-        results = pc.getParkingAggregates(LocalDate.of(2010, 2, 11),LocalDate.of(2019, 6, 11));
+        results = pc.getParkingAggregates(
+        		LocalDate.of(2010, 2, 11),LocalDate.of(2019, 6, 11));
         for (ParkingAggregate result : results) {
         	String str = result.toString();
         	System.out.println(str);
