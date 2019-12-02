@@ -6,12 +6,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import java.awt.image.BufferedImage;
 
 public class ParkingInstancesTableViewFactory {
@@ -21,6 +27,25 @@ public class ParkingInstancesTableViewFactory {
     public TableView<ParkingAggregate> createParkingAggretatesTable(
             ArrayList<ParkingAggregate> aggreates) {
         return new TableView<ParkingAggregate>();
+    }
+
+    public static Scene createParkingInstancesTableScene(ArrayList<ParkingInstance> parkings) {
+        Scene scene = new Scene(new Group());
+
+        final Label label = new Label("Parking Instances Uploaded");
+        label.setFont(new Font("Arial", 20));
+
+        TableView<ParkingInstance> table = createParkingInstancesTable(parkings, true);
+        table.setMinWidth(1000);
+        table.setMinHeight(700);
+        
+        final VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 10, 10, 10));
+        vbox.getChildren().addAll(label, table);
+
+        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+        return scene;
     }
 
     public static TableView<ParkingInstance> createParkingInstancesTable(
@@ -33,13 +58,13 @@ public class ParkingInstancesTableViewFactory {
         if (includeCarCols) {
             // State
             stateCol = new TableColumn<ParkingInstance, String>("State");
-            stateCol.setMinWidth(250);
+            stateCol.setMinWidth(150);
             stateCol.setCellValueFactory(
                     new PropertyValueFactory<ParkingInstance, String>("state"));
 
             // License
             licenseCol = new TableColumn<ParkingInstance, String>("License");
-            licenseCol.setMinWidth(250);
+            licenseCol.setMinWidth(200);
             licenseCol.setCellValueFactory(
                     new PropertyValueFactory<ParkingInstance, String>(
                             "license"));
@@ -111,7 +136,6 @@ public class ParkingInstancesTableViewFactory {
         } else {
             table.getColumns().addAll(Arrays.asList(dateCol, photoCol));
         }
-        table.setPrefHeight(50 + (parkings.size() * 270));
         table.setStyle("-fx-border-color: #42bff4;");
         return table;
     }

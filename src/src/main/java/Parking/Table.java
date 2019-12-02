@@ -30,7 +30,7 @@ public class Table extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Table View Sample");
+        stage.setTitle("Parking Aggregates");
         stage.setWidth(1024);
         stage.setHeight(768);
 
@@ -45,6 +45,8 @@ public class Table extends Application {
         label.setFont(new Font("Arial", 20));
 
         constructTable();
+        table.setMinWidth(1000);
+        table.setMinHeight(700);
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 10, 10, 10));
@@ -77,8 +79,6 @@ public class Table extends Application {
 
         table.setItems(getData());
         table.getColumns().addAll(Arrays.asList(state, license, count));
-        table.setMinWidth(1000);
-        table.setMinHeight(700);
 
         table.setRowFactory(tv -> new TableRow<ParkingAggregate>() {
             Node detailsPane;
@@ -121,10 +121,13 @@ public class Table extends Application {
 
     private TableView<ParkingInstance> constructSubTable(
             ParkingAggregate parkingAggregate) {
-
-        return TableViewFactory.createParkingInstancesTable(
-                parkingAggregate.getParkingInstances(),
-                false /* exclude car columns */);
+        TableView<ParkingInstance> table =
+                ParkingInstancesTableViewFactory.createParkingInstancesTable(
+                        parkingAggregate.getParkingInstances(),
+                        false /* exclude car columns */);
+        table.setPrefHeight(
+                50 + (parkingAggregate.getParkingInstances().size() * 130));
+        return table;
     }
 
 
