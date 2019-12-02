@@ -22,7 +22,8 @@ public class ParkingInstanceProcessor {
 	 * @param photo
 	 * @return
 	 */
-	public ArrayList<ParkingInstance> createParkingInstances(ArrayList<Photo> photos) {
+	public ArrayList<ParkingInstance> createParkingInstances(
+			ArrayList<Photo> photos) {
 		ArrayList<ParkingInstance> parkingInstances = new ArrayList<ParkingInstance>();
 		for (Photo photo : photos) {
 			Car myCar = ocr.getCarWithOpenALPR(photo);
@@ -47,13 +48,13 @@ public class ParkingInstanceProcessor {
 	}
 
 	/**
-	 * This method adds multiple parking instance objects from an ArrayList to the
-	 * Database.
+	 * This method adds multiple parking instance objects from an ArrayList to
+	 * the Database.
 	 * 
 	 * @param db
 	 * @param filePath
 	 */
-	public void addParkingInstancesToDB(Database db, 
+	public void addParkingInstancesToDB(Database db,
 			ArrayList<ParkingInstance> parkingInstances)
 			throws ParkingException {
 		for (ParkingInstance pi : parkingInstances) {
@@ -61,26 +62,27 @@ public class ParkingInstanceProcessor {
 		}
 	}
 
-	public ArrayList<ParkingInstance> addParkingInstances(Database db, Path path)
-			throws ParkingException {
+	public ArrayList<ParkingInstance> addParkingInstances(Database db,
+			Path path) throws ParkingException {
 		ArrayList<ParkingInstance> parkings = createParkingInstances(path);
 		addParkingInstancesToDB(db, parkings);
 		return parkings;
 	}
 
-	public ArrayList<ParkingInstance> addParkingInstances(Database db, List<File> files)
-			throws ParkingException {
+	public ArrayList<ParkingInstance> addParkingInstances(Database db,
+			List<File> files) throws ParkingException {
 		ArrayList<ParkingInstance> parkings = createParkingInstances(files);
 		addParkingInstancesToDB(db, parkings);
 		return parkings;
 	}
 
 	public static void main(String[] args) {
-		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
+		Path filePath = Paths
+				.get("src/test/java/Parking/MultipleImagesFolder/");
 		try {
 			ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
-			ArrayList<ParkingInstance> parkingInstances = 
-					pip.createParkingInstances(filePath);
+			ArrayList<ParkingInstance> parkingInstances = pip
+					.createParkingInstances(filePath);
 			for (ParkingInstance parkingInstance : parkingInstances) {
 				System.out.println(parkingInstance);
 			}
