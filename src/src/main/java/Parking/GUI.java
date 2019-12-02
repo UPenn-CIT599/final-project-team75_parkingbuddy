@@ -66,8 +66,8 @@ public class GUI extends Application {
 			final DirectoryChooser directoryChooser = new DirectoryChooser();
 			// setting up directory chooser
 			directoryChooser.setTitle("Select the folder with images.");
-			directoryChooser.setInitialDirectory(
-					new File(System.getProperty("user.home")));
+			directoryChooser.setInitialDirectory(new File(
+					System.getProperty("user.home")));
 			// create event handler in case of button pressed
 			button1.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -99,8 +99,7 @@ public class GUI extends Application {
 			button2.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent event) {
 					textArea.clear();
-					List<File> files = fileChooser
-							.showOpenMultipleDialog(stage);
+					List<File> files = fileChooser.showOpenMultipleDialog(stage);
 					try {
 						parkingController.uploadPhotos(files);
 					} catch (ParkingException e) {
@@ -119,9 +118,10 @@ public class GUI extends Application {
 			imageButtons.setAlignment(Pos.CENTER);
 
 			// label to show the date
-			Label labelStart = new Label(
-					"Choose the start date.\n(Default 30 days ago)");
-			Label labelEnd = new Label("Choose the end date.\n(Default today)");
+			Label labelStart = new Label("Choose the start date."
+					+ "\n(Default 30 days ago)");
+			Label labelEnd = new Label("Choose the end date."
+					+ "\n(Default today)");
 			labelStart.setFont(Font.font("Verdana", 15));
 			labelStart.setTextFill(Color.web("#ffff"));
 			labelEnd.setFont(Font.font("Verdana", 15));
@@ -137,7 +137,8 @@ public class GUI extends Application {
 			dateEnd.setEditable(false);
 
 			// start date picker event handler
-			EventHandler<ActionEvent> eventStart = new EventHandler<ActionEvent>() {
+			EventHandler<ActionEvent> eventStart = 
+					new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent e) {
 					LocalDate startDate = dateStart.getValue();
 					labelStart.setText("Start Date: " + startDate);
@@ -148,7 +149,8 @@ public class GUI extends Application {
 			dateStart.setValue(LocalDate.now().minusDays(30));
 
 			// end date picker event handler
-			EventHandler<ActionEvent> eventEnd = new EventHandler<ActionEvent>() {
+			EventHandler<ActionEvent> eventEnd = 
+					new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent e) {
 					LocalDate endDate = dateEnd.getValue();
 					labelEnd.setText("End Date: " + endDate);
@@ -183,8 +185,8 @@ public class GUI extends Application {
 					}
 					System.out.println(startDate);
 					System.out.println(endDate);
-					if (startDate.isAfter(endDate)
-							|| endDate.isAfter(LocalDate.now())) {
+					if (startDate.isAfter(endDate) || endDate.isAfter(
+							LocalDate.now())) {
 						warning.setText("The dates are invalid.");
 						return;
 					}
@@ -201,18 +203,19 @@ public class GUI extends Application {
 			});
 
 			// create a VBox composite of all buttons and labels
-			VBox vBox = new VBox(30, empty1, empty2, welLabel, label1, label2,
-					imageButtons, label3, dates, datePickers, button3, warning);
+			VBox vBox = new VBox(30, empty1, empty2, welLabel, label1, 
+					label2, imageButtons, label3, dates, datePickers,
+					button3, warning);
 			// set alignment to center
 			vBox.setAlignment(Pos.CENTER);
 
 			// set background image for the window
-			FileInputStream input = new FileInputStream(
-					"src/main/java/Graphics/darkParking.jpg");
+			FileInputStream input = new FileInputStream("src/main/java/"
+					+ "Graphics/darkParking.jpg");
 			Image image = new Image(input);
 			BackgroundImage backgroundimage = new BackgroundImage(image,
-					BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-					BackgroundPosition.DEFAULT,
+					BackgroundRepeat.NO_REPEAT,
+					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 					new BackgroundSize(1.0, 1.0, true, true, false, false));
 			Background background = new Background(backgroundimage);
 			vBox.setBackground(background);
