@@ -19,7 +19,7 @@ public class LicenseOCRTest {
 	 * We test a folder of image files with no cars.  
 	 */
 	@Test
-	public void testAPIForNullCar() throws PhotoException {		
+	public void testAPIForNullCar() throws ParkingException {		
 		for (Photo photo : photoArrayList) {
 			Car myCar = test.getCarWithOpenALPR(photo);
 			carArrayList.add(myCar);
@@ -34,7 +34,7 @@ public class LicenseOCRTest {
 	 * We test a folder of image files with cars.  
 	 */
 	@Test
-	public void testAPIForCar() throws PhotoException {
+	public void testAPIForCar() throws ParkingException {
 		Path filePath = Paths.get("src/test/java/Parking/CarFolder/");
 		photoArrayList = PhotoFactory.createPhotos(filePath);
 		

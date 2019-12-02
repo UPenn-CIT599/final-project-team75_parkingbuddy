@@ -1,14 +1,14 @@
 package Parking;
 
-public class PhotoException extends Exception {
+public class ParkingException extends Exception {
     private static final long serialVersionUID = 1L;
 
     // Parameterless Constructor
-    public PhotoException() {
+    public ParkingException() {
     }
 
     // Constructor that accepts a message
-    public PhotoException(String message) {
+    public ParkingException(String message) {
         super(message);
     }
 }

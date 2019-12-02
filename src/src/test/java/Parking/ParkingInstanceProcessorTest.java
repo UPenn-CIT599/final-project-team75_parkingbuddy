@@ -14,7 +14,7 @@ public class ParkingInstanceProcessorTest {
 	private ArrayList<ParkingInstance> parkingInstanceArrayList = new ArrayList<ParkingInstance>();
 	
 	@Before
-	public void setUp() throws PhotoException {
+	public void setUp() throws ParkingException {
 		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		ParkingInstanceProcessor pip = new ParkingInstanceProcessor();
 		parkingInstanceArrayList = pip.createParkingInstances(filePath);

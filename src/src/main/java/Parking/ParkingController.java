@@ -23,11 +23,11 @@ class ParkingController {
      * Add parking instances to the database based on folder or image file input.
      * @param filePath
      */
-    public ArrayList<ParkingInstance> uploadPhotos(Path filePath) throws PhotoException {
+    public ArrayList<ParkingInstance> uploadPhotos(Path filePath) throws ParkingException {
         return pip.addParkingInstances(db, filePath);
     }
 
-    public ArrayList<ParkingInstance> uploadPhotos(List<File> files) throws PhotoException {
+    public ArrayList<ParkingInstance> uploadPhotos(List<File> files) throws ParkingException {
         return pip.addParkingInstances(db, files);
     }
 
