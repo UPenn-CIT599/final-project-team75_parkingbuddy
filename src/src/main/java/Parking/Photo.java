@@ -120,7 +120,7 @@ public class Photo {
 
     public BufferedImage getThumbnail() {
         try {
-            return Thumbnails.of(image).size(256, 256).keepAspectRatio(true)
+            return Thumbnails.of(image).size(128, 128).keepAspectRatio(true)
                     .asBufferedImage();
         } catch (Exception e) {
             // This should not happen if image is valid.
