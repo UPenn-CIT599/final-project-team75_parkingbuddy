@@ -9,17 +9,17 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 public class LicenseOCRTest {
-	private LicenseOCR test = new LicenseOCR(); 
+	private LicenseOCR test = new LicenseOCR();
 	private ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
 	private ArrayList<Car> carArrayList = new ArrayList<Car>();
-	
+
 	/**
-	 * Test OpenALPR API for image files without a car. 
-	 * API should return a string "null,null" since there is no license plate and state information from the image file.
-	 * We test a folder of image files with no cars.  
+	 * Test OpenALPR API for image files without a car. API should return a string
+	 * "null,null" since there is no license plate and state information from the
+	 * image file. We test a folder of image files with no cars.
 	 */
 	@Test
-	public void testAPIForNullCar() throws ParkingException {		
+	public void testAPIForNullCar() throws ParkingException {
 		for (Photo photo : photoArrayList) {
 			Car myCar = test.getCarWithOpenALPR(photo);
 			carArrayList.add(myCar);
@@ -27,17 +27,17 @@ public class LicenseOCRTest {
 
 		assertEquals(0, carArrayList.size());
 	}
-	
+
 	/**
-	 * Test OpenALPR API for image files with a car. 
-	 * API should return a string with the car license plate and state information from the image file.
-	 * We test a folder of image files with cars.  
+	 * Test OpenALPR API for image files with a car. API should return a string with
+	 * the car license plate and state information from the image file. We test a
+	 * folder of image files with cars.
 	 */
 	@Test
 	public void testAPIForCar() throws ParkingException {
 		Path filePath = Paths.get("src/test/java/Parking/CarFolder/");
 		photoArrayList = PhotoFactory.createPhotos(filePath);
-		
+
 		for (Photo photo : photoArrayList) {
 			Car myCar = test.getCarWithOpenALPR(photo);
 			carArrayList.add(myCar);
@@ -50,6 +50,5 @@ public class LicenseOCRTest {
 		assertEquals("CA", carArrayList.get(2).getState());
 		assertEquals("COUNSL9", carArrayList.get(2).getLicense());
 	}
-	
 
 }
