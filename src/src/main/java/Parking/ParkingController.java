@@ -18,12 +18,21 @@ public class ParkingController {
     Database db;
     ParkingInstanceProcessor pip;
 
+    static ParkingController parkingController;
+
     /**
      * Parking Controller constructor
      */
-    public ParkingController() {
+    private ParkingController() {
         db = new Database();
         pip = new ParkingInstanceProcessor(db);
+    }
+
+    public static synchronized ParkingController getInstance() {
+        if (parkingController == null) {
+            parkingController = new ParkingController();
+        }
+        return parkingController;
     }
 
 

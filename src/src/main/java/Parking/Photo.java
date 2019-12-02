@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * This is the Photo class for each Photo object, representing each image file
- * loaded into the program. A Photo object has 3 parameters:
+ * This is the Photo class for each Photo object, representing each image file loaded into the
+ * program. A Photo object has 3 parameters:
  * 
  * (1) Photo metadata
  * 
@@ -21,8 +21,7 @@ import java.io.InputStream;
  */
 
 public class Photo {
-    final static DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     // Actual Image
     BufferedImage image;
 
@@ -44,16 +43,16 @@ public class Photo {
      * @param creationDate
      * @param photoHash
      */
-    public Photo(BufferedImage image, LocalDateTime dateTime, String md5Hash,
-            String path) throws ParkingException {
+    public Photo(BufferedImage image, LocalDateTime dateTime, String md5Hash, String path)
+            throws ParkingException {
         this.image = image;
         this.dateTime = dateTime;
         this.md5Hash = md5Hash;
         this.path = path;
     }
 
-    public Photo(byte[] photoBytes, LocalDateTime dateTime, String md5Hash,
-            String path) throws ParkingException {
+    public Photo(byte[] photoBytes, LocalDateTime dateTime, String md5Hash, String path)
+            throws ParkingException {
         try {
             InputStream inputStream = new ByteArrayInputStream(photoBytes);
             this.image = Thumbnails.of(inputStream).scale(1).asBufferedImage();
@@ -61,14 +60,12 @@ public class Photo {
             this.md5Hash = md5Hash;
             this.path = path;
         } catch (IOException e) {
-            throw new ParkingException(
-                    "Unable to load from Photo bytes: " + e.getMessage());
+            throw new ParkingException("Unable to load from Photo bytes: " + e.getMessage());
         }
     }
 
     /**
-     * Getter method to get the photo's creation date (i.e. when the photo was
-     * taken)
+     * Getter method to get the photo's creation date (i.e. when the photo was taken)
      * 
      * @return
      */
@@ -105,8 +102,7 @@ public class Photo {
     public byte[] toJpegBytes() {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         try {
-            Thumbnails.of(image).scale(1).outputFormat("jpeg")
-                    .toOutputStream(outStream);
+            Thumbnails.of(image).scale(1).outputFormat("jpeg").toOutputStream(outStream);
         } catch (Exception e) {
             // This should not happen if image is valid.
             e.printStackTrace();
@@ -120,8 +116,7 @@ public class Photo {
 
     public BufferedImage getThumbnail() {
         try {
-            return Thumbnails.of(image).size(128, 128).keepAspectRatio(true)
-                    .asBufferedImage();
+            return Thumbnails.of(image).size(128, 128).keepAspectRatio(true).asBufferedImage();
         } catch (Exception e) {
             // This should not happen if image is valid.
             e.printStackTrace();
@@ -138,7 +133,7 @@ public class Photo {
             return false;
         }
         Photo oPhoto = (Photo) o;
-        return dateTime.equals(oPhoto.dateTime)
-                && md5Hash.equals(oPhoto.md5Hash) && path.equals(oPhoto.path);
+        return dateTime.equals(oPhoto.dateTime) && md5Hash.equals(oPhoto.md5Hash)
+                && path.equals(oPhoto.path);
     }
 }

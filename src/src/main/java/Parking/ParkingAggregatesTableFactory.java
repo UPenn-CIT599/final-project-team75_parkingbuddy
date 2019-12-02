@@ -1,14 +1,11 @@
 package Parking;
 
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
-
-import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -17,33 +14,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
+import javafx.scene.Node;
 
-public class Table extends Application {
-    private ParkingController parkingController = new ParkingController();
-    private TableView<ParkingAggregate> table = new TableView<ParkingAggregate>();
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle("Parking Aggregates");
-        stage.setWidth(1024);
-        stage.setHeight(768);
-
-        stage.setScene(tableScene());
-        stage.show();
-    }
-
-    public Scene tableScene() {
+public class ParkingAggregatesTableFactory {
+    public static Scene createParkingAggregatesTableScene(ArrayList<ParkingAggregate> parkings) {
         Scene scene = new Scene(new Group());
 
         final Label label = new Label("Parking Aggregates");
         label.setFont(new Font("Arial", 20));
 
-        constructTable();
+        TableView<ParkingAggregate> table = createParkingAggregatesTable(parkings);
         table.setMinWidth(1000);
         table.setMinHeight(700);
         final VBox vbox = new VBox();
@@ -55,25 +35,30 @@ public class Table extends Application {
         return scene;
     }
 
-    private void constructTable() {
+    public static TableView<ParkingAggregate> createParkingAggregatesTable(
+            ArrayList<ParkingAggregate> parkings) {
+        TableView<ParkingAggregate> table = new TableView<ParkingAggregate>();
+
+        // State
         TableColumn<ParkingAggregate, String> state =
                 new TableColumn<ParkingAggregate, String>("State");
-
         state.setMinWidth(250);
         state.setCellValueFactory(new PropertyValueFactory<ParkingAggregate, String>("state"));
 
+        // License
         TableColumn<ParkingAggregate, String> license =
                 new TableColumn<ParkingAggregate, String>("License");
         license.setMinWidth(250);
         license.setCellValueFactory(new PropertyValueFactory<ParkingAggregate, String>("license"));
 
+        // Overnight Count
         TableColumn<ParkingAggregate, Integer> count =
                 new TableColumn<ParkingAggregate, Integer>("Count");
         count.setMinWidth(250);
         count.setCellValueFactory(
                 new PropertyValueFactory<ParkingAggregate, Integer>("overnightCount"));
 
-        table.setItems(getData());
+        table.setItems(FXCollections.observableArrayList(parkings));
         table.getColumns().addAll(Arrays.asList(state, license, count));
 
         table.setRowFactory(tv -> new TableRow<ParkingAggregate>() {
@@ -81,7 +66,7 @@ public class Table extends Application {
             {
                 this.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
                     if (isNowSelected) {
-                        detailsPane = constructSubTable(getItem());
+                        detailsPane = createInlineParkingInstancesTable(getItem());
                         this.getChildren().add(detailsPane);
                     } else {
                         this.getChildren().remove(detailsPane);
@@ -110,19 +95,14 @@ public class Table extends Application {
                 }
             }
         });
-    }
-
-    private TableView<ParkingInstance> constructSubTable(ParkingAggregate parkingAggregate) {
-        TableView<ParkingInstance> table =
-                ParkingInstancesTableViewFactory.createParkingInstancesTable(
-                        parkingAggregate.getParkingInstances(), false /* exclude car columns */);
-        table.setPrefHeight(50 + (parkingAggregate.getParkingInstances().size() * 130));
         return table;
     }
 
-
-    private ObservableList<ParkingAggregate> getData() {
-        return FXCollections.observableArrayList(parkingController
-                .getParkingAggregates(LocalDate.of(2010, 2, 11), LocalDate.of(2019, 6, 11)));
+    private static TableView<ParkingInstance> createInlineParkingInstancesTable(
+            ParkingAggregate parkingAggregate) {
+        TableView<ParkingInstance> table = ParkingInstancesTableFactory.createParkingInstancesTable(
+                parkingAggregate.getParkingInstances(), false /* exclude car columns */);
+        table.setPrefHeight(50 + (parkingAggregate.getParkingInstances().size() * 130));
+        return table;
     }
 }

@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class ParkingControllerTest {
 
-	private ParkingController pc = new ParkingController();
+	private ParkingController pc = ParkingController.getInstance();
 	private ArrayList<ParkingAggregate> results = new ArrayList<ParkingAggregate>();
 
 	/**

@@ -20,13 +20,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import java.awt.image.BufferedImage;
 
-public class ParkingInstancesTableViewFactory {
+public class ParkingInstancesTableFactory {
     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-    public TableView<ParkingAggregate> createParkingAggretatesTable(
-            ArrayList<ParkingAggregate> aggreates) {
-        return new TableView<ParkingAggregate>();
-    }
 
     public static Scene createParkingInstancesTableScene(ArrayList<ParkingInstance> parkings) {
         Scene scene = new Scene(new Group());
