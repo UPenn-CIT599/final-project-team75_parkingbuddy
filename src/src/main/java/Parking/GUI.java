@@ -30,8 +30,7 @@ import java.util.List;
  *
  */
 public class GUI extends Application {
-	private ParkingController parkingController = new ParkingController();
-	private Table parkingTable;
+	private ParkingController parkingController = ParkingController.getInstance();
 
 	// launching the application
 	public void start(Stage stage) {
@@ -188,7 +187,7 @@ public class GUI extends Application {
 						warning.setText("The dates are invalid.");
 						return;
 					}
-					ParkingAggregatesPopup();
+					ParkingAggregatesPopup(parkingController.getParkingAggregates(startDate, endDate));
 				}
 			});
 
@@ -223,15 +222,14 @@ public class GUI extends Application {
 		}
 	}
 
-	private void ParkingAggregatesPopup() {
+	private void ParkingAggregatesPopup(ArrayList<ParkingAggregate> parkings) {
 		Stage popupwindow = new Stage();
 		popupwindow.setWidth(1024);
 		popupwindow.setHeight(768);
-		parkingTable = new Table();
 
 		popupwindow.initModality(Modality.APPLICATION_MODAL);
 		popupwindow.setTitle("Parking Aggregates");
-		popupwindow.setScene(parkingTable.tableScene());
+		popupwindow.setScene(ParkingAggregatesTableFactory.createParkingAggregatesTableScene(parkings));
 		popupwindow.show();
 	}
 

@@ -22,23 +22,21 @@ import net.coobird.thumbnailator.Thumbnails;
 import java.util.List;
 
 /**
- * This class reads the image files and extracts the EXIF metadata required to
- * construct a Photo object from each image.
+ * This class reads the image files and extracts the EXIF metadata required to construct a Photo
+ * object from each image.
  *
  */
 public class PhotoFactory {
-	final static DateTimeFormatter formatter =
-			DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss");
+	final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss");
 
 	/**
-	 * This method creates an ArrayList of Photo objects from each image file in the
-	 * designated folder.
+	 * This method creates an ArrayList of Photo objects from each image file in the designated
+	 * folder.
 	 * 
 	 * @param path
 	 * @return
 	 */
-	public static ArrayList<Photo> createPhotos(Path path) 
-			throws ParkingException {
+	public static ArrayList<Photo> createPhotos(Path path) throws ParkingException {
 		// get paths to the image files in the folder
 		File[] files = path.toFile().listFiles();
 		if (files == null || files.length == 0) {
@@ -47,8 +45,7 @@ public class PhotoFactory {
 		return createPhotos(Arrays.asList(files));
 	}
 
-	public static ArrayList<Photo> createPhotos(List<File> files) 
-			throws ParkingException {
+	public static ArrayList<Photo> createPhotos(List<File> files) throws ParkingException {
 		// initialize ArrayList of photo objects
 		ArrayList<Photo> photos = new ArrayList<Photo>();
 		// get paths to the image files in the folder
@@ -76,8 +73,8 @@ public class PhotoFactory {
 	}
 
 	/**
-	 * This method creates a Photo object from an image file. Used to create
-	 * individual photo objects from the File argument.
+	 * This method creates a Photo object from an image file. Used to create individual photo
+	 * objects from the File argument.
 	 * 
 	 * @param file
 	 * @return
@@ -92,8 +89,8 @@ public class PhotoFactory {
 			byte[] bytes = Files.readAllBytes(path);
 			InputStream inputStream = new ByteArrayInputStream(bytes);
 			// Make the image smaller while keeping aspect ratio.
-			BufferedImage image = Thumbnails.of(inputStream).size(1024, 1024).
-					keepAspectRatio(true).asBufferedImage();
+			BufferedImage image = Thumbnails.of(inputStream).size(1024, 1024).keepAspectRatio(true)
+					.asBufferedImage();
 			inputStream.reset();
 			LocalDateTime dateTime = getDateTime(inputStream);
 			inputStream.reset();
@@ -108,29 +105,26 @@ public class PhotoFactory {
 	}
 
 	/**
-	 * This is a private method that extracts the original date of the files from a
-	 * folder by extracting exif data and storing them in an ArrayList of Strings.
+	 * This is a private method that extracts the original date of the files from a folder by
+	 * extracting exif data and storing them in an ArrayList of Strings.
 	 * 
-	 * Note: To get date from LocalDateTime object: formattedDate.toLocalDate() To
-	 * get time from LocalDateTime object: formattedDate.toLocalTime()
+	 * Note: To get date from LocalDateTime object: formattedDate.toLocalDate() To get time from
+	 * LocalDateTime object: formattedDate.toLocalTime()
 	 * 
 	 * @param file
 	 * @return
 	 */
-	private static LocalDateTime getDateTime(InputStream inputStream) 
-			throws ParkingException {
+	private static LocalDateTime getDateTime(InputStream inputStream) throws ParkingException {
 		LocalDateTime dateTime = null;
 		try {
 			Metadata metadata;
 			metadata = ImageMetadataReader.readMetadata(inputStream);
-			ExifSubIFDDirectory dir = metadata.getFirstDirectoryOfType(
-					ExifSubIFDDirectory.class);
+			ExifSubIFDDirectory dir = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
 			String dateStr = dir.getString(ExifIFD0Directory.TAG_DATETIME_ORIGINAL);
 
 			dateTime = LocalDateTime.parse(dateStr, formatter);
 		} catch (Exception e) {
-			throw new ParkingException("Unable to extract Photo metadata: "
-		+ e.getMessage());
+			throw new ParkingException("Unable to extract Photo metadata: " + e.getMessage());
 		}
 
 		return dateTime;
