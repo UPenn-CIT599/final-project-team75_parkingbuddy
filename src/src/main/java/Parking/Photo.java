@@ -21,124 +21,124 @@ import java.io.InputStream;
  */
 
 public class Photo {
-    final static DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    // Actual Image
-    BufferedImage image;
+	final static DateTimeFormatter formatter = DateTimeFormatter
+			.ofPattern("yyyy-MM-dd HH:mm:ss");
+	// Actual Image
+	BufferedImage image;
 
-    // photo creation date, i.e. time that photo was taken of car parking
-    // instance
-    LocalDateTime dateTime;
+	// photo creation date, i.e. time that photo was taken of car parking
+	// instance
+	LocalDateTime dateTime;
 
-    // hash of photo which provides us with a unique identifier for each photo
-    // to handle duplicates
-    String md5Hash;
+	// hash of photo which provides us with a unique identifier for each photo
+	// to handle duplicates
+	String md5Hash;
 
-    // path of photo file based on user input
-    String path;
+	// path of photo file based on user input
+	String path;
 
-    /**
-     * Constructor for Photo
-     * 
-     * @param data
-     * @param creationDate
-     * @param photoHash
-     */
-    public Photo(BufferedImage image, LocalDateTime dateTime, String md5Hash,
-            String path) throws ParkingException {
-        this.image = image;
-        this.dateTime = dateTime;
-        this.md5Hash = md5Hash;
-        this.path = path;
-    }
+	/**
+	 * Constructor for Photo
+	 * 
+	 * @param data
+	 * @param creationDate
+	 * @param photoHash
+	 */
+	public Photo(BufferedImage image, LocalDateTime dateTime, String md5Hash,
+			String path) throws ParkingException {
+		this.image = image;
+		this.dateTime = dateTime;
+		this.md5Hash = md5Hash;
+		this.path = path;
+	}
 
-    public Photo(byte[] photoBytes, LocalDateTime dateTime, String md5Hash,
-            String path) throws ParkingException {
-        try {
-            InputStream inputStream = new ByteArrayInputStream(photoBytes);
-            this.image = Thumbnails.of(inputStream).scale(1).asBufferedImage();
-            this.dateTime = dateTime;
-            this.md5Hash = md5Hash;
-            this.path = path;
-        } catch (IOException e) {
-            throw new ParkingException(
-                    "Unable to load from Photo bytes: " + e.getMessage());
-        }
-    }
+	public Photo(byte[] photoBytes, LocalDateTime dateTime, String md5Hash,
+			String path) throws ParkingException {
+		try {
+			InputStream inputStream = new ByteArrayInputStream(photoBytes);
+			this.image = Thumbnails.of(inputStream).scale(1).asBufferedImage();
+			this.dateTime = dateTime;
+			this.md5Hash = md5Hash;
+			this.path = path;
+		} catch (IOException e) {
+			throw new ParkingException(
+					"Unable to load from Photo bytes: " + e.getMessage());
+		}
+	}
 
-    /**
-     * Getter method to get the photo's creation date (i.e. when the photo was
-     * taken)
-     * 
-     * @return
-     */
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
+	/**
+	 * Getter method to get the photo's creation date (i.e. when the photo was
+	 * taken)
+	 * 
+	 * @return
+	 */
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
 
-    /**
-     * Getter method to get the file path of the photo
-     * 
-     * @return
-     */
-    public String getPath() {
-        return path;
-    }
+	/**
+	 * Getter method to get the file path of the photo
+	 * 
+	 * @return
+	 */
+	public String getPath() {
+		return path;
+	}
 
-    /**
-     * Getter method to get the hash string of the photo
-     * 
-     * @return
-     */
-    public String getMd5Hash() {
-        return md5Hash;
-    }
+	/**
+	 * Getter method to get the hash string of the photo
+	 * 
+	 * @return
+	 */
+	public String getMd5Hash() {
+		return md5Hash;
+	}
 
-    public String toString() {
-        return toShortString() + ", " + path;
-    }
+	public String toString() {
+		return toShortString() + ", " + path;
+	}
 
-    public String toShortString() {
-        return dateTime.format(formatter) + ", " + md5Hash;
-    }
+	public String toShortString() {
+		return dateTime.format(formatter) + ", " + md5Hash;
+	}
 
-    public byte[] toJpegBytes() {
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        try {
-            Thumbnails.of(image).scale(1).outputFormat("jpeg")
-                    .toOutputStream(outStream);
-        } catch (Exception e) {
-            // This should not happen if image is valid.
-            e.printStackTrace();
-        }
-        return outStream.toByteArray();
-    }
+	public byte[] toJpegBytes() {
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		try {
+			Thumbnails.of(image).scale(1).outputFormat("jpeg")
+					.toOutputStream(outStream);
+		} catch (Exception e) {
+			// This should not happen if image is valid.
+			e.printStackTrace();
+		}
+		return outStream.toByteArray();
+	}
 
-    public BufferedImage getImage() {
-        return image;
-    }
+	public BufferedImage getImage() {
+		return image;
+	}
 
-    public BufferedImage getThumbnail() {
-        try {
-            return Thumbnails.of(image).size(256, 256).keepAspectRatio(true)
-                    .asBufferedImage();
-        } catch (Exception e) {
-            // This should not happen if image is valid.
-            e.printStackTrace();
-        }
-        return null;
-    }
+	public BufferedImage getThumbnail() {
+		try {
+			return Thumbnails.of(image).size(256, 256).keepAspectRatio(true)
+					.asBufferedImage();
+		} catch (Exception e) {
+			// This should not happen if image is valid.
+			e.printStackTrace();
+		}
+		return null;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Photo oPhoto = (Photo) o;
-        return dateTime.equals(oPhoto.dateTime)
-                && md5Hash.equals(oPhoto.md5Hash) && path.equals(oPhoto.path);
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Photo oPhoto = (Photo) o;
+		return dateTime.equals(oPhoto.dateTime)
+				&& md5Hash.equals(oPhoto.md5Hash) && path.equals(oPhoto.path);
+	}
 }
