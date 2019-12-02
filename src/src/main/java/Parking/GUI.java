@@ -21,6 +21,12 @@ import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * 
+ * This GUI class sets up and runs a window that interacts with the user to
+ * serve his/her needs. There are buttons that 
+ *
+ */
 public class GUI extends Application {
 	private ParkingController parkingController = new ParkingController();
 	private Table parkingTable;
