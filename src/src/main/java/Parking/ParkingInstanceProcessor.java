@@ -27,10 +27,8 @@ public class ParkingInstanceProcessor {
 	 * @param photo
 	 * @return
 	 */
-	public ArrayList<ParkingInstance> createParkingInstances(
-			ArrayList<Photo> photos) {
-		ArrayList<ParkingInstance> parkingInstances =
-				new ArrayList<ParkingInstance>();
+	public ArrayList<ParkingInstance> createParkingInstances(ArrayList<Photo> photos) {
+		ArrayList<ParkingInstance> parkingInstances = new ArrayList<ParkingInstance>();
 		for (Photo photo : photos) {
 			Car myCar = ocr.getCarWithOpenALPR(photo);
 			if (myCar == null) {
@@ -41,19 +39,21 @@ public class ParkingInstanceProcessor {
 		return parkingInstances;
 	}
 
-	public ArrayList<ParkingInstance> createParkingInstances(Path path) throws ParkingException {
+	public ArrayList<ParkingInstance> createParkingInstances(Path path)
+			throws ParkingException {
 		ArrayList<Photo> photos = PhotoFactory.createPhotos(path);
 		return createParkingInstances(photos);
 	}
 
-	public ArrayList<ParkingInstance> createParkingInstances(List<File> files) throws ParkingException {
+	public ArrayList<ParkingInstance> createParkingInstances(List<File> files)
+			throws ParkingException {
 		ArrayList<Photo> photos = PhotoFactory.createPhotos(files);
 		return createParkingInstances(photos);
 	}
 
 	/**
-	 * This method adds multiple parking instance objects from an ArrayList to
-	 * the Database.
+	 * This method adds multiple parking instance objects from an ArrayList to the
+	 * Database.
 	 * 
 	 * @param db
 	 * @param filePath
@@ -82,10 +82,8 @@ public class ParkingInstanceProcessor {
 		return parkings;
 	}
 
-
 	public static void main(String[] args) {
-		Path filePath =
-				Paths.get("src/test/java/Parking/MultipleImagesFolder/");
+		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		try {
 			ParkingInstanceProcessor pip = new ParkingInstanceProcessor(null);
 			ArrayList<ParkingInstance> parkingInstances =

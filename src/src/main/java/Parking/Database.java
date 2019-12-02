@@ -172,8 +172,8 @@ public class Database {
 	 * @param startDate
 	 * @param endDate
 	 */
-	public ArrayList<ParkingAggregate> getParkingAggregates(
-			LocalDate startDate, LocalDate endDate) {
+	public ArrayList<ParkingAggregate> getParkingAggregates(LocalDate startDate,
+			LocalDate endDate) {
 		String sql = "SELECT state, license, count(*) as count from\n" + "(\n"
 				+ "  SELECT * from\n" // line break
 				+ "  (\n"

@@ -52,10 +52,10 @@ public class ParkingController {
 
     public static void main(String[] args) {
         ParkingController pc = new ParkingController();
-        // Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
-        // pc.uploadPhotos(filePath);
+        
         ArrayList<ParkingAggregate> results = new ArrayList<ParkingAggregate>();
-        results = pc.getParkingAggregates(LocalDate.of(2010, 2, 11),LocalDate.of(2019, 6, 11));
+        results = pc.getParkingAggregates(
+        		LocalDate.of(2010, 2, 11),LocalDate.of(2019, 6, 11));
         for (ParkingAggregate result : results) {
         	String str = result.toString();
         	System.out.println(str);
