@@ -21,8 +21,7 @@ import javafx.stage.Stage;
 
 public class Table extends Application {
     private ParkingController parkingController = new ParkingController();
-    private TableView<ParkingAggregate> table =
-            new TableView<ParkingAggregate>();
+    private TableView<ParkingAggregate> table = new TableView<ParkingAggregate>();
 
     public static void main(String[] args) {
         launch(args);
@@ -61,21 +60,18 @@ public class Table extends Application {
                 new TableColumn<ParkingAggregate, String>("State");
 
         state.setMinWidth(250);
-        state.setCellValueFactory(
-                new PropertyValueFactory<ParkingAggregate, String>("state"));
+        state.setCellValueFactory(new PropertyValueFactory<ParkingAggregate, String>("state"));
 
         TableColumn<ParkingAggregate, String> license =
                 new TableColumn<ParkingAggregate, String>("License");
         license.setMinWidth(250);
-        license.setCellValueFactory(
-                new PropertyValueFactory<ParkingAggregate, String>("license"));
+        license.setCellValueFactory(new PropertyValueFactory<ParkingAggregate, String>("license"));
 
         TableColumn<ParkingAggregate, Integer> count =
                 new TableColumn<ParkingAggregate, Integer>("Count");
         count.setMinWidth(250);
         count.setCellValueFactory(
-                new PropertyValueFactory<ParkingAggregate, Integer>(
-                        "overnightCount"));
+                new PropertyValueFactory<ParkingAggregate, Integer>("overnightCount"));
 
         table.setItems(getData());
         table.getColumns().addAll(Arrays.asList(state, license, count));
@@ -83,24 +79,22 @@ public class Table extends Application {
         table.setRowFactory(tv -> new TableRow<ParkingAggregate>() {
             Node detailsPane;
             {
-                this.selectedProperty()
-                        .addListener((obs, wasSelected, isNowSelected) -> {
-                            if (isNowSelected) {
-                                detailsPane = constructSubTable(getItem());
-                                this.getChildren().add(detailsPane);
-                            } else {
-                                this.getChildren().remove(detailsPane);
-                            }
-                            this.requestLayout();
-                        });
+                this.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                    if (isNowSelected) {
+                        detailsPane = constructSubTable(getItem());
+                        this.getChildren().add(detailsPane);
+                    } else {
+                        this.getChildren().remove(detailsPane);
+                    }
+                    this.requestLayout();
+                });
 
             }
 
             @Override
             protected double computePrefHeight(double width) {
                 if (isSelected()) {
-                    return super.computePrefHeight(width)
-                            + detailsPane.prefHeight(60);
+                    return super.computePrefHeight(width) + detailsPane.prefHeight(60);
                 } else {
                     return super.computePrefHeight(width);
                 }
@@ -112,28 +106,23 @@ public class Table extends Application {
                 if (isSelected()) {
                     double width = getWidth();
                     double paneHeight = detailsPane.prefHeight(width);
-                    detailsPane.resizeRelocate(0, getHeight() - paneHeight,
-                            width, paneHeight);
+                    detailsPane.resizeRelocate(0, getHeight() - paneHeight, width, paneHeight);
                 }
             }
         });
     }
 
-    private TableView<ParkingInstance> constructSubTable(
-            ParkingAggregate parkingAggregate) {
+    private TableView<ParkingInstance> constructSubTable(ParkingAggregate parkingAggregate) {
         TableView<ParkingInstance> table =
                 ParkingInstancesTableViewFactory.createParkingInstancesTable(
-                        parkingAggregate.getParkingInstances(),
-                        false /* exclude car columns */);
-        table.setPrefHeight(
-                50 + (parkingAggregate.getParkingInstances().size() * 130));
+                        parkingAggregate.getParkingInstances(), false /* exclude car columns */);
+        table.setPrefHeight(50 + (parkingAggregate.getParkingInstances().size() * 130));
         return table;
     }
 
 
     private ObservableList<ParkingAggregate> getData() {
-        return FXCollections
-                .observableArrayList(parkingController.getParkingAggregates(
-                        LocalDate.of(2010, 2, 11), LocalDate.of(2019, 6, 11)));
+        return FXCollections.observableArrayList(parkingController
+                .getParkingAggregates(LocalDate.of(2010, 2, 11), LocalDate.of(2019, 6, 11)));
     }
 }

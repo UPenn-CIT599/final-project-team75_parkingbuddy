@@ -14,9 +14,9 @@ public class LicenseOCRTest {
 	private ArrayList<Car> carArrayList = new ArrayList<Car>();
 
 	/**
-	 * Test OpenALPR API for image files without a car. API should return a string
-	 * "null,null" since there is no license plate and state information from the
-	 * image file. We test a folder of image files with no cars.
+	 * Test OpenALPR API for image files without a car. API should return a string "null,null" since
+	 * there is no license plate and state information from the image file. We test a folder of
+	 * image files with no cars.
 	 */
 	@Test
 	public void testAPIForNullCar() throws ParkingException {
@@ -29,9 +29,8 @@ public class LicenseOCRTest {
 	}
 
 	/**
-	 * Test OpenALPR API for image files with a car. API should return a string with
-	 * the car license plate and state information from the image file. We test a
-	 * folder of image files with cars.
+	 * Test OpenALPR API for image files with a car. API should return a string with the car license
+	 * plate and state information from the image file. We test a folder of image files with cars.
 	 */
 	@Test
 	public void testAPIForCar() throws ParkingException {

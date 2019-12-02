@@ -6,6 +6,4 @@ public class ParkingAggregateProcessor {
     public ParkingAggregateProcessor(Database db) {
         this.db = db;
     }
-
-    
 }

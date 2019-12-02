@@ -2,9 +2,6 @@ package Parking;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-
-import org.junit.Before;
 import org.junit.Test;
 
 public class CarTest {
@@ -15,8 +12,7 @@ public class CarTest {
 	Car newCar4 = new Car("CA", "1234567");
 
 	/**
-	 * Test whether the constructor works well taking in the variables,
-	 * even with empty parameters.
+	 * Test whether the constructor works well taking in the variables, even with empty parameters.
 	 */
 	@Test
 	public void TestConstandGetters() {
@@ -34,7 +30,7 @@ public class CarTest {
 
 		assertEquals("CA, 1234567", newCar1.toString());
 	}
-	
+
 	/**
 	 * Test the equals method that compares two car objects
 	 */
