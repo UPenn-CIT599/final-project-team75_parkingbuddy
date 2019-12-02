@@ -67,6 +67,37 @@ public class GUI extends Application {
 			// setting up directory chooser
 			directoryChooser.setTitle("Select the folder with images.");
 			directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+			// create the button to upload files using file chooser
+			Button button2 = new Button("Upload file(s)");
+			final FileChooser fileChooser = new FileChooser();
+			// the user is defaulted to uploading jpeg files when using file
+			// chooser
+			fileChooser.getExtensionFilters().addAll(
+					new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+					new FileChooser.ExtensionFilter("PNG", "*.png"),
+					new FileChooser.ExtensionFilter("All Files", "*.*"));
+
+
+			// create event handler in case of button pressed
+			button2.setOnAction(new EventHandler<ActionEvent>() {
+				public void handle(ActionEvent event) {
+					textArea.clear();
+					List<File> files = fileChooser.showOpenMultipleDialog(stage);
+					try {
+						if (files == null || files.size() == 0) {
+							return;
+						}
+						ArrayList<ParkingInstance> parkings = parkingController.uploadPhotos(files);
+						ParkingInstancesPopup(parkings);
+						if( parkings == null || parkings.size() == 0) {
+							return;
+						}
+					} catch (ParkingException e) {
+						e.printStackTrace();
+					}
+				}
+			});
 			// create event handler in case of button pressed
 			button1.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -78,31 +109,14 @@ public class GUI extends Application {
 						textArea.setText(null);
 					}
 					try {
+						if (dir == null) {
+							return;
+						}
 						ArrayList<ParkingInstance> parkings =
 								parkingController.uploadPhotos(dir.toPath());
-						ParkingInstancesPopup(parkings);
-					} catch (ParkingException e) {
-						e.printStackTrace();
-					}
-				}
-			});
-
-			// create the button to upload files using file chooser
-			Button button2 = new Button("Upload file(s)");
-			final FileChooser fileChooser = new FileChooser();
-			// the user is defaulted to uploading jpeg files when using file
-			// chooser
-			fileChooser.getExtensionFilters().addAll(
-					new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-					new FileChooser.ExtensionFilter("PNG", "*.png"),
-					new FileChooser.ExtensionFilter("All Files", "*.*"));
-			// create event handler in case of button pressed
-			button2.setOnAction(new EventHandler<ActionEvent>() {
-				public void handle(ActionEvent event) {
-					textArea.clear();
-					List<File> files = fileChooser.showOpenMultipleDialog(stage);
-					try {
-						ArrayList<ParkingInstance> parkings = parkingController.uploadPhotos(files);
+						if( parkings == null || parkings.size() == 0) {
+							return;
+						}
 						ParkingInstancesPopup(parkings);
 					} catch (ParkingException e) {
 						e.printStackTrace();
@@ -241,7 +255,7 @@ public class GUI extends Application {
 		popupwindow.initModality(Modality.APPLICATION_MODAL);
 		popupwindow.setTitle("Parking Instances Uploaded");
 		popupwindow.setScene(
-				ParkingInstancesTableViewFactory.createParkingInstancesTableScene(parkings));
+				ParkingInstancesTableFactory.createParkingInstancesTableScene(parkings));
 		popupwindow.show();
 	}
 
