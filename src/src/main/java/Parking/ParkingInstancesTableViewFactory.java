@@ -21,8 +21,7 @@ import javafx.scene.text.Font;
 import java.awt.image.BufferedImage;
 
 public class ParkingInstancesTableViewFactory {
-    static final DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public TableView<ParkingAggregate> createParkingAggretatesTable(
             ArrayList<ParkingAggregate> aggreates) {
@@ -38,7 +37,7 @@ public class ParkingInstancesTableViewFactory {
         TableView<ParkingInstance> table = createParkingInstancesTable(parkings, true);
         table.setMinWidth(1000);
         table.setMinHeight(700);
-        
+
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 10, 10, 10));
@@ -66,8 +65,7 @@ public class ParkingInstancesTableViewFactory {
             licenseCol = new TableColumn<ParkingInstance, String>("License");
             licenseCol.setMinWidth(200);
             licenseCol.setCellValueFactory(
-                    new PropertyValueFactory<ParkingInstance, String>(
-                            "license"));
+                    new PropertyValueFactory<ParkingInstance, String>("license"));
         }
 
         // Date Time
@@ -75,14 +73,12 @@ public class ParkingInstancesTableViewFactory {
                 new TableColumn<ParkingInstance, LocalDateTime>("Date Time");
         dateCol.setMinWidth(200);
         dateCol.setCellValueFactory(
-                new PropertyValueFactory<ParkingInstance, LocalDateTime>(
-                        "dateTime"));
+                new PropertyValueFactory<ParkingInstance, LocalDateTime>("dateTime"));
         dateCol.setCellFactory(column -> {
             TableCell<ParkingInstance, LocalDateTime> cell =
                     new TableCell<ParkingInstance, LocalDateTime>() {
                         @Override
-                        protected void updateItem(LocalDateTime date,
-                                boolean empty) {
+                        protected void updateItem(LocalDateTime date, boolean empty) {
                             super.updateItem(date, empty);
                             if (empty) {
                                 setText(null);
@@ -95,20 +91,18 @@ public class ParkingInstancesTableViewFactory {
 
             return cell;
         });
-    
+
         // Thumbnail
         TableColumn<ParkingInstance, BufferedImage> photoCol =
                 new TableColumn<ParkingInstance, BufferedImage>("Photo");
         photoCol.setMinWidth(400);
         photoCol.setCellValueFactory(
-                new PropertyValueFactory<ParkingInstance, BufferedImage>(
-                        "thumbnail"));
+                new PropertyValueFactory<ParkingInstance, BufferedImage>("thumbnail"));
         photoCol.setCellFactory(column -> {
             TableCell<ParkingInstance, BufferedImage> cell =
                     new TableCell<ParkingInstance, BufferedImage>() {
                         @Override
-                        protected void updateItem(BufferedImage image,
-                                boolean empty) {
+                        protected void updateItem(BufferedImage image, boolean empty) {
                             super.updateItem(image, empty);
                             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                             ImageView imageView = new ImageView();
@@ -119,8 +113,7 @@ public class ParkingInstancesTableViewFactory {
                                 return;
                             }
 
-                            imageView.setImage(
-                                    SwingFXUtils.toFXImage(image, null));
+                            imageView.setImage(SwingFXUtils.toFXImage(image, null));
                             setGraphic(imageView);
                         }
                     };
@@ -131,8 +124,7 @@ public class ParkingInstancesTableViewFactory {
 
         table.setItems(FXCollections.observableArrayList(parkings));
         if (includeCarCols) {
-            table.getColumns().addAll(
-                    Arrays.asList(dateCol, stateCol, licenseCol, photoCol));
+            table.getColumns().addAll(Arrays.asList(dateCol, stateCol, licenseCol, photoCol));
         } else {
             table.getColumns().addAll(Arrays.asList(dateCol, photoCol));
         }

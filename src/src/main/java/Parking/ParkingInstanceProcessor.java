@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ParkingInstanceProcessor creates an Arraylist of parking instances from a
- * folder of photos.
+ * ParkingInstanceProcessor creates an Arraylist of parking instances from a folder of photos.
  */
 
 public class ParkingInstanceProcessor {
@@ -20,8 +19,7 @@ public class ParkingInstanceProcessor {
 	}
 
 	/**
-	 * This method creates a ParkingInstance object from two arguments: Car and
-	 * Photo.
+	 * This method creates a ParkingInstance object from two arguments: Car and Photo.
 	 * 
 	 * @param car
 	 * @param photo
@@ -39,8 +37,7 @@ public class ParkingInstanceProcessor {
 		return parkingInstances;
 	}
 
-	public ArrayList<ParkingInstance> createParkingInstances(Path path)
-			throws ParkingException {
+	public ArrayList<ParkingInstance> createParkingInstances(Path path) throws ParkingException {
 		ArrayList<Photo> photos = PhotoFactory.createPhotos(path);
 		return createParkingInstances(photos);
 	}
@@ -52,14 +49,13 @@ public class ParkingInstanceProcessor {
 	}
 
 	/**
-	 * This method adds multiple parking instance objects from an ArrayList to the
-	 * Database.
+	 * This method adds multiple parking instance objects from an ArrayList to the Database.
 	 * 
 	 * @param db
 	 * @param filePath
 	 */
-	public void addParkingInstancesToDB(
-			ArrayList<ParkingInstance> parkingInstances) throws ParkingException {
+	public void addParkingInstancesToDB(ArrayList<ParkingInstance> parkingInstances)
+			throws ParkingException {
 		if (db == null) {
 			throw new ParkingException("Invalid database");
 		}
@@ -68,8 +64,7 @@ public class ParkingInstanceProcessor {
 		}
 	}
 
-	public ArrayList<ParkingInstance> addParkingInstances(Path path)
-			throws ParkingException {
+	public ArrayList<ParkingInstance> addParkingInstances(Path path) throws ParkingException {
 		ArrayList<ParkingInstance> parkings = createParkingInstances(path);
 		addParkingInstancesToDB(parkings);
 		return parkings;
@@ -86,8 +81,7 @@ public class ParkingInstanceProcessor {
 		Path filePath = Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		try {
 			ParkingInstanceProcessor pip = new ParkingInstanceProcessor(null);
-			ArrayList<ParkingInstance> parkingInstances =
-					pip.createParkingInstances(filePath);
+			ArrayList<ParkingInstance> parkingInstances = pip.createParkingInstances(filePath);
 			for (ParkingInstance parkingInstance : parkingInstances) {
 				System.out.println(parkingInstance);
 			}
