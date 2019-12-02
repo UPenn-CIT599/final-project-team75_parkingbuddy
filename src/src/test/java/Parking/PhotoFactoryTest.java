@@ -21,7 +21,7 @@ public class PhotoFactoryTest {
 	 * each image's EXIF metadata.
 	 */
 	@Test
-	public void testOneImage() throws PhotoException {
+	public void testOneImage() throws ParkingException {
 		Path filePath = Paths.get("src/test/java/Parking/OneImageFolder/");
 		ArrayList<Photo> photoArrayList = PhotoFactory.createPhotos(filePath);
 		ArrayList<LocalDateTime> dates = new ArrayList<LocalDateTime>();
@@ -37,8 +37,8 @@ public class PhotoFactoryTest {
 	/**
 	 * Test for an empty folder
 	 */
-	@Test(expected = PhotoException.class)
-	public void testEmptyFolder() throws PhotoException {
+	@Test(expected = ParkingException.class)
+	public void testEmptyFolder() throws ParkingException {
 		Path filePath = Paths.get("/src/test/java/Parking/EmptyFolder/");
 		PhotoFactory.createPhotos(filePath);
 	}
@@ -46,8 +46,8 @@ public class PhotoFactoryTest {
 	/**
 	 * Test for a folder with invalid path
 	 */
-	@Test(expected = PhotoException.class)
-	public void testInvalidPath() throws PhotoException {
+	@Test(expected = ParkingException.class)
+	public void testInvalidPath() throws ParkingException {
 		Path filePath = Paths.get("//invalidPath//");
 		PhotoFactory.createPhotos(filePath);
 	}
@@ -59,7 +59,7 @@ public class PhotoFactoryTest {
 	 * each image's EXIF metadata.
 	 */
 	@Test
-	public void testMultipleFolder() throws PhotoException {
+	public void testMultipleFolder() throws ParkingException {
 		Path filePath =
 				Paths.get("src/test/java/Parking/MultipleImagesFolder/");
 		ArrayList<Photo> photos = PhotoFactory.createPhotos(filePath);
@@ -114,8 +114,8 @@ public class PhotoFactoryTest {
 	 * testing the readDates method to ensure the LocalDateTime date data is
 	 * extracted correctly from each image's EXIF metadata.
 	 */
-	@Test(expected = PhotoException.class)
-	public void testPNGImagesFolder() throws PhotoException {
+	@Test(expected = ParkingException.class)
+	public void testPNGImagesFolder() throws ParkingException {
 		Path filePath = Paths.get("src/test/java/Parking/PNGImagesFolder/");
 		PhotoFactory.createPhotos(filePath);
 	}
@@ -127,7 +127,7 @@ public class PhotoFactoryTest {
 	 * extracted correctly from each image's EXIF metadata.
 	 */
 	@Test
-	public void testMixedImagesFolder() throws PhotoException {
+	public void testMixedImagesFolder() throws ParkingException {
 		Path filePath = Paths.get("src/test/java/Parking/MixedImagesFolder/");
 		ArrayList<Photo> photoArrayList = PhotoFactory.createPhotos(filePath);
 		ArrayList<LocalDateTime> dates = new ArrayList<LocalDateTime>();

@@ -36,12 +36,12 @@ public class ParkingInstanceProcessor {
 		return parkingInstances;
 	}
 
-	public ArrayList<ParkingInstance> createParkingInstances(Path path) throws PhotoException {
+	public ArrayList<ParkingInstance> createParkingInstances(Path path) throws ParkingException {
 		ArrayList<Photo> photos = PhotoFactory.createPhotos(path);
 		return createParkingInstances(photos);
 	}
 
-	public ArrayList<ParkingInstance> createParkingInstances(List<File> files) throws PhotoException {
+	public ArrayList<ParkingInstance> createParkingInstances(List<File> files) throws ParkingException {
 		ArrayList<Photo> photos = PhotoFactory.createPhotos(files);
 		return createParkingInstances(photos);
 	}
@@ -54,21 +54,21 @@ public class ParkingInstanceProcessor {
 	 * @param filePath
 	 */
 	public void addParkingInstancesToDB(Database db,
-			ArrayList<ParkingInstance> parkingInstances) {
+			ArrayList<ParkingInstance> parkingInstances) throws ParkingException {
 		for (ParkingInstance pi : parkingInstances) {
 			db.insertParkingInstance(pi);
 		}
 	}
 
 	public ArrayList<ParkingInstance> addParkingInstances(Database db, Path path)
-			throws PhotoException {
+			throws ParkingException {
 		ArrayList<ParkingInstance> parkings = createParkingInstances(path);
 		addParkingInstancesToDB(db, parkings);
 		return parkings;
 	}
 
 	public ArrayList<ParkingInstance> addParkingInstances(Database db, List<File> files)
-			throws PhotoException {
+			throws ParkingException {
 		ArrayList<ParkingInstance> parkings = createParkingInstances(files);
 		addParkingInstancesToDB(db, parkings);
 		return parkings;
@@ -85,7 +85,7 @@ public class ParkingInstanceProcessor {
 			for (ParkingInstance parkingInstance : parkingInstances) {
 				System.out.println(parkingInstance);
 			}
-		} catch (PhotoException e) {
+		} catch (ParkingException e) {
 			e.printStackTrace();
 		}
 	}

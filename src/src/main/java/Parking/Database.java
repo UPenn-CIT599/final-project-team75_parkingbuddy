@@ -92,7 +92,15 @@ public class Database {
 	 * 
 	 * @param parkingInstance
 	 */
-	public void insertParkingInstance(ParkingInstance parkingInstance) {
+	public void insertParkingInstance(ParkingInstance parkingInstance)
+			throws ParkingException {
+		if (parkingInstance.getCar().getState().isEmpty()
+				|| parkingInstance.getCar().getLicense().isEmpty()
+				|| parkingInstance.getPhoto().getMd5Hash().isEmpty()) {
+			throw new ParkingException(
+					"Unable to insert parkingInstance to DB; parkingInstance contains empty field(s)");
+		}
+
 		String sql = "INSERT OR IGNORE INTO ParkingInstances \n"
 				+ "(state,license,datetime,photoHash,photoPath,photoImage) VALUES(?,?,?,?,?,?)";
 

@@ -37,21 +37,21 @@ public class PhotoFactory {
 	 * @param path
 	 * @return
 	 */
-	public static ArrayList<Photo> createPhotos(Path path) throws PhotoException {
+	public static ArrayList<Photo> createPhotos(Path path) throws ParkingException {
 		// get paths to the image files in the folder
 		File[] files = path.toFile().listFiles();
 		if (files == null || files.length == 0) {
-			throw new PhotoException("Invalid dir: " + path.toString());
+			throw new ParkingException("Invalid dir: " + path.toString());
 		} 
 		return createPhotos(Arrays.asList(files));
 	}
 
-	public static ArrayList<Photo> createPhotos(List<File> files) throws PhotoException {
+	public static ArrayList<Photo> createPhotos(List<File> files) throws ParkingException {
 		// initialize ArrayList of photo objects
 		ArrayList<Photo> photos = new ArrayList<Photo>();
 		// get paths to the image files in the folder
 		if (files == null || files.size() == 0) {
-			throw new PhotoException("Invalid files: " + files);
+			throw new ParkingException("Invalid files: " + files);
 		} 
 		ArrayList<File> filteredFiles = new ArrayList<File>();
 		for (File file : files) {
@@ -62,7 +62,7 @@ public class PhotoFactory {
 			filteredFiles.add(file);
 		}
 		if (filteredFiles.size() == 0) {
-			throw new PhotoException("No valid photo files: " + files);
+			throw new ParkingException("No valid photo files: " + files);
 		} 
 
 		// iterate through each image file in the folder to create a photo
@@ -81,11 +81,11 @@ public class PhotoFactory {
 	 * @param file
 	 * @return
 	 */
-	public static Photo createPhoto(File file) throws PhotoException {
+	public static Photo createPhoto(File file) throws ParkingException {
 		return createPhoto(file.toPath());
 	}
 
-	public static Photo createPhoto(Path path) throws PhotoException {
+	public static Photo createPhoto(Path path) throws ParkingException {
 		Photo photo = null;
 		try {
 			byte[] bytes = Files.readAllBytes(path);
@@ -101,7 +101,7 @@ public class PhotoFactory {
 					path.toString());
 
 		} catch (IOException e) {
-			throw new PhotoException(
+			throw new ParkingException(
 					"Unable to read Photo file: " + e.getMessage());
 		}
 		return photo;
@@ -120,7 +120,7 @@ public class PhotoFactory {
 	 * @return
 	 */
 	private static LocalDateTime getDateTime(InputStream inputStream)
-			throws PhotoException {
+			throws ParkingException {
 		LocalDateTime dateTime = null;
 		try {
 			Metadata metadata;
@@ -132,7 +132,7 @@ public class PhotoFactory {
 
 			dateTime = LocalDateTime.parse(dateStr, formatter);
 		} catch (Exception e) {
-			throw new PhotoException(
+			throw new ParkingException(
 					"Unable to extract Photo metadata: " + e.getMessage());
 		}
 
@@ -147,7 +147,7 @@ public class PhotoFactory {
 			for (Photo photo : photos) {
 				System.out.println(photo);
 			}
-		} catch (PhotoException e) {
+		} catch (ParkingException e) {
 			e.printStackTrace();
 		}
 	}

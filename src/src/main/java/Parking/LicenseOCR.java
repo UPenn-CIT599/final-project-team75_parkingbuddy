@@ -129,7 +129,7 @@ class LicenseOCR {
 				Car myCar = ocr.getCarWithOpenALPR(photo);
 				System.out.println(myCar);
 			}
-		} catch (PhotoException e) {
+		} catch (ParkingException e) {
 			e.printStackTrace();
 		}
 	}

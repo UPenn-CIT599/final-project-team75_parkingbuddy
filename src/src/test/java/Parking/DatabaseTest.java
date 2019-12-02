@@ -25,7 +25,7 @@ public class DatabaseTest {
     ParkingInstance parking4;
 
     @Before
-    public void setUp() throws IOException, PhotoException {
+    public void setUp() throws IOException, ParkingException {
         File dbFile = tmpFolder.newFile("test.db");
         db = new Database(dbFile.toPath());
 
@@ -58,7 +58,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testInsert() throws PhotoException {
+    public void testInsert() throws ParkingException {
         ArrayList<ParkingInstance> parkingInstances =
                 db.getParkingInstancesbyDate(new Car("PA", "7XYA125"),
                         LocalDate.of(2010, 2, 11), LocalDate.of(2019, 6, 11));
@@ -69,7 +69,54 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testAggregate() throws PhotoException {
+    public void testInsertDuplicate() throws ParkingException {
+        db.insertParkingInstance(parking1);
+
+        ArrayList<ParkingInstance> parkingInstances =
+                db.getParkingInstancesbyDate(new Car("PA", "7XYA125"),
+                        LocalDate.of(2010, 2, 11), LocalDate.of(2019, 6, 11));
+        assertEquals(3, parkingInstances.size());
+        assertEquals(parking2, parkingInstances.get(0));
+        assertEquals(parking3, parkingInstances.get(1));
+        assertEquals(parking4, parkingInstances.get(2));
+    }
+
+    @Test(expected = ParkingException.class)
+    public void testInsertInvalidCar() throws ParkingException {
+        ParkingInstance parkingInvalid = new ParkingInstance(new Car("", ""),
+                new Photo(parking1.getPhoto().getImage(),
+                        LocalDateTime.of(2018, 9, 14, 03, 56, 12), "Y",
+                        "/path/to/photo"));
+        db.insertParkingInstance(parkingInvalid);
+
+        ArrayList<ParkingInstance> parkingInstances =
+                db.getParkingInstancesbyDate(new Car("PA", "7XYA125"),
+                        LocalDate.of(2010, 2, 11), LocalDate.of(2019, 6, 11));
+        assertEquals(3, parkingInstances.size());
+        assertEquals(parking2, parkingInstances.get(0));
+        assertEquals(parking3, parkingInstances.get(1));
+        assertEquals(parking4, parkingInstances.get(2));
+    }
+
+    @Test(expected = ParkingException.class)
+    public void testInsertInvalidPhotoHash() throws ParkingException {
+        ParkingInstance parkingInvalid = new ParkingInstance(new Car("PA", "7XYA125"),
+                new Photo(parking1.getPhoto().getImage(),
+                        LocalDateTime.of(2018, 9, 14, 03, 56, 12), "",
+                        "/path/to/photo"));
+        db.insertParkingInstance(parkingInvalid);
+
+        ArrayList<ParkingInstance> parkingInstances =
+                db.getParkingInstancesbyDate(new Car("PA", "7XYA125"),
+                        LocalDate.of(2010, 2, 11), LocalDate.of(2019, 6, 11));
+        assertEquals(3, parkingInstances.size());
+        assertEquals(parking2, parkingInstances.get(0));
+        assertEquals(parking3, parkingInstances.get(1));
+        assertEquals(parking4, parkingInstances.get(2));
+    }
+
+    @Test
+    public void testAggregate() throws ParkingException {
         ArrayList<ParkingAggregate> parkings = db.getAggregatedParkingInstances(LocalDate.of(2010, 2, 11),
                 LocalDate.of(2019, 6, 11));
         assertEquals(2, parkings.size());

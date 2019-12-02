@@ -45,7 +45,7 @@ public class Photo {
      * @param photoHash
      */
     public Photo(BufferedImage image, LocalDateTime dateTime, String md5Hash,
-            String path) throws PhotoException {
+            String path) throws ParkingException {
         this.image = image;
         this.dateTime = dateTime;
         this.md5Hash = md5Hash;
@@ -53,7 +53,7 @@ public class Photo {
     }
 
     public Photo(byte[] photoBytes, LocalDateTime dateTime, String md5Hash,
-            String path) throws PhotoException {
+            String path) throws ParkingException {
         try {
             InputStream inputStream = new ByteArrayInputStream(photoBytes);
             this.image = Thumbnails.of(inputStream).scale(1).asBufferedImage();
@@ -61,7 +61,7 @@ public class Photo {
             this.md5Hash = md5Hash;
             this.path = path;
         } catch (IOException e) {
-            throw new PhotoException(
+            throw new ParkingException(
                     "Unable to load from Photo bytes: " + e.getMessage());
         }
     }

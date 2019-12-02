@@ -80,7 +80,7 @@ public class GUI extends Application {
 					}
 					try {
 						parkingController.uploadPhotos(dir.toPath());
-					} catch (PhotoException e) {
+					} catch (ParkingException e) {
 						e.printStackTrace();
 					}
 				}
@@ -103,7 +103,7 @@ public class GUI extends Application {
 							fileChooser.showOpenMultipleDialog(stage);
 					try {
 						parkingController.uploadPhotos(files);
-					} catch (PhotoException e) {
+					} catch (ParkingException e) {
 						e.printStackTrace();
 					}
 				}
