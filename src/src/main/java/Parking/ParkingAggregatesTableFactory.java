@@ -1,5 +1,6 @@
 package Parking;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,10 +18,14 @@ import javafx.scene.text.Font;
 import javafx.scene.Node;
 
 public class ParkingAggregatesTableFactory {
-    public static Scene createParkingAggregatesTableScene(ArrayList<ParkingAggregate> parkings) {
+    final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    public static Scene createParkingAggregatesTableScene(ArrayList<ParkingAggregate> parkings,
+            LocalDate start, LocalDate end) {
         Scene scene = new Scene(new Group());
 
-        final Label label = new Label("Parking Aggregates");
+        final Label label = new Label(
+                "Parking Aggregates: " + start.format(formatter) + " to " + end.format(formatter));
         label.setFont(new Font("Arial", 20));
 
         TableView<ParkingAggregate> table = createParkingAggregatesTable(parkings);
@@ -38,6 +43,7 @@ public class ParkingAggregatesTableFactory {
     public static TableView<ParkingAggregate> createParkingAggregatesTable(
             ArrayList<ParkingAggregate> parkings) {
         TableView<ParkingAggregate> table = new TableView<ParkingAggregate>();
+        table.setPlaceholder(new Label("No overnight parking instances found for selected dates."));
 
         // State
         TableColumn<ParkingAggregate, String> state =

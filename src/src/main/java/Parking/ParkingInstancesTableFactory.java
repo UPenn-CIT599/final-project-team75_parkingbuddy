@@ -32,6 +32,7 @@ public class ParkingInstancesTableFactory {
         TableView<ParkingInstance> table = createParkingInstancesTable(parkings, true);
         table.setMinWidth(1000);
         table.setMinHeight(700);
+        table.setPlaceholder(new Label("No results from license OCR."));
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
