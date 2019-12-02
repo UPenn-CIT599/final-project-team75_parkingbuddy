@@ -90,7 +90,7 @@ public class GUI extends Application {
 						}
 						ArrayList<ParkingInstance> parkings = parkingController.uploadPhotos(files);
 						ParkingInstancesPopup(parkings);
-						if( parkings == null || parkings.size() == 0) {
+						if (parkings == null || parkings.size() == 0) {
 							return;
 						}
 					} catch (ParkingException e) {
@@ -114,7 +114,7 @@ public class GUI extends Application {
 						}
 						ArrayList<ParkingInstance> parkings =
 								parkingController.uploadPhotos(dir.toPath());
-						if( parkings == null || parkings.size() == 0) {
+						if (parkings == null || parkings.size() == 0) {
 							return;
 						}
 						ParkingInstancesPopup(parkings);
@@ -201,7 +201,9 @@ public class GUI extends Application {
 						warning.setText("The dates are invalid.");
 						return;
 					}
-					ParkingAggregatesPopup(parkingController.getParkingAggregates(startDate, endDate));
+					ParkingAggregatesPopup(
+							parkingController.getParkingAggregates(startDate, endDate), startDate,
+							endDate);
 				}
 			});
 
@@ -236,14 +238,16 @@ public class GUI extends Application {
 		}
 	}
 
-	private void ParkingAggregatesPopup(ArrayList<ParkingAggregate> parkings) {
+	private void ParkingAggregatesPopup(ArrayList<ParkingAggregate> parkings, LocalDate start,
+			LocalDate end) {
 		Stage popupwindow = new Stage();
 		popupwindow.setWidth(1024);
 		popupwindow.setHeight(768);
 
 		popupwindow.initModality(Modality.APPLICATION_MODAL);
 		popupwindow.setTitle("Parking Aggregates");
-		popupwindow.setScene(ParkingAggregatesTableFactory.createParkingAggregatesTableScene(parkings));
+		popupwindow.setScene(ParkingAggregatesTableFactory
+				.createParkingAggregatesTableScene(parkings, start, end));
 		popupwindow.show();
 	}
 
@@ -254,8 +258,8 @@ public class GUI extends Application {
 
 		popupwindow.initModality(Modality.APPLICATION_MODAL);
 		popupwindow.setTitle("Parking Instances Uploaded");
-		popupwindow.setScene(
-				ParkingInstancesTableFactory.createParkingInstancesTableScene(parkings));
+		popupwindow
+				.setScene(ParkingInstancesTableFactory.createParkingInstancesTableScene(parkings));
 		popupwindow.show();
 	}
 

@@ -194,7 +194,8 @@ public class Database {
 				+ "  WHERE date >= ? and date <= ?\n" // break
 				+ "  GROUP BY state, license, date\n" // break
 				+ ")\n" // break
-				+ "GROUP BY state, license\n";
+				+ "GROUP BY state, license\n"
+				+ "ORDER BY count DESC, state ASC, license ASC";
 
 		ArrayList<ParkingAggregate> parkingResults = new ArrayList<ParkingAggregate>();
 		try {
