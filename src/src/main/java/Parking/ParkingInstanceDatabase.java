@@ -1,4 +1,5 @@
 package Parking;
+
 import java.util.ArrayList;
 
 /**
@@ -6,33 +7,34 @@ import java.util.ArrayList;
  */
 
 class ParkingInstanceDatabase {
-    ArrayList<ParkingInstance> instances = new ArrayList<ParkingInstance>();
+	ArrayList<ParkingInstance> instances = new ArrayList<ParkingInstance>();
 
-    /**
-     * Get parking instances to get database
-     * 
-     * @return
-     */
-    public ArrayList<ParkingInstance> getInstances() {
-        return instances;
-    }
+	/**
+	 * Get parking instances to get database
+	 * 
+	 * @return
+	 */
+	public ArrayList<ParkingInstance> getInstances() {
+		return instances;
+	}
 
-    /**
-     * Add new parking Instances when new photos are uploaded.
-     * 
-     * @param newInstances
-     */
-    public void addInstances(ArrayList<ParkingInstance> newInstances) {
-        this.instances.addAll(newInstances);
+	/**
+	 * Add new parking Instances when new photos are uploaded.
+	 * 
+	 * @param newInstances
+	 */
+	public void addInstances(ArrayList<ParkingInstance> newInstances) {
+		this.instances.addAll(newInstances);
 
-    }
+	}
 
-    /**
-     * ParkingInstanceDatabase Constructor
-     * @param instances
-     */
-    public ParkingInstanceDatabase() {
-        
-        }
+	/**
+	 * ParkingInstanceDatabase Constructor
+	 * 
+	 * @param instances
+	 */
+	public ParkingInstanceDatabase() {
+
+	}
 
 }
