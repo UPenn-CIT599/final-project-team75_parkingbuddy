@@ -9,10 +9,9 @@
 plugins {
     // Apply the java plugin to add support for Java
     id 'java'
-
     id 'application'
-    
     id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'org.beryx.runtime' version '1.8.0'
 }
 
 
@@ -27,7 +26,11 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:28.0-jre'
 
-    implementation 'com.drewnoakes:metadata-extractor:2.12.0'
+    // Use JUnit test framework
+    testImplementation 'junit:junit:4.12'
+
+    // https://mvnrepository.com/artifact/com.drewnoakes/metadata-extractor
+    compile group: 'com.drewnoakes', name: 'metadata-extractor', version: '2.12.0'
 
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20190722'
@@ -41,16 +44,14 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-codec/commons-codec
     compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
 
-    // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
-
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
     compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.28.0'
 }
 
 application {
     // Define the main class for the application
-    mainClassName = project.hasProperty("main") ? getProperty("main") : "Parking.GUI"
+    mainClassName = project.hasProperty("main") ? getProperty("main") : "Parking.Main"
+    applicationName = 'parking'
 }
 
 javafx {
@@ -58,3 +59,16 @@ javafx {
     modules = [ 'javafx.controls','javafx.fxml','javafx.swing' ]
 }
 
+jar {
+    manifest {
+        attributes "Main-Class": "Parking.Main"
+    }
+ 
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+runtime {
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+}
