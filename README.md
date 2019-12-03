@@ -11,6 +11,9 @@ Parking is a scarce resource in many neighborhoods. As such, neighborhoods have 
 
 The ParkingBuddy desktop program thus aims to automate this manual logging and tracking of vehicles so as to streamline the enforcement process.
 
+### Parking Rules
+TODO
+
 ## Setup
 ### Clone
 Clone this repo to your local machine using `https://github.com/UPenn-CIT599/final-project-team75_parkingbuddy.git`
@@ -54,6 +57,11 @@ There are 2 actions the user can take:
 * The program outputs a table containing aggregated parking data over the inputted date range; the `Count` represents the number of instances the particular car has parked overnight within the specified date range
 * Helps to easily determine violations for the following parking rule: `No overnight parking for more than 3 nights in a 7-day period` (in this case, no car has violated this rule!)
 ![alt text](design/GenerateReport.gif)
+
+## Design
+
+### UI Mock
+![alt text](design/ui_mock.jpeg)
 
 ___
 ## Design Milestone
