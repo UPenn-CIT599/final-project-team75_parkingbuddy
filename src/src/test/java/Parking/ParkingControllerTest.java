@@ -1,16 +1,22 @@
 package Parking;
 
 import static org.junit.Assert.*;
-
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+import org.junit.Before;
 import org.junit.Test;
 
-public class ParkingControllerTest {
+public class ParkingControllerTest extends FakeDatabase {
 
-	private ParkingController pc = ParkingController.getInstance();
-	private ArrayList<ParkingAggregate> results = new ArrayList<ParkingAggregate>();
+	ParkingController pc;
+	ArrayList<ParkingAggregate> results = new ArrayList<ParkingAggregate>();
+
+	@Before
+    public void setUp() throws IOException, ParkingException {
+		super.setUp();
+		pc = new ParkingController(db);
+	}
 
 	/**
 	 * Test for violation report to ensure the correct information for the car violations within the
@@ -18,21 +24,13 @@ public class ParkingControllerTest {
 	 */
 	@Test
 	public void testViolationReport() {
-		results = pc.getParkingAggregates(LocalDate.of(2010, 2, 11), LocalDate.of(2019, 6, 11));
-		assertEquals(1, results.get(0).getOvernightCount());
-		assertEquals(1, results.get(1).getOvernightCount());
-		assertEquals(1, results.get(2).getOvernightCount());
-		assertEquals(1, results.get(3).getOvernightCount());
-		assertEquals(1, results.get(4).getOvernightCount());
-		assertEquals(1, results.get(5).getOvernightCount());
-		assertEquals(1, results.get(6).getOvernightCount());
-		assertEquals(1, results.get(7).getOvernightCount());
-		assertEquals(1, results.get(8).getOvernightCount());
-		assertEquals(3, results.get(9).getOvernightCount());
-		assertEquals(2, results.get(10).getOvernightCount());
-		assertEquals(1, results.get(11).getOvernightCount());
-		assertEquals(1, results.get(12).getOvernightCount());
-		assertEquals(2, results.get(13).getOvernightCount());
+		ArrayList<ParkingAggregate> parkings =
+                pc.getParkingAggregates(LocalDate.of(2010, 2, 11), LocalDate.of(2019, 12, 31));
+        assertEquals(2, parkings.size());
+        assertEquals(new Car("PA", "7XYA125"), parkings.get(0).getCar());
+        assertEquals(2, parkings.get(0).getOvernightCount());
+        assertEquals(new Car("PA", "7XYA124"), parkings.get(1).getCar());
+        assertEquals(1, parkings.get(1).getOvernightCount());
 		
 	}
 }
