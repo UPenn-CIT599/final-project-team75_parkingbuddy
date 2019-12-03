@@ -30,7 +30,7 @@ Run the main method (`GUI.java`) to launch the program
 ## Usage
 
 When ParkingBuddy is run, the following window is launched: 
-![alt text](src/src/main/java/Images/LaunchWindow.png)
+![alt text](design/LaunchWindow.png)
 
 ### User Actions
 
@@ -38,20 +38,20 @@ There are 2 actions the user can take:
 1. Upload Photos
 * This can be done either via a Folder upload or uploading individual image files
 * A new window displays a table confirming the parking instances that have been parsed from the image files and uploaded to the database
-![alt text](src/src/main/java/Images/ParkingInstancesUploaded.png)
+![alt text](design/ParkingInstancesUploaded.png)
 
 2. Generate Report 
 * The user must specify a date range (e.g. the week of May 13-19) by using the calendar function to input a start and end date
 * The program outputs a table containing aggregated parking data over the inputted date range; the `Count` represents the number of instances the particular car has parked overnight within the specified date range
 * Helps to easily determine violations for the following parking rule: `No overnight parking for more than 3 nights in a 7-day period` (in this case, no car has violated this rule!)
-![alt text](src/src/main/java/Images/ParkingAggregates.png)
+![alt text](design/ParkingAggregates.png)
 
 ___
 ## Design Milestone
 ### Class Design 
 Our class design with the relevant methods for each class can be seen from the following diagram:
 
-![alt text](src/src/main/java/Images/classDiagram_updated.png)
+![alt text](design/classDiagram_updated.png)
 
 
 ### Non-trivial Method and JUnit Test:
