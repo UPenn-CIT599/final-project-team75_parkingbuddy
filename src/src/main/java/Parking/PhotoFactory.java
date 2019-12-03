@@ -67,7 +67,11 @@ public class PhotoFactory {
 		// iterate through each image file in the folder to create a photo
 		// object
 		for (File file : filteredFiles) {
+			try {
 			photos.add(createPhoto(file));
+			} catch(ParkingException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 		return photos;
 	}
