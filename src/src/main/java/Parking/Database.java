@@ -113,7 +113,6 @@ public class Database {
 			prepStatement.setString(5, parkingInstance.getPhoto().getPath());
 			prepStatement.setBytes(6, parkingInstance.getPhoto().toJpegBytes());
 			prepStatement.executeUpdate();
-			System.out.println("inserted into DB");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -204,8 +203,6 @@ public class Database {
 			prepStatement.setString(2, endDate.format(dateFormatter));
 			ResultSet results = prepStatement.executeQuery();
 
-			// ArrayList<ParkingAggregator> parkingResults = new
-			// ArrayList<ParkingAggregator>();
 			while (results.next()) {
 				String license = results.getString("license");
 				String state = results.getString("state");
@@ -217,10 +214,6 @@ public class Database {
 						getParkingInstancesbyDate(car, startDate, endDate);
 				aggregate.setParkingInstance(parkings);
 				parkingResults.add(aggregate);
-				System.out.println(aggregate);
-				// System.out.println(results.getString("state") + "\t"
-				// + results.getString("license") + "\t"
-				// + results.getInt("count"));
 			}
 			return parkingResults;
 
@@ -235,31 +228,31 @@ public class Database {
 		Database database = new Database();
 
 		try {
-			// Path filePath = Paths.get("src/photos/photo.jpg");
-			// Photo photo = PhotoFactory.createPhoto(filePath.toFile());
-			// ParkingInstance parking1 =
-			// 		new ParkingInstance(new Car("PA", "7XYA124"), new Photo(photo.getImage(),
-			// 				LocalDateTime.of(2018, 8, 13, 20, 56, 12), "A", "/path/to/photo"));
+			Path filePath = Paths.get("src/photos/photo.jpg");
+			Photo photo = PhotoFactory.createPhoto(filePath.toFile());
+			ParkingInstance parking1 =
+					new ParkingInstance(new Car("PA", "7XYA124"), new Photo(photo.getImage(),
+							LocalDateTime.of(2018, 8, 13, 20, 56, 12), "A", "/path/to/photo"));
 
-			// ParkingInstance parking2 =
-			// 		new ParkingInstance(new Car("PA", "7XYA125"), new Photo(photo.getImage(),
-			// 				LocalDateTime.of(2018, 8, 13, 21, 56, 12), "B", "/path/to/photo"));
+			ParkingInstance parking2 =
+					new ParkingInstance(new Car("PA", "7XYA125"), new Photo(photo.getImage(),
+							LocalDateTime.of(2018, 8, 13, 21, 56, 12), "B", "/path/to/photo"));
 
-			// ParkingInstance parking3 =
-			// 		new ParkingInstance(new Car("PA", "7XYA125"), new Photo(photo.getImage(),
-			// 				LocalDateTime.of(2018, 9, 13, 21, 57, 12), "C", "/path/to/photo"));
+			ParkingInstance parking3 =
+					new ParkingInstance(new Car("PA", "7XYA125"), new Photo(photo.getImage(),
+							LocalDateTime.of(2018, 9, 13, 21, 57, 12), "C", "/path/to/photo"));
 
-			// ParkingInstance parking4 =
-			// 		new ParkingInstance(new Car("PA", "7XYA125"), new Photo(photo.getImage(),
-			// 				LocalDateTime.of(2018, 9, 14, 03, 56, 12), "D", "/path/to/photo"));
+			ParkingInstance parking4 =
+					new ParkingInstance(new Car("PA", "7XYA125"), new Photo(photo.getImage(),
+							LocalDateTime.of(2018, 9, 14, 03, 56, 12), "D", "/path/to/photo"));
 
-			// database.insertParkingInstance(parking1);
-			// database.insertParkingInstance(parking2);
-			// database.insertParkingInstance(parking3);
-			// database.insertParkingInstance(parking4);
+			database.insertParkingInstance(parking1);
+			database.insertParkingInstance(parking2);
+			database.insertParkingInstance(parking3);
+			database.insertParkingInstance(parking4);
 
-			// database.getParkingInstancesbyDate(new Car("PA", "7XYA125"), LocalDate.of(2018, 2, 11),
-			// 		LocalDate.of(2019, 6, 11));
+			database.getParkingInstancesbyDate(new Car("PA", "7XYA125"), LocalDate.of(2018, 2, 11),
+					LocalDate.of(2019, 6, 11));
 			database.getParkingAggregates(LocalDate.of(2019, 5, 01), LocalDate.of(2019, 5, 31));
 		} catch (Exception e) {
 			e.printStackTrace();

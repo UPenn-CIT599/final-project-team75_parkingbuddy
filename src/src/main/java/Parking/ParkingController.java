@@ -28,6 +28,11 @@ public class ParkingController {
         pip = new ParkingInstanceProcessor(db);
     }
 
+    public ParkingController(Database db) {
+        this.db = db;
+        pip = new ParkingInstanceProcessor(db);
+    }
+
     public static synchronized ParkingController getInstance() {
         if (parkingController == null) {
             parkingController = new ParkingController();
