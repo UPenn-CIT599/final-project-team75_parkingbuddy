@@ -17,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +31,13 @@ import java.util.List;
  *
  */
 public class GUI extends Application {
-	private ParkingController parkingController = ParkingController.getInstance();
+	private ParkingController parkingController;
 
 	// launching the application
 	public void start(Stage stage) {
-
 		try {
+			parkingController = ParkingController.getInstance();
+
 			// make the window into a full screen
 			stage.setFullScreen(false);
 			stage.setWidth(1024);
@@ -214,8 +216,10 @@ public class GUI extends Application {
 			vBox.setAlignment(Pos.CENTER);
 
 			// set background image for the window
-			FileInputStream input =
-					new FileInputStream("src/main/java/" + "Graphics/darkParking.jpg");
+			InputStream input = getClass().getResourceAsStream("/images/darkParking.jpg"); 
+			if (input == null) {
+				input = new FileInputStream("src/main/resources/images/darkParking.jpg");
+			}
 			Image image = new Image(input);
 			BackgroundImage backgroundimage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
 					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,

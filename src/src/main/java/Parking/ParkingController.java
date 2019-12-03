@@ -23,7 +23,7 @@ public class ParkingController {
     /**
      * Parking Controller constructor
      */
-    private ParkingController() {
+    private ParkingController() throws ParkingException {
         db = new Database();
         pip = new ParkingInstanceProcessor(db);
     }
@@ -33,7 +33,7 @@ public class ParkingController {
         pip = new ParkingInstanceProcessor(db);
     }
 
-    public static synchronized ParkingController getInstance() {
+    public static synchronized ParkingController getInstance() throws ParkingException {
         if (parkingController == null) {
             parkingController = new ParkingController();
         }
@@ -68,14 +68,18 @@ public class ParkingController {
     }
 
     public static void main(String[] args) {
-        ParkingController pc = new ParkingController();
+        try {
+            ParkingController pc = new ParkingController();
 
-        ArrayList<ParkingAggregate> results = new ArrayList<ParkingAggregate>();
-        results = pc.getParkingAggregates(LocalDate.of(2010, 2, 11), LocalDate.of(2019, 6, 11));
-        for (ParkingAggregate result : results) {
-            String str = result.toString();
-            System.out.println(str);
+            ArrayList<ParkingAggregate> results = new ArrayList<ParkingAggregate>();
+            results = pc.getParkingAggregates(LocalDate.of(2010, 2, 11), LocalDate.of(2019, 6, 11));
+            for (ParkingAggregate result : results) {
+                String str = result.toString();
+                System.out.println(str);
+            }
+
+        } catch (ParkingException e) {
+            e.printStackTrace();
         }
-
     }
 }

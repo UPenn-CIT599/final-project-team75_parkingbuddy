@@ -1,5 +1,7 @@
 package Parking;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -15,18 +17,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Database {
-	final static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	final static DateTimeFormatter dateTimeFormatter =
+			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	Connection conn;
 
 	/**
 	 * Initialize the database
 	 */
-	public Database() {
-		this(Paths.get("sqlite/db/parkingBuddy.db"));
+	public Database() throws ParkingException {
+		try {
+			File file = new File("parkingBuddy.db");
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			init(Paths.get("parkingBuddy.db"));
+		} catch (IOException e) {
+			throw new ParkingException("Unable to load database: " + e.getMessage());
+		}
 	}
 
-	public Database(Path path) {
+	public Database(Path path) throws ParkingException {
+		init(path);
+	}
+
+	private void init(Path path) throws ParkingException {
 		conn = connect("jdbc:sqlite:" + path.toString());
 		createNewDatabase();
 		createParkingInstanceTable();
@@ -37,12 +52,12 @@ public class Database {
 	 * 
 	 * @return
 	 */
-	private Connection connect(String url) {
+	private Connection connect(String url) throws ParkingException {
 		// SQLite connection string
 		try {
 			conn = DriverManager.getConnection(url);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			throw new ParkingException("Unable to connect to database: " + e.getMessage());
 		}
 		return conn;
 	}
@@ -130,8 +145,7 @@ public class Database {
 
 		String sql =
 				"SELECT state, license, datetime, photoHash, photoPath, photoImage FROM parkingInstances\n"
-						+ "WHERE state = ? AND license = ?\n"
-						+ "AND (\n"
+						+ "WHERE state = ? AND license = ?\n" + "AND (\n"
 						+ "  (TIME(datetime) > TIME('20:00:00') AND DATE(datetime) >= ? and DATE(datetime) <= ?)\n"
 						+ "  OR \n"
 						+ "  (TIME(datetime) < TIME('06:00:00') AND DATE(datetime) >= ? and DATE(datetime) <= ?)"
@@ -193,8 +207,7 @@ public class Database {
 				+ "  WHERE date >= ? and date <= ?\n" // break
 				+ "  GROUP BY state, license, date\n" // break
 				+ ")\n" // break
-				+ "GROUP BY state, license\n"
-				+ "ORDER BY count DESC, state ASC, license ASC";
+				+ "GROUP BY state, license\n" + "ORDER BY count DESC, state ASC, license ASC";
 
 		ArrayList<ParkingAggregate> parkingResults = new ArrayList<ParkingAggregate>();
 		try {
@@ -225,9 +238,8 @@ public class Database {
 	}
 
 	public static void main(String[] args) {
-		Database database = new Database();
-
 		try {
+			Database database = new Database();
 			Path filePath = Paths.get("src/photos/photo.jpg");
 			Photo photo = PhotoFactory.createPhoto(filePath.toFile());
 			ParkingInstance parking1 =
