@@ -11,14 +11,28 @@ Parking is a scarce resource in many neighborhoods. As such, neighborhoods have 
 
 The ParkingBuddy desktop program thus aims to automate this manual logging and tracking of vehicles so as to streamline the enforcement process.
 
-## ParkingBuddy Functionality
+## Setup
+### Clone
+Clone this repo to your local machine using `https://github.com/UPenn-CIT599/final-project-team75_parkingbuddy.git`
 
-**Launch Program**
+### Run Program
+Build the gradle project to ensure all dependencies are loaded
+```sh
+./gradlew run
+```
+
+Run the main method (`GUI.java`) to launch the program
+```sh
+./gradlew run -Pmain=Parking.<class name> 
+./gradlew run -Pmain=Parking.GUI
+```
+
+## Usage
 
 When ParkingBuddy is run, the following window is launched: 
 ![alt text](src/src/main/java/Images/LaunchWindow.png)
 
-**User Actions**
+### User Actions
 
 There are 2 actions the user can take: 
 1. Upload Photos
@@ -35,7 +49,7 @@ There are 2 actions the user can take:
 ___
 ## Design Milestone
 ### Class Design 
-A draft of our class design with the relevant methods for each class can be seen from the following diagram:
+Our class design with the relevant methods for each class can be seen from the following diagram:
 
 ![alt text](src/src/main/java/Images/classDiagram_updated.png)
 
