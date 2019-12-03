@@ -14,7 +14,16 @@ The ParkingBuddy desktop program thus aims to automate this manual logging and t
 ### Parking Rules
 TODO
 
-## Setup
+## Running pre-compiled binary
+
+1) Go to Releases
+2) Download Parking.jar
+3) Go into command line to run the jar file
+```sh
+java -jar Parking.jar 
+```
+
+## Building from source
 ### Clone
 Clone this repo to your local machine using `https://github.com/UPenn-CIT599/final-project-team75_parkingbuddy.git`
 
