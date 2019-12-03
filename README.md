@@ -60,6 +60,12 @@ Our class design with the relevant methods for each class can be seen from the f
 - Various unit tests in [JPEGReaderTest.java](/src/src/test/java/Parking/JPEGReaderTest.java)
 
 ## Commands
-./gradlew run -Pmain=Parking.<class name>
-  
-./gradlew run -Pmain=Parking.JPEGReader
+Run
+./gradlew run
+
+Build and Test
+./gradlew build
+
+Create jar file
+./gradlew jar
+java -jar build/libs/Parking.jar 
