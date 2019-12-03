@@ -15,14 +15,14 @@ The ParkingBuddy desktop program thus aims to automate this manual logging and t
 ### Clone
 Clone this repo to your local machine using `https://github.com/UPenn-CIT599/final-project-team75_parkingbuddy.git`
 
-### Run Program
+### Commands
 Run the gradle project to ensure all dependencies are loaded
 ```sh
 cd src
 ./gradlew run
 ```
 
-Build and Run
+Build and test
 ```sh
 cd src
 ./gradlew build
