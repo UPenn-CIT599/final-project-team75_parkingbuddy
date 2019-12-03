@@ -47,12 +47,13 @@ There are 2 actions the user can take:
 * This can be done either via a Folder upload or uploading individual image files
 * A new window displays a table confirming the parking instances that have been parsed from the image files and uploaded to the database
 ![alt text](design/ParkingInstancesUploaded.png)
+![alt text](design/FolderUpload.gif)
 
 2. Generate Report 
 * The user must specify a date range (e.g. the week of May 13-19) by using the calendar function to input a start and end date
 * The program outputs a table containing aggregated parking data over the inputted date range; the `Count` represents the number of instances the particular car has parked overnight within the specified date range
 * Helps to easily determine violations for the following parking rule: `No overnight parking for more than 3 nights in a 7-day period` (in this case, no car has violated this rule!)
-![alt text](design/ParkingAggregates.png)
+![alt text](design/GenerateReport.gif)
 
 ___
 ## Design Milestone
