@@ -16,15 +16,23 @@ The ParkingBuddy desktop program thus aims to automate this manual logging and t
 Clone this repo to your local machine using `https://github.com/UPenn-CIT599/final-project-team75_parkingbuddy.git`
 
 ### Run Program
-Build the gradle project to ensure all dependencies are loaded
+Run the gradle project to ensure all dependencies are loaded
 ```sh
+cd src
 ./gradlew run
 ```
 
-Run the main method (`GUI.java`) to launch the program
+Build and Run
 ```sh
-./gradlew run -Pmain=Parking.<class name> 
-./gradlew run -Pmain=Parking.GUI
+cd src
+./gradlew build
+```
+
+Create Jar file
+```
+cd src
+./gradlew jar
+java -jar build/libs/Parking.jar 
 ```
 
 ## Usage
@@ -58,14 +66,3 @@ Our class design with the relevant methods for each class can be seen from the f
 
 - readDates() method in [JPEGReader.java](/src/src/main/java/Parking/JPEGReader.java): This method extracts the original date of the image files from a folder by extracting exif data, converting the date strings into LocalDateTime objects, and storing them in an ArrayList<LocalDateTime>
 - Various unit tests in [JPEGReaderTest.java](/src/src/test/java/Parking/JPEGReaderTest.java)
-
-## Commands
-### Run
-./gradlew run
-
-### Build and Test
-./gradlew build
-
-### Create jar file
-./gradlew jar
-java -jar build/libs/Parking.jar 
