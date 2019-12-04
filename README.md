@@ -12,9 +12,10 @@ Parking is a scarce resource in many neighborhoods. As such, neighborhoods have 
 The ParkingBuddy desktop program thus aims to automate this manual logging and tracking of vehicles so as to streamline the enforcement process.
 
 ### Parking Rules
-TODO
-
-## Running pre-compiled binary
+- No overnight parking for > 3 days in a week 
+___
+## Set up
+### Running pre-compiled binary
 
 1) Go to Releases
 2) Download Parking.jar
@@ -23,11 +24,11 @@ TODO
 java -jar Parking.jar 
 ```
 
-## Building from source
-### Clone
+### Building from source
+#### Clone
 Clone this repo to your local machine using `https://github.com/UPenn-CIT599/final-project-team75_parkingbuddy.git`
 
-### Commands
+#### Commands
 Run the gradle project to ensure all dependencies are loaded
 ```sh
 cd src
@@ -46,7 +47,7 @@ cd src
 ./gradlew jar
 java -jar build/libs/Parking.jar 
 ```
-
+___
 ## Usage
 
 When ParkingBuddy is run, the following window is launched: 
