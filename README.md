@@ -12,7 +12,8 @@ Parking is a scarce resource in many neighborhoods. As such, neighborhoods have 
 The ParkingBuddy desktop program thus aims to automate this manual logging and tracking of vehicles so as to streamline the enforcement process.
 
 #### Parking Rules
-- No overnight parking for > 3 days in a week 
+- Restrictions are placed on the number of times that a vehicle can be parked overnight.
+- Overnight parking is defined as parking between the hours of 8.00pm to 6.00am.
 
 ## Set up
 ### Running pre-compiled binary
