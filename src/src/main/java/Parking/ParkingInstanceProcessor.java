@@ -7,17 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ParkingInstanceProcessor creates an ArrayList of parking instances from a folder of photos.
+ * ParkingInstanceProcessor creates an ArrayList of parking instances images
+ * and the source of images can vary from folders to files.
  */
-
 public class ParkingInstanceProcessor {
-  
     // instance variables
 	LicenseOCR ocr = new LicenseOCR();
 	Database db;
 	
 	/**
 	 * Constructor for the ParkingInstanceProcessor class
+	 * 
 	 * @param db (Database)
 	 */
 	public ParkingInstanceProcessor(Database db) {
@@ -26,6 +26,7 @@ public class ParkingInstanceProcessor {
 
 	/**
 	 * This method creates ParkingInstance objects from photos and store them in ArrayList
+	 * 
 	 * @param ArrayList of photo
  	 * @return ArrayList of ParkingInstance
 	 */
@@ -47,6 +48,7 @@ public class ParkingInstanceProcessor {
 	/**
 	 * This method creates ArrayList of ParkingInstance by taking in a path parameter
 	 * finding photos in that path to eventually create an ArrayList of ParkingInstance
+	 * 
 	 * @param path (Path)
 	 * @return ArrayList of Parking Instance
 	 * @throws ParkingException
@@ -60,6 +62,7 @@ public class ParkingInstanceProcessor {
 	/**
      * This method creates ArrayList of ParkingInstance by taking in a List of files, ideally
      * photos to eventually create an ArrayList of ParkingInstance
+     * 
      * @param path (Path)
      * @return ArrayList of Parking Instance
      * @throws ParkingException
@@ -73,6 +76,7 @@ public class ParkingInstanceProcessor {
 
 	/**
 	 * This method adds multiple parking instance objects from an ArrayList to the Database.
+	 * 
 	 * @param ArrayList of ParkingInstance 
 	 * @throws ParkingException
 	 */
@@ -90,6 +94,7 @@ public class ParkingInstanceProcessor {
 	/**
 	 * This method creates ArrayList of parking instances and calls parking instances from
 	 * the path parameter.
+	 * 
 	 * @param path (Path)
 	 * @return ArrayList of ParkingInstance
 	 * @throws ParkingException
@@ -102,7 +107,8 @@ public class ParkingInstanceProcessor {
 
 	/**
 	 * This method creates ArrayList of parking instances and calls parking instances from
-	 * the parameter of list of files
+	 * the parameter of list of files.
+	 * 
 	 * @param List of files
 	 * @return ArrayList of ParkingInstance
 	 * @throws ParkingException
@@ -126,5 +132,4 @@ public class ParkingInstanceProcessor {
 			e.printStackTrace();
 		}
 	}
-
 }

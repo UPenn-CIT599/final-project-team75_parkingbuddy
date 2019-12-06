@@ -3,7 +3,6 @@ package Parking;
 import java.time.LocalDateTime;
 import java.awt.image.BufferedImage;
 
-
 /**
  * ParkingInstance class contains parking instance object that represents each instance
  * that a car is parked at the parking lot.
