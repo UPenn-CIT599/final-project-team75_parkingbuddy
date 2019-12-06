@@ -70,8 +70,7 @@ public class PhotoFactory {
 			throw new ParkingException("No valid photo files: " + files);
 		}
 
-		// iterate through each image file in the folder to create a photo
-		// object
+		// iterate through each image file in the folder to create a photo object
 		for (File file : filteredFiles) {
 			photos.add(createPhoto(file));
 		}
