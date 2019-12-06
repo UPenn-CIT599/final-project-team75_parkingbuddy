@@ -11,6 +11,13 @@ Parking is a scarce resource in many neighborhoods. As such, neighborhoods have 
 
 Parking Buddy is a parking tracking application that makes use of OpenALPR, an open-source OCR library, to help parking enforcement officers automatically recognize license plates. A SQLite database is also used to track the number of times each vehicle is parked at a parking garage over a period of time.
 
+Parking Buddy has 2 main functionalities - upload photos, or view parking report. 
+
+1) To upload photos, the parking enforcement officer could choose to upload photos from folder or files. When photos are uploaded, the OpenALPR API is used to automatically detect the license plate of the vehicle in each photo. These parking instances are then stored in an SQLite database.
+
+2) There is also a parking report viewer, where the officer can select a date range, and get a summary aggregate table view of vehicles, and the number of times that each vehicle were parked overnight. A common problem with parking enforcement is that owners may ask for proof that the vehicle had been parked overnight. As such, when the officier taps on each car’s row in the report, it will expand to display the photos and times of each time the car is parked overnight in the selected date period.
+
+
 #### Parking Rules
 - Restrictions are placed on the number of times that a vehicle can be parked overnight.
 - Overnight parking is defined as parking between the hours of 8.00pm to 6.00am.
