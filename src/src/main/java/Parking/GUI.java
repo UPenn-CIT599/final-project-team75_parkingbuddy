@@ -197,8 +197,7 @@ public class GUI extends Application {
 						warning.setText("Please enter Start / End Dates");
 						return;
 					}
-					System.out.println(startDate);
-					System.out.println(endDate);
+
 					if (startDate.isAfter(endDate) || endDate.isAfter(LocalDate.now())) {
 						warning.setText("The dates are invalid.");
 						return;
@@ -241,7 +240,13 @@ public class GUI extends Application {
 			System.out.println(e.getMessage());
 		}
 	}
-
+	
+	/**
+	 * This method sets up the parking aggregate pop up window upon clicking button.
+	 * @param parkings (ArrayList of ParkingAggregate)
+	 * @param start (LocalDate)
+	 * @param end (LocalDate)
+	 */
 	private void ParkingAggregatesPopup(ArrayList<ParkingAggregate> parkings, LocalDate start,
 			LocalDate end) {
 		Stage popupwindow = new Stage();
@@ -254,7 +259,11 @@ public class GUI extends Application {
 				.createParkingAggregatesTableScene(parkings, start, end));
 		popupwindow.show();
 	}
-
+	
+	/**
+	 * This method sets up the parking instance popup windwo upon clicking the button
+	 * @param parkings (ArrayList of ParkingInstance)
+	 */
 	private void ParkingInstancesPopup(ArrayList<ParkingInstance> parkings) {
 		Stage popupwindow = new Stage();
 		popupwindow.setWidth(1024);
