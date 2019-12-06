@@ -17,9 +17,22 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.Node;
 
+/**
+ * This class creates and displays Parking Aggregate Tables to be incorporated
+ * into user interface.
+ *
+ */
 public class ParkingAggregatesTableFactory {
     final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
+    
+    /**
+     * This creates the scene of parking aggregates table with a given data of parking aggregates,
+     * start date and end date.
+     * @param parkings (ArrayList of ParkingAggregate)
+     * @param start (LocalDate)
+     * @param end (LocalDate)
+     * @return table scene (Scene)
+     */
     public static Scene createParkingAggregatesTableScene(ArrayList<ParkingAggregate> parkings,
             LocalDate start, LocalDate end) {
         Scene scene = new Scene(new Group());
@@ -27,7 +40,8 @@ public class ParkingAggregatesTableFactory {
         final Label label = new Label(
                 "Parking Aggregates: " + start.format(formatter) + " to " + end.format(formatter));
         label.setFont(new Font("Arial", 20));
-
+        
+        // table view for efficient and ease of reading
         TableView<ParkingAggregate> table = createParkingAggregatesTable(parkings);
         table.setMinWidth(1000);
         table.setMinHeight(700);
