@@ -15,24 +15,35 @@ import java.util.List;
  */
 
 public class ParkingController {
+    // instance variables
     Database db;
     ParkingInstanceProcessor pip;
 
     static ParkingController parkingController;
 
     /**
-     * Parking Controller constructor
+     * Constructor for the ParkingController class
+     * @throws ParkingException
      */
     private ParkingController() throws ParkingException {
         db = new Database();
         pip = new ParkingInstanceProcessor(db);
     }
-
+    
+    /**
+     * Another constructor for the Parking Controller class with a given database.
+     * @param db (Database)
+     */
     public ParkingController(Database db) {
         this.db = db;
         pip = new ParkingInstanceProcessor(db);
     }
-
+    
+    /**
+     * Method that captures the instance of Parking Controller object
+     * @return ParkingController
+     * @throws ParkingException
+     */
     public static synchronized ParkingController getInstance() throws ParkingException {
         if (parkingController == null) {
             parkingController = new ParkingController();
@@ -42,24 +53,31 @@ public class ParkingController {
 
 
     /**
-     * Add parking instances to the database based on folder or image file input.
-     * 
-     * @param filePath
+     * Add parking instances to the database based on folder path
+     * @param filePath (Path)
+     * @return ArrayList of Parking Instance
+     * @throws ParkingException
      */
     public ArrayList<ParkingInstance> uploadPhotos(Path filePath) throws ParkingException {
         return pip.addParkingInstances(filePath);
     }
-
+    
+    /**
+     * Add parking instances to the database based on the list of files
+     * @param files (List of file)
+     * @return ArrayList of Parking Instance
+     * @throws ParkingException
+     */
     public ArrayList<ParkingInstance> uploadPhotos(List<File> files) throws ParkingException {
         return pip.addParkingInstances(files);
     }
 
     /**
-     * This method creates a violation report based on the user inputted timeframe.
+     * This method creates a violation report based on the user input time frame.
      * 
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate (LocalDate)
+     * @param endDate (LocalDatE)
+     * @return ArrayList of ParkingAggregate
      */
     public ArrayList<ParkingAggregate> getParkingAggregates(LocalDate startDate,
             LocalDate endDate) {
