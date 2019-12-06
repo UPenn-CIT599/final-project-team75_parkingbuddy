@@ -16,6 +16,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * This database class 
+ *
+ */
 public class Database {
 	final static DateTimeFormatter dateTimeFormatter =
 			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
