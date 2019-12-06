@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 /**
  * This class models a database for parking instances and its details for the
- * user to store and retrieve data. This class implements SQLlite to streamline
+ * user to store and retrieve data. This class implements SQLite to streamline
  * data management and sorting.
  *
  */
@@ -53,7 +53,13 @@ public class Database {
 	public Database(Path path) throws ParkingException {
 		init(path);
 	}
-
+	
+	/**
+	 * This method sets up using the JDBC driver for SQLite and calls other
+	 * to create new database and parking instance table.
+	 * @param path (Path)
+	 * @throws ParkingException
+	 */
 	private void init(Path path) throws ParkingException {
 		conn = connect("jdbc:sqlite:" + path.toString());
 		createNewDatabase();
@@ -61,9 +67,10 @@ public class Database {
 	}
 
 	/**
-	 * Set up the connection to database
-	 * 
-	 * @return
+	 * This method sets up connection to database
+	 * @param url (String)
+	 * @return Connection
+	 * @throws ParkingException
 	 */
 	private Connection connect(String url) throws ParkingException {
 		// SQLite connection string
@@ -76,7 +83,7 @@ public class Database {
 	}
 
 	/**
-	 * Create a new database
+	 * This method creates a new database
 	 */
 	public void createNewDatabase() {
 		try {
@@ -89,7 +96,7 @@ public class Database {
 	}
 
 	/**
-	 * Create ParkingInstances table
+	 * This method creates ParkingInstances table
 	 */
 	public void createParkingInstanceTable() {
 
@@ -117,19 +124,23 @@ public class Database {
 	/**
 	 * Insert each new parkingInstance into the table
 	 * 
-	 * @param parkingInstance
+	 * @param parkingInstance (ParkingInstance)
 	 */
 	public void insertParkingInstance(ParkingInstance parkingInstance) throws ParkingException {
-		if (parkingInstance.getCar().getState().isEmpty()
+		
+	    // parking instance with empty fields cannot be added
+	    if (parkingInstance.getCar().getState().isEmpty()
 				|| parkingInstance.getCar().getLicense().isEmpty()
 				|| parkingInstance.getPhoto().getMd5Hash().isEmpty()) {
 			throw new ParkingException(
 					"Unable to insert parkingInstance to DB; parkingInstance contains empty field(s)");
 		}
-
+	    
+	    // SQL command string
 		String sql = "INSERT OR IGNORE INTO ParkingInstances \n"
 				+ "(state,license,datetime,photoHash,photoPath,photoImage) VALUES(?,?,?,?,?,?)";
-
+		
+		// setting values for the parking instance
 		try {
 			PreparedStatement prepStatement = conn.prepareStatement(sql);
 			prepStatement.setString(1, parkingInstance.getCar().getState());
@@ -147,10 +158,11 @@ public class Database {
 	}
 
 	/**
-	 * Get parking instances filtered by user input dates.
-	 * 
-	 * @param startDate
-	 * @param endDate
+	 * Get parking instances filtered by user input start and end dates.
+	 * @param car (Car)
+	 * @param startDate (LocalDate)
+	 * @param endDate (LocalDate)
+	 * @return
 	 */
 	public ArrayList<ParkingInstance> getParkingInstancesbyDate(Car car, LocalDate startDate,
 			LocalDate endDate) {
