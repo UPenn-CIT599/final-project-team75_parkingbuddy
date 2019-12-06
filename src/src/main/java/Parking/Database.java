@@ -162,14 +162,15 @@ public class Database {
 	 * @param car (Car)
 	 * @param startDate (LocalDate)
 	 * @param endDate (LocalDate)
-	 * @return
+	 * @return ArrayList of parking instances
 	 */
 	public ArrayList<ParkingInstance> getParkingInstancesbyDate(Car car, LocalDate startDate,
 			LocalDate endDate) {
 	  
 	    // ArrayList to store parking instances
 		ArrayList<ParkingInstance> parkings = new ArrayList<ParkingInstance>();
-
+		
+		// SQL code lines
 		String sql =
 				"SELECT state, license, datetime, photoHash, photoPath, photoImage FROM parkingInstances\n"
 						+ "WHERE state = ? AND license = ?\n" + "AND (\n"
@@ -177,7 +178,8 @@ public class Database {
 						+ "  OR \n"
 						+ "  (TIME(datetime) < TIME('06:00:00') AND DATE(datetime) >= ? and DATE(datetime) <= ?)"
 						+ ")";
-
+		
+		// setting up each data value to be queried and executing query
 		try {
 			PreparedStatement prepStatement = conn.prepareStatement(sql);
 			prepStatement.setString(1, car.getState());
@@ -188,6 +190,8 @@ public class Database {
 			prepStatement.setString(6, endDate.plusDays(1).format(dateFormatter));
 			ResultSet results = prepStatement.executeQuery();
 			System.out.println("Selecting data");
+			
+			// after getting the values storing it into Parkings ArrayList
 			while (results.next()) {
 				try {
 					Car myCar = new Car(results.getString("state"), results.getString("license"));
@@ -211,13 +215,11 @@ public class Database {
 	 * Get parking instances filtered by user input dates and return an ArrayList of the aggregated
 	 * parking instances for each car.
 	 * 
-	 * @param startDate
-	 * @param endDate
+	 * @param startDate (LocalDate)
+	 * @param endDate (LocalDate)
 	 */
 	public ArrayList<ParkingAggregate> getParkingAggregates(LocalDate startDate,
 			LocalDate endDate) {
-		String start = startDate.format(dateFormatter);
-		System.out.println(start);
 
 		String sql = "SELECT state, license, count(*) as count from\n" // break
 				+ "(\n" // break
