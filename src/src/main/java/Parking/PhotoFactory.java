@@ -1,6 +1,6 @@
 package Parking;
 
-import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImage; 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -30,11 +30,11 @@ public class PhotoFactory {
 	final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss");
 
 	/**
-	 * This method creates an ArrayList of Photo objects from each image file in the designated
-	 * folder.
+	 * This static method creates an ArrayList of Photo objects from each image file
+	 * in the designated folder.
 	 * 
-	 * @param path
-	 * @return
+	 * @param path (Path)
+	 * @return ArrayList of Photos
 	 */
 	public static ArrayList<Photo> createPhotos(Path path) throws ParkingException {
 		// get paths to the image files in the folder
