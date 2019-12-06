@@ -34,8 +34,9 @@ public class GUI extends Application {
 	private ParkingController parkingController;
 
 	/**
-	 * This start method launches the window given the stage.
+	 * This start method launches the window with UI given the stage.
 	 * 
+	 * @param stage (Stage)
 	 */
 	public void start(Stage stage) {
 		try {
@@ -76,8 +77,7 @@ public class GUI extends Application {
 			// create the button to upload files using file chooser
 			Button button2 = new Button("Upload file(s)");
 			final FileChooser fileChooser = new FileChooser();
-			// the user is defaulted to uploading jpeg files when using file
-			// chooser
+			// the user is defaulted to uploading jpeg files when using file chooser
 			fileChooser.getExtensionFilters().addAll(
 					new FileChooser.ExtensionFilter("JPG", "*.jpg"),
 					new FileChooser.ExtensionFilter("PNG", "*.png"),
@@ -103,6 +103,7 @@ public class GUI extends Application {
 					}
 				}
 			});
+			
 			// create event handler in case of button pressed
 			button1.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
