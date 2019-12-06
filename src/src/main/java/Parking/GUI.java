@@ -23,12 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
  * This GUI class sets up and runs a window that interacts with the user to serve his/her needs.
  * There are two buttons devoted to user uploading images, one to upload via a folder and one to
  * upload via raw image files. The third button processes all parking incidents to create parking
  * tickets.
- *
+ * 
  */
 public class GUI extends Application {
 	private ParkingController parkingController;
