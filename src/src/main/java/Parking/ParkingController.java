@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ParkingController directs the program based on user input on whether to add parking instances or
- * to pull parking violation report.
- * 
- * If user chooses to pull a violation reports, this class contains the logic to call all relevant
+ * ParkingController directs the program based on user input on whether to add 
+ * parking instances or to pull parking violation report. If user chooses to 
+ * pull a violation reports, this class contains the logic to call all relevant
  * classes to process tickets or add parking instances to the SQL database.
  */
-
 public class ParkingController {
     // instance variables
     Database db;
@@ -22,7 +20,8 @@ public class ParkingController {
     static ParkingController parkingController;
 
     /**
-     * Constructor for the ParkingController class
+     * Constructor for the ParkingController class.
+     * 
      * @throws ParkingException
      */
     private ParkingController() throws ParkingException {
@@ -32,6 +31,7 @@ public class ParkingController {
     
     /**
      * Another constructor for the Parking Controller class with a given database.
+     * 
      * @param db (Database)
      */
     public ParkingController(Database db) {
@@ -40,7 +40,8 @@ public class ParkingController {
     }
     
     /**
-     * Method that captures the instance of Parking Controller object
+     * Method that captures the instance of the ParkingController object.
+     * 
      * @return ParkingController
      * @throws ParkingException
      */
@@ -50,10 +51,11 @@ public class ParkingController {
         }
         return parkingController;
     }
-
-
+    
     /**
-     * Add parking instances to the database based on folder path
+     * This method adds parking instances to the database from  
+     * photos based on the file path
+     * 
      * @param filePath (Path)
      * @return ArrayList of Parking Instance
      * @throws ParkingException
@@ -63,9 +65,11 @@ public class ParkingController {
     }
     
     /**
-     * Add parking instances to the database based on the list of files
+     * This methods adds parking instances to the database from photos
+     * based on the list of files
+     * 
      * @param files (List of file)
-     * @return ArrayList of Parking Instance
+     * @return ArrayList of ParkingInstance
      * @throws ParkingException
      */
     public ArrayList<ParkingInstance> uploadPhotos(List<File> files) throws ParkingException {

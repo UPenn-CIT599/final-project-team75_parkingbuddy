@@ -20,7 +20,6 @@ import java.util.ArrayList;
  * This class models a database for parking instances and its details for the
  * user to store and retrieve data. This class implements SQLite to streamline
  * data management and sorting.
- *
  */
 public class Database {
     // date and time to follow this format
