@@ -220,7 +220,8 @@ public class Database {
 	 */
 	public ArrayList<ParkingAggregate> getParkingAggregates(LocalDate startDate,
 			LocalDate endDate) {
-
+	  
+	    // SQL code
 		String sql = "SELECT state, license, count(*) as count from\n" // break
 				+ "(\n" // break
 				+ "  SELECT * from\n" // break
@@ -237,14 +238,18 @@ public class Database {
 				+ "  GROUP BY state, license, date\n" // break
 				+ ")\n" // break
 				+ "GROUP BY state, license\n" + "ORDER BY count DESC, state ASC, license ASC";
-
+		
+		// ArrayList to store aggregate results of parking
 		ArrayList<ParkingAggregate> parkingResults = new ArrayList<ParkingAggregate>();
+		
 		try {
+		    // initialize variables for aggregate with start and end dates
 			PreparedStatement prepStatement = conn.prepareStatement(sql);
 			prepStatement.setString(1, startDate.format(dateFormatter));
 			prepStatement.setString(2, endDate.format(dateFormatter));
 			ResultSet results = prepStatement.executeQuery();
-
+			
+			// for every instance, store each instance separately but in the same aggregate
 			while (results.next()) {
 				String license = results.getString("license");
 				String state = results.getString("state");
@@ -299,5 +304,4 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-
 }
