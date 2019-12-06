@@ -146,7 +146,7 @@ public class Database {
 			prepStatement.setString(1, parkingInstance.getCar().getState());
 			prepStatement.setString(2, parkingInstance.getCar().getLicense());
 
-			// datetime inserts in computer's local timezone
+			// date time inserts in computer's local timezone
 			prepStatement.setString(3, parkingInstance.getDateTime().format(dateTimeFormatter));
 			prepStatement.setString(4, parkingInstance.getPhotoMd5Hash());
 			prepStatement.setString(5, parkingInstance.getPhoto().getPath());
@@ -166,6 +166,8 @@ public class Database {
 	 */
 	public ArrayList<ParkingInstance> getParkingInstancesbyDate(Car car, LocalDate startDate,
 			LocalDate endDate) {
+	  
+	    // ArrayList to store parking instances
 		ArrayList<ParkingInstance> parkings = new ArrayList<ParkingInstance>();
 
 		String sql =
