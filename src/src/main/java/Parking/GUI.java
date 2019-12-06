@@ -243,6 +243,7 @@ public class GUI extends Application {
 	
 	/**
 	 * This method sets up the parking aggregate pop up window upon clicking button.
+	 * 
 	 * @param parkings (ArrayList of ParkingAggregate)
 	 * @param start (LocalDate)
 	 * @param end (LocalDate)
