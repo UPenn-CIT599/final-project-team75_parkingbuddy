@@ -28,6 +28,7 @@ public class ParkingAggregatesTableFactory {
     /**
      * This creates the scene of parking aggregates table with a given data of parking aggregates,
      * start date and end date.
+     * 
      * @param parkings (ArrayList of ParkingAggregate)
      * @param start (LocalDate)
      * @param end (LocalDate)
@@ -56,6 +57,7 @@ public class ParkingAggregatesTableFactory {
     
     /**
      * This method creates the parking aggregates table with given parking aggregate data.
+     * 
      * @param parkings (ArrayList of Parking Aggregate)
      * @return Parking Aggregate Table
      */
@@ -104,7 +106,13 @@ public class ParkingAggregatesTableFactory {
                 });
 
             }
-
+            
+            /**
+             * overrides the default method and this computes the preferred height
+             * according to width
+             * @param width double
+             * @return height double
+             */
             @Override
             protected double computePrefHeight(double width) {
                 if (isSelected()) {
@@ -113,7 +121,10 @@ public class ParkingAggregatesTableFactory {
                     return super.computePrefHeight(width);
                 }
             }
-
+            
+            /**
+             * lays out the children in this parent
+             */
             @Override
             protected void layoutChildren() {
                 super.layoutChildren();
@@ -129,6 +140,7 @@ public class ParkingAggregatesTableFactory {
     
     /**
      * This method creates the inline Parking Instances table
+     * 
      * @param parkingAggregate (ParkingAggregate)
      * @return ParkingInstance table
      */

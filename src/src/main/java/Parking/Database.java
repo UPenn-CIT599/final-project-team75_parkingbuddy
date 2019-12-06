@@ -30,6 +30,7 @@ public class Database {
 
 	/**
 	 * Constructor for the Database class
+	 * 
 	 * @throws ParkingException
 	 */
 	public Database() throws ParkingException {
@@ -46,6 +47,7 @@ public class Database {
 	
 	/**
 	 * Constructor for the database class with the path parameter given
+	 * 
 	 * @param path (Path)
 	 * @throws ParkingException
 	 */
@@ -56,6 +58,7 @@ public class Database {
 	/**
 	 * This method sets up using the JDBC driver for SQLite and calls other
 	 * to create new database and parking instance table.
+	 * 
 	 * @param path (Path)
 	 * @throws ParkingException
 	 */
@@ -67,6 +70,7 @@ public class Database {
 
 	/**
 	 * This method sets up connection to database
+	 * 
 	 * @param url (String)
 	 * @return Connection
 	 * @throws ParkingException
@@ -121,7 +125,7 @@ public class Database {
 	}
 
 	/**
-	 * Insert each new parkingInstance into the table
+	 * This method inserts each new parkingInstance into the table
 	 * 
 	 * @param parkingInstance (ParkingInstance)
 	 */
@@ -158,6 +162,7 @@ public class Database {
 
 	/**
 	 * Get parking instances filtered by user input start and end dates.
+	 * 
 	 * @param car (Car)
 	 * @param startDate (LocalDate)
 	 * @param endDate (LocalDate)
