@@ -9,7 +9,7 @@ Min Choi [minschoi@seas.upenn.edu]
 ## Overview 
 Parking is a scarce resource in many neighborhoods. As such, neighborhoods have parking policies to limit the number of times each vehicle can park at the neighborhood. Tracking the vehicles parked at a parking lot is manually-intensive work, as the enforcement volunteer must manually log the license plates and dates of every vehicle parked in a complex and determine the violations. 
 
-The ParkingBuddy desktop program usings OCR to automate this manual logging and tracking of vehicles so as to streamline the enforcement process.
+Parking Buddy is a parking tracking application that makes use of OpenALPR, an open-source OCR library, to help parking enforcement officers automatically recognize license plates. A SQLite database is also used to track the number of times each vehicle is parked at a parking garage over a period of time.
 
 #### Parking Rules
 - Restrictions are placed on the number of times that a vehicle can be parked overnight.
