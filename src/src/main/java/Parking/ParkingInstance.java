@@ -94,7 +94,14 @@ public class ParkingInstance {
 	public BufferedImage getThumbnail() {
 		return photo.getThumbnail();
 	}
-
+	
+	/**
+     * Method that compares between two ParkingInstance objects by comparing their
+     * car and photo values.
+     * 
+     * @param o (Object)
+     * @return boolean
+     */
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

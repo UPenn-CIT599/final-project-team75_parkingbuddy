@@ -54,6 +54,9 @@ public class Car {
     /**
      * Method that compares between two Car objects by comparing their
      * state and license values.
+     * 
+     * @param o (Object)
+     * @return boolean
      */
     @Override
     public boolean equals(Object o) {
