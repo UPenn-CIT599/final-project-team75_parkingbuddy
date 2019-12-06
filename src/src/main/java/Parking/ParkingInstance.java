@@ -15,6 +15,7 @@ public class ParkingInstance {
 	
 	/**
 	 * Constructor for the ParkingInstance class
+	 * 
 	 * @param car (Car)
 	 * @param photo (Photo)
 	 */
@@ -25,6 +26,7 @@ public class ParkingInstance {
 	
 	/**
 	 * Getter method for the date and time from the photo instance variable
+	 * 
 	 * @return date and time (LocalDateTime)
 	 */
 	public LocalDateTime getDateTime() {
@@ -33,6 +35,7 @@ public class ParkingInstance {
 	
 	/**
 	 * Getter method for the car instance variable
+	 * 
 	 * @return car (Car)
 	 */
 	public Car getCar() {
@@ -41,6 +44,7 @@ public class ParkingInstance {
 	
 	/**
 	 * Getter method for the state value from the car instance variable
+	 * 
 	 * @return state (String)
 	 */
 	public String getState() {
@@ -49,6 +53,7 @@ public class ParkingInstance {
 	
 	/**
 	 * Getter method for the license value from the car instance variable
+	 * 
 	 * @return license (String)
 	 */
 	public String getLicense() {
@@ -57,6 +62,7 @@ public class ParkingInstance {
 	
 	/**
 	 * Setter method for the car instance variable
+	 * 
 	 * @param car (Car)
 	 */
 	public void setCar(Car car) {
@@ -65,6 +71,7 @@ public class ParkingInstance {
 	
 	/**
 	 * Getter method for the MD5Hash value of the photo instance variable
+	 * 
 	 * @return Md5Hash (String)
 	 */
 	public String getPhotoMd5Hash() {
@@ -74,6 +81,7 @@ public class ParkingInstance {
 	/**
 	 * toString method that overrides the default method by concatenating
 	 * car and string instance variables with a comma and space in between
+	 * 
 	 * @return concatenated String
 	 */
 	@Override
@@ -83,6 +91,7 @@ public class ParkingInstance {
 	
 	/**
 	 * Getter method for the thumbnail image from the photo instance variable
+	 * 
 	 * @return thumbnail (BufferedImage)
 	 */
 	public BufferedImage getThumbnail() {
@@ -91,6 +100,7 @@ public class ParkingInstance {
 	
 	/**
 	 * Getter method for the photo instance variable
+	 * 
 	 * @return photo (Photo)
 	 */
 	public Photo getPhoto() {
@@ -100,6 +110,7 @@ public class ParkingInstance {
 	/**
 	 * equals method that overrides the default. Compares instance variables from
 	 * two ParkingInstance objects.
+	 * 
 	 * @param o (Object)
 	 * @return boolean
 	 */
