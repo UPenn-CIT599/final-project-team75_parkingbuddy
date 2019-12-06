@@ -33,7 +33,10 @@ import java.util.List;
 public class GUI extends Application {
 	private ParkingController parkingController;
 
-	// launching the application
+	/**
+	 * This start method launches the window given the stage.
+	 * 
+	 */
 	public void start(Stage stage) {
 		try {
 			parkingController = ParkingController.getInstance();
@@ -241,7 +244,13 @@ public class GUI extends Application {
 			System.out.println(e.getMessage());
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @param parkings
+	 * @param start
+	 * @param end
+	 */
 	private void ParkingAggregatesPopup(ArrayList<ParkingAggregate> parkings, LocalDate start,
 			LocalDate end) {
 		Stage popupwindow = new Stage();
