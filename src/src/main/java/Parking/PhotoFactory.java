@@ -46,9 +46,8 @@ public class PhotoFactory {
 	}
 	
 	/**
-	 * 
-     * This method creates an ArrayList of Photo objects from each image file in the List
-     * of files.
+     * This method creates an ArrayList of Photo objects from each image files in
+     * a List of files.
      * 
      * @param List of files
      * @return ArrayList of Photos
@@ -94,12 +93,20 @@ public class PhotoFactory {
 	public static Photo createPhoto(File file) throws ParkingException {
 		return createPhoto(file.toPath());
 	}
-
+	
+	/**
+     * This method creates a Photo object from a given file path.
+     * 
+     * @param file (File)
+     * @return path (Path)
+     */
 	public static Photo createPhoto(Path path) throws ParkingException {
 		Photo photo = null;
 		try {
+		    // create inputstream from bytes
 			byte[] bytes = Files.readAllBytes(path);
 			InputStream inputStream = new ByteArrayInputStream(bytes);
+			
 			// Make the image smaller while keeping aspect ratio.
 			BufferedImage image = Thumbnails.of(inputStream).size(1024, 1024).keepAspectRatio(true)
 					.asBufferedImage();
@@ -107,12 +114,13 @@ public class PhotoFactory {
 			LocalDateTime dateTime = getDateTime(inputStream);
 			inputStream.reset();
 			String md5Hash = DigestUtils.md5Hex(inputStream).toUpperCase();
+			
 			// create Photo object
 			photo = new Photo(image, dateTime, md5Hash, path.toString());
-
 		} catch (IOException e) {
 			throw new ParkingException("Unable to read Photo file: " + e.getMessage());
 		}
+		
 		return photo;
 	}
 
@@ -128,12 +136,14 @@ public class PhotoFactory {
 	 */
 	private static LocalDateTime getDateTime(InputStream inputStream) throws ParkingException {
 		LocalDateTime dateTime = null;
-		try {
+		try { 
+		    // getting Metadata inside an image file
 			Metadata metadata;
 			metadata = ImageMetadataReader.readMetadata(inputStream);
 			ExifSubIFDDirectory dir = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
+			
+			// we only care about the data and time metadata
 			String dateStr = dir.getString(ExifIFD0Directory.TAG_DATETIME_ORIGINAL);
-
 			dateTime = LocalDateTime.parse(dateStr, formatter);
 		} catch (Exception e) {
 			throw new ParkingException("Unable to extract Photo metadata: " + e.getMessage());
