@@ -44,7 +44,13 @@ public class PhotoFactory {
 		}
 		return createPhotos(Arrays.asList(files));
 	}
-
+	
+	/**
+	 * This static method creates an ArrayList of Photo objects from a List of image files.
+	 * 
+	 * @param List of Files
+	 * @return ArrayList of Photos
+	 */
 	public static ArrayList<Photo> createPhotos(List<File> files) throws ParkingException {
 		// initialize ArrayList of photo objects
 		ArrayList<Photo> photos = new ArrayList<Photo>();
