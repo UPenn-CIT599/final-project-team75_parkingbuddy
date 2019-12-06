@@ -23,13 +23,15 @@ import java.util.ArrayList;
  *
  */
 public class Database {
+    // date and time to follow this format
 	final static DateTimeFormatter dateTimeFormatter =
 			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	Connection conn;
 
 	/**
-	 * Initialize the database
+	 * Constructor for the Database class
+	 * @throws ParkingException
 	 */
 	public Database() throws ParkingException {
 		try {
@@ -42,7 +44,12 @@ public class Database {
 			throw new ParkingException("Unable to load database: " + e.getMessage());
 		}
 	}
-
+	
+	/**
+	 * Constructor for the database class with the path parameter given
+	 * @param path (Path)
+	 * @throws ParkingException
+	 */
 	public Database(Path path) throws ParkingException {
 		init(path);
 	}
