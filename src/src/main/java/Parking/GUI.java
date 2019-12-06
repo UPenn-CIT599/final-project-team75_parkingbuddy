@@ -27,12 +27,13 @@ import java.util.List;
  * There are two buttons devoted to user uploading images, one to upload via a folder and one to
  * upload via raw image files. The third button processes all parking incidents to create parking
  * tickets.
- * 
  */
 public class GUI extends Application {
 	private ParkingController parkingController;
 
-	// launching the application
+	/**
+	 * This method takes in a stage and launches the window.
+	 */
 	public void start(Stage stage) {
 		try {
 			parkingController = ParkingController.getInstance();
@@ -262,6 +263,7 @@ public class GUI extends Application {
 	
 	/**
 	 * This method sets up the parking instance popup windwo upon clicking the button
+	 * 
 	 * @param parkings (ArrayList of ParkingInstance)
 	 */
 	private void ParkingInstancesPopup(ArrayList<ParkingInstance> parkings) {
