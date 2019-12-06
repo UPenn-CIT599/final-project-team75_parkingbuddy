@@ -25,19 +25,22 @@ public class Photo {
     // Actual Image
     BufferedImage image;
 
-    // photo creation date, i.e. time that photo was taken of car parking
-    // instance
+    /**
+     * photo creation date, i.e. time that photo was taken of car parking instance
+     */
     LocalDateTime dateTime;
 
-    // hash of photo which provides us with a unique identifier for each photo
-    // to handle duplicates
+    /**
+     * hash of photo which provides us with a unique identifier 
+     * for each photo to handle duplicates
+     */
     String md5Hash;
 
     // path of photo file based on user input
     String path;
 
     /**
-     * Constructor for Photo
+     * Constructor for Photo class
      * 
      * @param data
      * @param creationDate

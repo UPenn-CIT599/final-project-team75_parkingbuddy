@@ -22,8 +22,8 @@ import net.coobird.thumbnailator.Thumbnails;
 import java.util.List;
 
 /**
- * This class reads the image files and extracts the EXIF metadata required to construct a Photo
- * object from each image.
+ * This class reads the image files and extracts the EXIF metadata required to construct
+ * a Photo object from each image.
  *
  */
 public class PhotoFactory {
@@ -33,8 +33,8 @@ public class PhotoFactory {
 	 * This method creates an ArrayList of Photo objects from each image file in the designated
 	 * folder.
 	 * 
-	 * @param path
-	 * @return
+	 * @param path (Path)
+	 * @return ArrayList of Photos
 	 */
 	public static ArrayList<Photo> createPhotos(Path path) throws ParkingException {
 		// get paths to the image files in the folder
@@ -44,7 +44,16 @@ public class PhotoFactory {
 		}
 		return createPhotos(Arrays.asList(files));
 	}
-
+	
+	/**
+	 * 
+     * This method creates an ArrayList of Photo objects from each image file in the List
+     * of files.
+     * 
+     * @param List of files
+     * @return ArrayList of Photos
+	 * @throws ParkingException
+	 */
 	public static ArrayList<Photo> createPhotos(List<File> files) throws ParkingException {
 		// initialize ArrayList of photo objects
 		ArrayList<Photo> photos = new ArrayList<Photo>();
@@ -64,8 +73,7 @@ public class PhotoFactory {
 			throw new ParkingException("No valid photo files: " + files);
 		}
 
-		// iterate through each image file in the folder to create a photo
-		// object
+		// iterate through each image file in the folder to create a photo object
 		for (File file : filteredFiles) {
 			try {
 			photos.add(createPhoto(file));
