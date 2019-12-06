@@ -40,6 +40,14 @@ public class ParkingInstance {
 	}
 	
 	/**
+	 * Getter for the photo instance variable.
+	 * @return photo (Photo)
+	 */
+	public Photo getPhoto() {
+		return photo;
+	}
+	
+	/**
 	 * Getter for the state value of the car instance variable.
 	 * @return state of car (String)
 	 */
@@ -79,13 +87,12 @@ public class ParkingInstance {
 		return car.toString() + ", " + photo.toShortString();
 	}
 	
-	/
+	/**
+	 * Getter for the thumbnail of the photo instance variable
+	 * @return thumbnail (BufferedImage)
+	 */
 	public BufferedImage getThumbnail() {
 		return photo.getThumbnail();
-	}
-
-	public Photo getPhoto() {
-		return photo;
 	}
 
 	@Override
