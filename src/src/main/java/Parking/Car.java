@@ -60,12 +60,13 @@ public class Car {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
+      if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+        // creating and comparing the new car object
         Car oCar = (Car) o;
         return state.equals(oCar.state) && license.equals(oCar.license);
     }
