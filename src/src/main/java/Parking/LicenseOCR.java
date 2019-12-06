@@ -30,7 +30,7 @@ class LicenseOCR {
 	 * This method returns a car object by taking in a photo object and extracting the necessary
 	 * data from the photo. We call the OpenALPR API to get the license plate number and state.
 	 * 
-	 * @param Photo
+	 * @param photo (Photo)
 	 * @return Car
 	 */
 	public Car getCarWithOpenALPR(Photo photo) {
@@ -81,7 +81,7 @@ class LicenseOCR {
 	 * a vehicle present in the image passes a certain threshold.
 	 * 
 	 * @param jsonContent
-	 * @return
+	 * @return boolean
 	 */
 	private boolean checkJSONForCar(String jsonContent) {
 		JSONObject obj = new JSONObject(jsonContent).optJSONObject("processing_time");
@@ -90,7 +90,6 @@ class LicenseOCR {
 		if (vehicle_confidence < 10) {
 			return false;
 		}
-
 		return true;
 	}
 
