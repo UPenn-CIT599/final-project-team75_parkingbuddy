@@ -40,11 +40,12 @@ public class Photo {
     String path;
 
     /**
-     * Constructor for Photo class
-     * 
-     * @param data
-     * @param creationDate
-     * @param photoHash
+     * Constructor for the Photo class and object with BufferedImage parameter
+     * @param image (BufferedImage)
+     * @param dateTime (LocalDateTime)
+     * @param md5Hash (String)
+     * @param path (String)
+     * @throws ParkingException
      */
     public Photo(BufferedImage image, LocalDateTime dateTime, String md5Hash, String path)
             throws ParkingException {
@@ -54,6 +55,14 @@ public class Photo {
         this.path = path;
     }
 
+    /**
+     * Constructor for the Photo class and object with photo bytes parameter
+     * @param photoBytes (byte[])
+     * @param dateTime (LocalDateTime)
+     * @param md5Hash (String)
+     * @param path (String)
+     * @throws ParkingException
+     */
     public Photo(byte[] photoBytes, LocalDateTime dateTime, String md5Hash, String path)
             throws ParkingException {
         try {
@@ -70,7 +79,7 @@ public class Photo {
     /**
      * Getter method to get the photo's creation date (i.e. when the photo was taken)
      * 
-     * @return
+     * @return date and time (LocalDateTime)
      */
     public LocalDateTime getDateTime() {
         return dateTime;
@@ -79,7 +88,7 @@ public class Photo {
     /**
      * Getter method to get the file path of the photo
      * 
-     * @return
+     * @return path (String)
      */
     public String getPath() {
         return path;
@@ -88,7 +97,7 @@ public class Photo {
     /**
      * Getter method to get the hash string of the photo
      * 
-     * @return
+     * @return md5Hash (String)
      */
     public String getMd5Hash() {
         return md5Hash;

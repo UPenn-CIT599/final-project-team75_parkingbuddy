@@ -88,8 +88,8 @@ public class PhotoFactory {
 	 * This method creates a Photo object from an image file. Used to create individual photo
 	 * objects from the File argument.
 	 * 
-	 * @param file
-	 * @return
+	 * @param file (File)
+	 * @return photo (Photo)
 	 */
 	public static Photo createPhoto(File file) throws ParkingException {
 		return createPhoto(file.toPath());
