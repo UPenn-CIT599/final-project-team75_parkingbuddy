@@ -76,7 +76,7 @@ public class ParkingController {
      * This method creates a violation report based on the user input time frame.
      * 
      * @param startDate (LocalDate)
-     * @param endDate (LocalDatE)
+     * @param endDate (LocalDate)
      * @return ArrayList of ParkingAggregate
      */
     public ArrayList<ParkingAggregate> getParkingAggregates(LocalDate startDate,
