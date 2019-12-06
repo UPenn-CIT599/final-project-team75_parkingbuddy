@@ -102,15 +102,29 @@ public class Photo {
     public String getMd5Hash() {
         return md5Hash;
     }
-
+    
+    /**
+     * Method that overrides the default toString method by concatenating date and time,
+     * md5Hash and path. This is shortString with path added.
+     * @return string
+     */
+    @Override
     public String toString() {
         return toShortString() + ", " + path;
     }
-
+    
+    /**
+     * Method that concatenates date and time with md5Hash
+     * @return string
+     */
     public String toShortString() {
         return dateTime.format(formatter) + ", " + md5Hash;
     }
-
+    
+    /**
+     * This method turns images to jpeg bytes
+     * @return
+     */
     public byte[] toJpegBytes() {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         try {
@@ -121,11 +135,19 @@ public class Photo {
         }
         return outStream.toByteArray();
     }
-
+    
+    /**
+     * Getter method for the image instance variable
+     * @return image (BufferedImage)
+     */
     public BufferedImage getImage() {
         return image;
     }
-
+    
+    /**
+     * Getter method for the thumbnail
+     * @return image (BufferedImage)
+     */
     public BufferedImage getThumbnail() {
         try {
             return Thumbnails.of(image).size(128, 128).keepAspectRatio(true).asBufferedImage();
@@ -135,7 +157,11 @@ public class Photo {
         }
         return null;
     }
-
+    
+    /**
+     * This method overrides the default equals method to compare two photo objects
+     * @return boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
