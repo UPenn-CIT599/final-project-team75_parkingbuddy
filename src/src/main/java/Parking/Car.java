@@ -44,7 +44,7 @@ public class Car {
     /**
      * Method that concatenates state and license with a comma and space.
      * 
-     * @return string
+     * @return String
      */
     @Override
     public String toString() {
