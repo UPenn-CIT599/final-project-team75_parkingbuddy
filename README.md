@@ -76,6 +76,9 @@ There are 2 actions the user can take:
 ### UI Mock
 ![alt text](design/ui_mock.jpeg)
 
+### Class Diagram
+![alt text](design/Parking.svg)
+
 ___
 ## Design Milestone
 ### Class Design 
