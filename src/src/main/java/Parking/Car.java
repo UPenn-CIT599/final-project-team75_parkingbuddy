@@ -12,10 +12,10 @@ public class Car {
     private String license;
 
     /**
-     * Constructor for Car
+     * Constructor for Car class
      * 
-     * @param license
-     * @param state
+     * @param license (String)
+     * @param state (String)
      */
     public Car(String state, String license) {
         this.state = state;
@@ -25,26 +25,36 @@ public class Car {
     /**
      * Getter method to get the car license plate number
      * 
-     * @return
+     * @return license (String)
      */
     public String getLicense() {
         return license;
     }
 
     /**
-     * Getter method to get the state that the car is registered under (e.g. California would be
-     * "CA")
+     * Getter method to get the state that the car is registered under
+     * (e.g. California would be "CA")
      * 
-     * @return
+     * @return state (String)
      */
     public String getState() {
         return state;
     }
-
+    
+    /**
+     * Method that concatenates state and license with a comma and space.
+     * 
+     * @return string
+     */
+    @Override
     public String toString() {
         return state + ", " + license;
     }
-
+    
+    /**
+     * Method that compares between two Car objects by comparing their
+     * state and license values.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
