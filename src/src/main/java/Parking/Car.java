@@ -2,7 +2,7 @@ package Parking;
 
 /**
  * This is the Car class and each car object represents a single car. A Car object has 2
- * parameters: (1) License plate number (license) (2) State under which is car is registered, e.g.
+ * instance variables: (1) License plate number (license) (2) State under which is car is registered, e.g.
  * California = "CA" (state)
  * 
  */
