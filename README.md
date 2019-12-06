@@ -9,7 +9,7 @@ Min Choi [minschoi@seas.upenn.edu]
 ## Overview 
 Parking is a scarce resource in many neighborhoods. As such, neighborhoods have parking policies to limit the number of times each vehicle can park at the neighborhood. Tracking the vehicles parked at a parking lot is manually-intensive work, as the enforcement volunteer must manually log the license plates and dates of every vehicle parked in a complex and determine the violations. 
 
-The ParkingBuddy desktop program thus aims to automate this manual logging and tracking of vehicles so as to streamline the enforcement process.
+The ParkingBuddy desktop program usings OCR to automate this manual logging and tracking of vehicles so as to streamline the enforcement process.
 
 #### Parking Rules
 - Restrictions are placed on the number of times that a vehicle can be parked overnight.
@@ -59,7 +59,7 @@ When ParkingBuddy is run, the following window is launched:
 There are 2 actions the user can take: 
 
 **1. Upload Photos**
-* This can be done either via a Folder upload or uploading individual image files
+* This can be done either via a Folder upload or uploading individual image files. When photos are uploaded, the OpenALPR API is used to automatically detect the license plate of the vehicle in each photo.
 * A new window displays a table confirming the parking instances that have been parsed from the image files and uploaded to the database
 ![alt text](design/ParkingInstancesUploaded.png)
 ![alt text](design/FolderUpload.gif)
