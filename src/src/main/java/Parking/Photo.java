@@ -10,37 +10,25 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * This is the Photo class for each Photo object, representing each image file loaded into the
- * program. A Photo object has 3 parameters:
- * 
- * (1) Photo metadata
- * 
- * (2) The date of the image file's creation, i.e. when the photo was taken
- * 
- * (3) The hash string of the photo as a unique identifier for each photo
+ * This is the Photo class for each Photo object, representing each image file
+ * loaded into the program.
  */
 
 public class Photo {
     final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    // Actual Image
+    // instance varaibles
     BufferedImage image;
-
-    /**
-     * photo creation date, i.e. time that photo was taken of car parking instance
-     */
     LocalDateTime dateTime;
-
-    /**
-     * hash of photo which provides us with a unique identifier 
-     * for each photo to handle duplicates
-     */
-    String md5Hash;
-
-    // path of photo file based on user input
     String path;
+    String md5Hash;
+    /**
+     *  hash of photo which provides us with a unique identifier for each
+     *  photo to handle duplicates
+     */
 
     /**
      * Constructor for the Photo class and object with BufferedImage parameter
+     * 
      * @param image (BufferedImage)
      * @param dateTime (LocalDateTime)
      * @param md5Hash (String)
@@ -57,6 +45,7 @@ public class Photo {
 
     /**
      * Constructor for the Photo class and object with photo bytes parameter
+     * 
      * @param photoBytes (byte[])
      * @param dateTime (LocalDateTime)
      * @param md5Hash (String)
@@ -106,6 +95,7 @@ public class Photo {
     /**
      * Method that overrides the default toString method by concatenating date and time,
      * md5Hash and path. This is shortString with path added.
+     * 
      * @return string
      */
     @Override
@@ -115,6 +105,7 @@ public class Photo {
     
     /**
      * Method that concatenates date and time with md5Hash
+     * 
      * @return string
      */
     public String toShortString() {
@@ -123,7 +114,8 @@ public class Photo {
     
     /**
      * This method turns images to jpeg bytes
-     * @return
+     * 
+     * @return byte[]
      */
     public byte[] toJpegBytes() {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -138,6 +130,7 @@ public class Photo {
     
     /**
      * Getter method for the image instance variable
+     * 
      * @return image (BufferedImage)
      */
     public BufferedImage getImage() {
@@ -146,6 +139,7 @@ public class Photo {
     
     /**
      * Getter method for the thumbnail
+     * 
      * @return image (BufferedImage)
      */
     public BufferedImage getThumbnail() {
@@ -160,6 +154,7 @@ public class Photo {
     
     /**
      * This method overrides the default equals method to compare two photo objects
+     * 
      * @return boolean
      */
     @Override
