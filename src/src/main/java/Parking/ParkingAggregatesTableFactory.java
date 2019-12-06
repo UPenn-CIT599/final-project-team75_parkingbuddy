@@ -53,35 +53,44 @@ public class ParkingAggregatesTableFactory {
         ((Group) scene.getRoot()).getChildren().addAll(vbox);
         return scene;
     }
-
+    
+    /**
+     * This method creates the parking aggregates table with given parking aggregate data.
+     * @param parkings (ArrayList of Parking Aggregate)
+     * @return Parking Aggregate Table
+     */
     public static TableView<ParkingAggregate> createParkingAggregatesTable(
             ArrayList<ParkingAggregate> parkings) {
         TableView<ParkingAggregate> table = new TableView<ParkingAggregate>();
         table.setPlaceholder(new Label("No overnight parking instances found for selected dates."));
 
-        // State
+        // state in table
         TableColumn<ParkingAggregate, String> state =
                 new TableColumn<ParkingAggregate, String>("State");
         state.setMinWidth(250);
         state.setCellValueFactory(new PropertyValueFactory<ParkingAggregate, String>("state"));
 
-        // License
+        // license number in table
         TableColumn<ParkingAggregate, String> license =
                 new TableColumn<ParkingAggregate, String>("License");
         license.setMinWidth(250);
         license.setCellValueFactory(new PropertyValueFactory<ParkingAggregate, String>("license"));
 
-        // Overnight Count
+        // overnight count value in table
         TableColumn<ParkingAggregate, Integer> count =
                 new TableColumn<ParkingAggregate, Integer>("Count");
         count.setMinWidth(250);
         count.setCellValueFactory(
                 new PropertyValueFactory<ParkingAggregate, Integer>("overnightCount"));
-
+        
+        // three columns of state, license and overnight count
         table.setItems(FXCollections.observableArrayList(parkings));
         table.getColumns().addAll(Arrays.asList(state, license, count));
-
+        
+        // setting up the rows
         table.setRowFactory(tv -> new TableRow<ParkingAggregate>() {
+          
+            // pane for the details and its interface
             Node detailsPane;
             {
                 this.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
@@ -117,7 +126,12 @@ public class ParkingAggregatesTableFactory {
         });
         return table;
     }
-
+    
+    /**
+     * This method creates the inline Parking Instances table
+     * @param parkingAggregate (ParkingAggregate)
+     * @return ParkingInstance table
+     */
     private static TableView<ParkingInstance> createInlineParkingInstancesTable(
             ParkingAggregate parkingAggregate) {
         TableView<ParkingInstance> table = ParkingInstancesTableFactory.createParkingInstancesTable(
