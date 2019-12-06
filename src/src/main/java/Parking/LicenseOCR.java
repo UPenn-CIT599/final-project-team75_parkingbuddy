@@ -106,8 +106,10 @@ class LicenseOCR {
 		JSONObject obj = new JSONObject(jsonString);
 		// gets values associated with "results" key
 		JSONArray result = obj.getJSONArray("results");
-		// gets values associated with "plate" key from the first index which
-		// has highest confidence
+		/**
+		 *  gets values associated with "plate" key from the first index
+		 *  which has highest confidence
+		 */
 		String licensePlate = result.getJSONObject(0).getString("plate");
 		String state = result.getJSONObject(0).getString("region").toUpperCase();
 		return new Car(state, licensePlate);
