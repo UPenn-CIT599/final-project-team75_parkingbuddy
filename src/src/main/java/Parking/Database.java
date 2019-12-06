@@ -16,6 +16,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * This class models a database for parking instances and its details for the
+ * user to store and retrieve data. This class implements SQLlite to streamline
+ * data management and sorting.
+ *
+ */
 public class Database {
 	final static DateTimeFormatter dateTimeFormatter =
 			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
