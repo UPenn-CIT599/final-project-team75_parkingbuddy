@@ -34,7 +34,8 @@ public class GUI extends Application {
 	private ParkingController parkingController;
 
 	/**
-	 * This start method launches the window given the stage.
+	 * This start method launches the window given the stage and sets up the UI.
+	 * @param s
 	 * 
 	 */
 	public void start(Stage stage) {
