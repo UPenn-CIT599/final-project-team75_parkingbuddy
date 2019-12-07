@@ -37,43 +37,42 @@ Set up jar file for non-code users to run Parking Buddy program without build fi
 Set up gradle build file
 UI Wireframe mock
 
-Sam - Backend
+### Sam - Backend
 
-Classes
-Car.java
-LicenseOCR.java (Call to OpenALPR API)
-Photo.java (photo object)
-ParkingInstance.java (ParkingInstance object)
-ParkingInstanceProcessor.java (Process each uploaded parking instance)
-PhotoFactory.java
-
-
-Tests
-LicenseOCRTest
-ParkingControllerTest
-ParkingInstanceProcessorTest
-PhotoFactoryTest
-
-Infra work
-Project milestone -  Method in JPEGReader, javadoc comments, unit tests
-Milestone README
-Investigate, and got OpenALPR library working
-Final Project README - detailed report for final submission, screenshots and gif 
-
-Min Choi - Frontend
-
-Project Classes
-GUI.java (Welcome page, upload buttons, and calendar views)
-JPEGReader.java (project milestone, later refactored to PhotoFactory.java)
-PennDraw (Decided to not use)
+#### Project Classes
+1) Car.java
+2) LicenseOCR.java (Call to OpenALPR API)
+3) Photo.java (photo object)
+4) ParkingInstance.java (ParkingInstance object)
+5) ParkingInstanceProcessor.java (Process each uploaded parking instance)
+6) PhotoFactory.java
 
 
-Tests
-CarTest
-JPEGReaderTest (project milestone, later refactored to PhotoFactoryTest.java)
+#### Tests
+1) LicenseOCRTest
+2) ParkingControllerTest
+3) ParkingInstanceProcessorTest
+4) PhotoFactoryTest
 
-Infra work
-Project milestone - Method in JPEGReader, and milestone unit tests
-Javadoc comments on classes and methods
-Debug eclipse
+#### Infra work
+* Project milestone -  Method in JPEGReader, javadoc comments, unit tests
+* Milestone README
+* Investigate, and got OpenALPR library working
+* Final Project README - detailed report for final submission, screenshots and gif 
+
+### Min Choi - Frontend
+
+#### Project Classes
+1) GUI.java (Welcome page, upload buttons, and calendar views)
+2) JPEGReader.java (project milestone, later refactored to PhotoFactory.java)
+3) PennDraw (Decided to not use)
+
+#### Tests
+1) CarTest
+2) JPEGReaderTest (project milestone, later refactored to PhotoFactoryTest.java)
+
+#### Infra work
+1) Project milestone - Method in JPEGReader, and milestone unit tests
+2) Javadoc comments on classes and methods
+3) Debug eclipse
 
