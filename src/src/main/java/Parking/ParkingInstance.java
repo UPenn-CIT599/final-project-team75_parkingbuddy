@@ -8,13 +8,12 @@ import java.awt.image.BufferedImage;
  * that a car is parked at the parking lot.
  */
 public class ParkingInstance {
-    // instance variables
+	// instance variables
 	Car car;
 	Photo photo;
-	
+
 	/**
-	 * Constructor for the ParkingInstance class
-	 * 
+	 * Constructor for the ParkingInstance class.
 	 * @param car (Car)
 	 * @param photo (Photo)
 	 */
@@ -51,9 +50,8 @@ public class ParkingInstance {
 	}
 	
 	/**
-	 * Getter method for the license value from the car instance variable
-	 * 
-	 * @return license (String)
+	 * Getter for the license value of the car instance variable.
+	 * @return license number of car (String)
 	 */
 	public String getLicense() {
 		return car.getLicense();

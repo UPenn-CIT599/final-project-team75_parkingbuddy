@@ -90,7 +90,6 @@ class LicenseOCR {
 		if (vehicle_confidence < 10) {
 			return false;
 		}
-
 		return true;
 	}
 

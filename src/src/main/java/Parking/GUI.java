@@ -32,7 +32,9 @@ public class GUI extends Application {
 	private ParkingController parkingController;
 
 	/**
-	 * This method takes in a stage and launches the window.
+	 * This start method launches the window with UI given the stage.
+	 * 
+	 * @param stage (Stage)
 	 */
 	public void start(Stage stage) {
 		try {
@@ -73,36 +75,14 @@ public class GUI extends Application {
 			// create the button to upload files using file chooser
 			Button button2 = new Button("Upload file(s)");
 			final FileChooser fileChooser = new FileChooser();
-			// the user is defaulted to uploading jpeg files when using file
-			// chooser
+			// the user is defaulted to uploading jpeg files when using file chooser
 			fileChooser.getExtensionFilters().addAll(
 					new FileChooser.ExtensionFilter("JPG", "*.jpg"),
 					new FileChooser.ExtensionFilter("PNG", "*.png"),
 					new FileChooser.ExtensionFilter("All Files", "*.*"));
-
-
-			// create event handler in case of button pressed
-			button2.setOnAction(new EventHandler<ActionEvent>() {
-				public void handle(ActionEvent event) {
-					textArea.clear();
-					List<File> files = fileChooser.showOpenMultipleDialog(stage);
-					try {
-						if (files == null || files.size() == 0) {
-							return;
-						}
-						ArrayList<ParkingInstance> parkings = parkingController.uploadPhotos(files);
-						ParkingInstancesPopup(parkings);
-						if (parkings == null || parkings.size() == 0) {
-							return;
-						}
-					} catch (ParkingException e) {
-						e.printStackTrace();
-					}
-				}
-			});
-			// create event handler in case of button pressed
+			
+			// create event handler in case of upload with folder button pressed
 			button1.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
 				public void handle(ActionEvent event) {
 					File dir = directoryChooser.showDialog(stage);
 					if (dir != null) {
@@ -125,6 +105,26 @@ public class GUI extends Application {
 					}
 				}
 			});
+			
+			// create event handler in case of upload with files button pressed
+            button2.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    textArea.clear();
+                    List<File> files = fileChooser.showOpenMultipleDialog(stage);
+                    try {
+                        if (files == null || files.size() == 0) {
+                            return;
+                        }
+                        ArrayList<ParkingInstance> parkings = parkingController.uploadPhotos(files);
+                        ParkingInstancesPopup(parkings);
+                        if (parkings == null || parkings.size() == 0) {
+                            return;
+                        }
+                    } catch (ParkingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
 			// create a direction label #3
 			Label label3 = new Label("Generate report");
@@ -142,6 +142,7 @@ public class GUI extends Application {
 			labelStart.setTextFill(Color.web("#ffff"));
 			labelEnd.setFont(Font.font("Verdana", 15));
 			labelEnd.setTextFill(Color.web("#ffff"));
+			
 			// empty labels for spacing
 			Label empty1 = new Label("");
 			Label empty2 = new Label("");
@@ -179,7 +180,8 @@ public class GUI extends Application {
 			HBox datePickers = new HBox(40, dateStart, dateEnd);
 			dates.setAlignment(Pos.CENTER);
 			datePickers.setAlignment(Pos.CENTER);
-
+			
+			// warning style setting
 			Label warning = new Label("");
 			warning.setFont(Font.font("Verdana", 15));
 			warning.setTextFill(Color.web("#ff0000"));
