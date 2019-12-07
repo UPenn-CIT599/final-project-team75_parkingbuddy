@@ -10,8 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ParkingInstanceProcessorTest {
-
-	private ArrayList<ParkingInstance> parkingInstanceArrayList = new ArrayList<ParkingInstance>();
+	ArrayList<ParkingInstance> parkingInstanceArrayList = new ArrayList<ParkingInstance>();
 
 	@Before
 	public void setUp() throws ParkingException {
