@@ -1,5 +1,5 @@
 # :car: ParkingBuddy :blue_car:
-Claire Lua [clua@seas.upenn.edu]
+Claire (Jiasin) Lua [clua@seas.upenn.edu]
 
 Samantha Lau [samlauj@seas.upenn.edu]
 
