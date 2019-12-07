@@ -18,7 +18,8 @@ import javafx.scene.text.Font;
 import javafx.scene.Node;
 
 /**
- * This class creates and displays Parking Aggregate Tables to be incorporated into user interface.
+ * ParkingAggregatesTableFactory class handles the GUI of the parking report view by creating and
+ * displaying Parking Aggregate Tables of parking report.
  *
  */
 public class ParkingAggregatesTableFactory {

@@ -20,9 +20,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import java.awt.image.BufferedImage;
 
+/**
+ * ParkingInstancesTableFactory class handles the GUI view after a user has uploaded photos. The
+ * table displays rows of photos that are successfully uploaded.
+ */
 public class ParkingInstancesTableFactory {
   static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+
+  /**
+   * @param parkings
+   * @return Scene
+   */
   public static Scene createParkingInstancesTableScene(ArrayList<ParkingInstance> parkings) {
     Scene scene = new Scene(new Group());
 
@@ -43,6 +52,13 @@ public class ParkingInstancesTableFactory {
     return scene;
   }
 
+
+  /**
+   * createParkingInstancesTable create the TableView of parking instances.
+   * @param parkings
+   * @param includeCarCols
+   * @return TableView<ParkingInstance>
+   */
   public static TableView<ParkingInstance> createParkingInstancesTable(
       ArrayList<ParkingInstance> parkings, boolean includeCarCols) {
     TableView<ParkingInstance> table = new TableView<ParkingInstance>();
