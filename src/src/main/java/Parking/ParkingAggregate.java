@@ -3,44 +3,88 @@ package Parking;
 import java.util.ArrayList;
 
 /**
- * Each ParkingAggregate object has the count of number of times that license parked overnight.
+ * ParkingAggregate models the history of parking instances for a given car, for the main purpose of
+ * counting the times the car was parked overnight.
  */
 public class ParkingAggregate {
-    Car car;
-    int overnightCount;
-    ArrayList<ParkingInstance> ParkingInstances;
+  // instance variables
+  Car car;
+  int overnightCount;
+  ArrayList<ParkingInstance> ParkingInstances;
 
-    public ParkingAggregate(Car car, int overnightCount) {
-        this.car = car;
-        this.overnightCount = overnightCount;
-    }
+  /**
+   * Constructor for the ParkingAggregate class
+   * 
+   * @param car            (Car)
+   * @param overnightCount (int)
+   */
+  public ParkingAggregate(Car car, int overnightCount) {
+    this.car = car;
+    this.overnightCount = overnightCount;
+  }
 
-    public Car getCar() {
-        return car;
-    }
+  /**
+   * Getter method for car instance variable
+   * 
+   * @return car (Car)
+   */
+  public Car getCar() {
+    return car;
+  }
 
-    public String getState() {
-        return car.getState();
-    }
+  /**
+   * Getter method for the state value in car instance variable
+   * 
+   * @return state (String)
+   */
+  public String getState() {
+    return car.getState();
+  }
 
-    public String getLicense() {
-        return car.getLicense();
-    }
+  /**
+   * Getter method for the license value in car instance variable
+   * 
+   * @return license (String)
+   */
+  public String getLicense() {
+    return car.getLicense();
+  }
 
-    public int getOvernightCount() {
-        return overnightCount;
-    }
+  /**
+   * Getter method for the overnightCount instance variable
+   * 
+   * @return overnightCount (int)
+   */
+  public int getOvernightCount() {
+    return overnightCount;
+  }
 
-    public ArrayList<ParkingInstance> getParkingInstances() {
-        return ParkingInstances;
-    }
+  /**
+   * Getter method for the ParkingInstances instance variable
+   * 
+   * @return ParkingInstances (ArrayList of ParkingInstance)
+   */
+  public ArrayList<ParkingInstance> getParkingInstances() {
+    return ParkingInstances;
+  }
 
-    public void setParkingInstance(ArrayList<ParkingInstance> parkingInstance) {
-        ParkingInstances = parkingInstance;
-    }
+  /**
+   * Setter method for the ParkingInstances instance variable
+   * 
+   * @param parkingInstance (ArrayList of ParkingInstance)
+   */
+  public void setParkingInstance(ArrayList<ParkingInstance> parkingInstance) {
+    ParkingInstances = parkingInstance;
+  }
 
-    public String toString() {
-        String str = car.getState() + ", " + car.getLicense() + ", " + overnightCount;
-        return str;
-    }
+  /**
+   * This method concatenates a car's state, license number and overnight count to a string.
+   * 
+   * @return String
+   */
+  @Override
+  public String toString() {
+    String str = car.getState() + ", " + car.getLicense() + ", " + overnightCount;
+    return str;
+  }
 }

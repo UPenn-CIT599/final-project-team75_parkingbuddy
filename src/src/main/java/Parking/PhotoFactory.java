@@ -1,6 +1,6 @@
 package Parking;
 
-import java.awt.image.BufferedImage; 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -30,8 +30,8 @@ public class PhotoFactory {
 	final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss");
 
 	/**
-	 * This static method creates an ArrayList of Photo objects from each image file
-	 * in the designated folder.
+	 * This static method creates an ArrayList of Photo objects from each image file in the
+	 * designated folder.
 	 * 
 	 * @param path (Path)
 	 * @return ArrayList of Photos
@@ -44,7 +44,7 @@ public class PhotoFactory {
 		}
 		return createPhotos(Arrays.asList(files));
 	}
-	
+
 	/**
 	 * This static method creates an ArrayList of Photo objects from a List of image files.
 	 * 
@@ -73,8 +73,8 @@ public class PhotoFactory {
 		// iterate through each image file in the folder to create a photo object
 		for (File file : filteredFiles) {
 			try {
-			photos.add(createPhoto(file));
-			} catch(ParkingException e) {
+				photos.add(createPhoto(file));
+			} catch (ParkingException e) {
 				System.out.println(e.getMessage());
 			}
 		}
@@ -85,18 +85,26 @@ public class PhotoFactory {
 	 * This method creates a Photo object from an image file. Used to create individual photo
 	 * objects from the File argument.
 	 * 
-	 * @param file
-	 * @return
+	 * @param file (File)
+	 * @return photo (Photo)
 	 */
 	public static Photo createPhoto(File file) throws ParkingException {
 		return createPhoto(file.toPath());
 	}
 
+	/**
+	 * This method creates a Photo object from a given file path.
+	 * 
+	 * @param file (File)
+	 * @return path (Path)
+	 */
 	public static Photo createPhoto(Path path) throws ParkingException {
 		Photo photo = null;
 		try {
+			// create inputstream from bytes
 			byte[] bytes = Files.readAllBytes(path);
 			InputStream inputStream = new ByteArrayInputStream(bytes);
+
 			// Make the image smaller while keeping aspect ratio.
 			BufferedImage image = Thumbnails.of(inputStream).size(1024, 1024).keepAspectRatio(true)
 					.asBufferedImage();
@@ -104,12 +112,13 @@ public class PhotoFactory {
 			LocalDateTime dateTime = getDateTime(inputStream);
 			inputStream.reset();
 			String md5Hash = DigestUtils.md5Hex(inputStream).toUpperCase();
+
 			// create Photo object
 			photo = new Photo(image, dateTime, md5Hash, path.toString());
-
 		} catch (IOException e) {
 			throw new ParkingException("Unable to read Photo file: " + e.getMessage());
 		}
+
 		return photo;
 	}
 
@@ -126,11 +135,13 @@ public class PhotoFactory {
 	private static LocalDateTime getDateTime(InputStream inputStream) throws ParkingException {
 		LocalDateTime dateTime = null;
 		try {
+			// getting Metadata inside an image file
 			Metadata metadata;
 			metadata = ImageMetadataReader.readMetadata(inputStream);
 			ExifSubIFDDirectory dir = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
-			String dateStr = dir.getString(ExifIFD0Directory.TAG_DATETIME_ORIGINAL);
 
+			// we only care about the data and time metadata
+			String dateStr = dir.getString(ExifIFD0Directory.TAG_DATETIME_ORIGINAL);
 			dateTime = LocalDateTime.parse(dateStr, formatter);
 		} catch (Exception e) {
 			throw new ParkingException("Unable to extract Photo metadata: " + e.getMessage());

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 public class LicenseOCRTest {
-	private LicenseOCR test = new LicenseOCR();
-	private ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
-	private ArrayList<Car> carArrayList = new ArrayList<Car>();
+	LicenseOCR test = new LicenseOCR();
+	ArrayList<Photo> photoArrayList = new ArrayList<Photo>();
+	ArrayList<Car> carArrayList = new ArrayList<Car>();
 
 	/**
 	 * Test OpenALPR API for image files without a car. API should return a string "null,null" since

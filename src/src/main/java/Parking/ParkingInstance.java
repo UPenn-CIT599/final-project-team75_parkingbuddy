@@ -3,10 +3,9 @@ package Parking;
 import java.time.LocalDateTime;
 import java.awt.image.BufferedImage;
 
-
 /**
- * ParkingInstance contains parking instance object that represents each instance that a car is
- * parked at the parking lot.
+ * ParkingInstance class contains parking instance object that represents each instance that a car
+ * is parked at the parking lot.
  */
 public class ParkingInstance {
 	// instance variables
@@ -15,93 +14,105 @@ public class ParkingInstance {
 
 	/**
 	 * Constructor for the ParkingInstance class.
-	 * @param car (Car)
+	 * 
+	 * @param car   (Car)
 	 * @param photo (Photo)
 	 */
 	public ParkingInstance(Car car, Photo photo) {
 		this.car = car;
 		this.photo = photo;
 	}
-	
+
 	/**
-	 * Getter for the date and time values from the photo.
+	 * Getter method for the date and time from the photo instance variable
+	 * 
 	 * @return date and time (LocalDateTime)
 	 */
 	public LocalDateTime getDateTime() {
 		return photo.getDateTime();
 	}
-	
+
 	/**
-	 * Getter for the car instance variable.
+	 * Getter method for the car instance variable
+	 * 
 	 * @return car (Car)
 	 */
 	public Car getCar() {
 		return car;
 	}
-	
+
 	/**
-	 * Getter for the photo instance variable.
-	 * @return photo (Photo)
-	 */
-	public Photo getPhoto() {
-		return photo;
-	}
-	
-	/**
-	 * Getter for the state value of the car instance variable.
-	 * @return state of car (String)
+	 * Getter method for the state value from the car instance variable
+	 * 
+	 * @return state (String)
 	 */
 	public String getState() {
 		return car.getState();
 	}
-	
+
 	/**
 	 * Getter for the license value of the car instance variable.
+	 * 
 	 * @return license number of car (String)
 	 */
 	public String getLicense() {
 		return car.getLicense();
 	}
-	
+
 	/**
-	 * Setter for the car instance variable.
-	 * @param car
+	 * Setter method for the car instance variable
+	 * 
+	 * @param car (Car)
 	 */
 	public void setCar(Car car) {
 		this.car = car;
 	}
-	
+
 	/**
-	 * Getter for the photo instance variable's MD5 Hash.
-	 * @return MD5 Hash (String)
+	 * Getter method for the MD5Hash value of the photo instance variable
+	 * 
+	 * @return Md5Hash (String)
 	 */
 	public String getPhotoMd5Hash() {
 		return photo.getMd5Hash();
 	}
-	
+
 	/**
-	 * This method concatenates the instance variables of this class.
-	 * @return car and photo (String)
+	 * toString method that overrides the default method by concatenating car and string instance
+	 * variables with a comma and space in between
+	 * 
+	 * @return concatenated String
 	 */
+	@Override
 	public String toString() {
 		return car.toString() + ", " + photo.toShortString();
 	}
-	
+
 	/**
-	 * Getter for the thumbnail of the photo instance variable
+	 * Getter method for the thumbnail image from the photo instance variable
+	 * 
 	 * @return thumbnail (BufferedImage)
 	 */
 	public BufferedImage getThumbnail() {
 		return photo.getThumbnail();
 	}
-	
+
 	/**
-     * Method that compares between two ParkingInstance objects by comparing their
-     * car and photo values.
-     * 
-     * @param o (Object)
-     * @return boolean
-     */
+	 * Getter method for the photo instance variable
+	 * 
+	 * @return photo (Photo)
+	 */
+	public Photo getPhoto() {
+		return photo;
+	}
+
+	/**
+	 * equals method that overrides the default. Compares instance variables from two
+	 * ParkingInstance objects.
+	 * 
+	 * @param o (Object)
+	 * @return boolean
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
