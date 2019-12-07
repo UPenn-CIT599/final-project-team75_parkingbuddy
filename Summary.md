@@ -16,23 +16,22 @@ Parking Buddy has 2 main functionalities - upload photos, or view parking report
 #### Project classes
 1) Database (SQLite database integration, and all SQL logic)
 2) PhotoInstancesTableFactory.java (Uploaded parking instances GUI) 
-ParkingAggregatesTableFactory.java (Parking report GUI)
-ParkingException.java (Catch-all exception class)
-ParkingAggregate (Aggregated parking instances)
-ParkingController (Handle split logic of upload / report viewer)
-GUI (Set up java fx and integrate GUI with the other classes to ensure end-to-end works)
-LicenseOCR (specific logic to handle horizontal that was not compatible with OCR library)
+3) ParkingAggregatesTableFactory.java (Parking report GUI)
+4) ParkingException.java (Catch-all exception class)
+5) ParkingAggregate (Aggregated parking instances)
+6) ParkingController (Handle split logic of upload / report viewer)
+7) GUI (Set up java fx and integrate GUI with the other classes to ensure end-to-end works)
+8) LicenseOCR (specific logic to handle horizontal that was not compatible with OCR library)
 
 
-Tests
+#### Tests
+1) DatabaseTest
+2) FakeDatabase
 
-DatabaseTest
-FakeDatabase
 
-
-Infra work
-Project milestone: Class design, UML diagram for class design, skeleton code to link up all classes
-Integrate all classes by making them call each other so that the program works as a whole
+#### Infra work
+* Project milestone: Class design, UML diagram for class design, skeleton code to link up all classes
+* Integrate all classes by making them call each other so that the program works as a whole
 Final class diagram
 Set up jar file for non-code users to run Parking Buddy program without build file
 Set up gradle build file
