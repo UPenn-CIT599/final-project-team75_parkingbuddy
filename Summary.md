@@ -11,7 +11,7 @@ Parking Buddy has 2 main functionalities - upload photos, or view parking report
 2) There is also a parking report viewer, where the officer can select a date range, and get a summary aggregate table view of vehicles, and the number of times that each vehicle were parked overnight. A common problem with parking enforcement is that owners may ask for proof that the vehicle had been parked overnight. As such, when the officier taps on each car’s row in the report, it will expand to display the photos and times of each time the car is parked overnight in the selected date period.
 
 ## Work breakdown
-### Claire - Backend, database, frontend
+### Claire (Jiasin) Lua - Backend, database, frontend
 
 #### Project classes
 1) Database (SQLite database integration, and all SQL logic)
@@ -37,7 +37,7 @@ Set up jar file for non-code users to run Parking Buddy program without build fi
 Set up gradle build file
 UI Wireframe mock
 
-### Sam - Backend
+### Samantha Lau - Backend
 
 #### Project Classes
 1) Car.java
