@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * This is the Photo class for each Photo object, representing each image file
- * loaded into the program.
+ * This is the Photo class for each Photo object, representing each image file loaded into the
+ * program.
  */
 
 public class Photo {
@@ -21,18 +21,18 @@ public class Photo {
     LocalDateTime dateTime;
     String path;
     String md5Hash;
+
     /**
-     *  hash of photo which provides us with a unique identifier for each
-     *  photo to handle duplicates
+     * hash of photo which provides us with a unique identifier for each photo to handle duplicates
      */
 
     /**
      * Constructor for the Photo class and object with BufferedImage parameter
      * 
-     * @param image (BufferedImage)
+     * @param image    (BufferedImage)
      * @param dateTime (LocalDateTime)
-     * @param md5Hash (String)
-     * @param path (String)
+     * @param md5Hash  (String)
+     * @param path     (String)
      * @throws ParkingException
      */
     public Photo(BufferedImage image, LocalDateTime dateTime, String md5Hash, String path)
@@ -47,9 +47,9 @@ public class Photo {
      * Constructor for the Photo class and object with photo bytes parameter
      * 
      * @param photoBytes (byte[])
-     * @param dateTime (LocalDateTime)
-     * @param md5Hash (String)
-     * @param path (String)
+     * @param dateTime   (LocalDateTime)
+     * @param md5Hash    (String)
+     * @param path       (String)
      * @throws ParkingException
      */
     public Photo(byte[] photoBytes, LocalDateTime dateTime, String md5Hash, String path)
@@ -91,10 +91,10 @@ public class Photo {
     public String getMd5Hash() {
         return md5Hash;
     }
-    
+
     /**
-     * Method that overrides the default toString method by concatenating date and time,
-     * md5Hash and path. This is shortString with path added.
+     * Method that overrides the default toString method by concatenating date and time, md5Hash and
+     * path. This is shortString with path added.
      * 
      * @return string
      */
@@ -102,7 +102,7 @@ public class Photo {
     public String toString() {
         return toShortString() + ", " + path;
     }
-    
+
     /**
      * Method that concatenates date and time with md5Hash
      * 
@@ -111,7 +111,7 @@ public class Photo {
     public String toShortString() {
         return dateTime.format(formatter) + ", " + md5Hash;
     }
-    
+
     /**
      * This method turns images to jpeg bytes
      * 
@@ -127,7 +127,7 @@ public class Photo {
         }
         return outStream.toByteArray();
     }
-    
+
     /**
      * Getter method for the image instance variable
      * 
@@ -136,7 +136,7 @@ public class Photo {
     public BufferedImage getImage() {
         return image;
     }
-    
+
     /**
      * Getter method for the thumbnail
      * 
@@ -151,7 +151,7 @@ public class Photo {
         }
         return null;
     }
-    
+
     /**
      * This method overrides the default equals method to compare two photo objects
      * 

@@ -18,20 +18,19 @@ import javafx.scene.text.Font;
 import javafx.scene.Node;
 
 /**
- * This class creates and displays Parking Aggregate Tables to be incorporated
- * into user interface.
+ * This class creates and displays Parking Aggregate Tables to be incorporated into user interface.
  *
  */
 public class ParkingAggregatesTableFactory {
     final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    
+
     /**
      * This creates the scene of parking aggregates table with a given data of parking aggregates,
      * start date and end date.
      * 
      * @param parkings (ArrayList of ParkingAggregate)
-     * @param start (LocalDate)
-     * @param end (LocalDate)
+     * @param start    (LocalDate)
+     * @param end      (LocalDate)
      * @return table scene (Scene)
      */
     public static Scene createParkingAggregatesTableScene(ArrayList<ParkingAggregate> parkings,
@@ -41,7 +40,7 @@ public class ParkingAggregatesTableFactory {
         final Label label = new Label(
                 "Parking Aggregates: " + start.format(formatter) + " to " + end.format(formatter));
         label.setFont(new Font("Arial", 20));
-        
+
         // table view for efficient and ease of reading
         TableView<ParkingAggregate> table = createParkingAggregatesTable(parkings);
         table.setMinWidth(1000);
@@ -54,7 +53,7 @@ public class ParkingAggregatesTableFactory {
         ((Group) scene.getRoot()).getChildren().addAll(vbox);
         return scene;
     }
-    
+
     /**
      * This method creates the parking aggregates table with given parking aggregate data.
      * 
@@ -84,14 +83,14 @@ public class ParkingAggregatesTableFactory {
         count.setMinWidth(250);
         count.setCellValueFactory(
                 new PropertyValueFactory<ParkingAggregate, Integer>("overnightCount"));
-        
+
         // three columns of state, license and overnight count
         table.setItems(FXCollections.observableArrayList(parkings));
         table.getColumns().addAll(Arrays.asList(state, license, count));
-        
+
         // setting up the rows
         table.setRowFactory(tv -> new TableRow<ParkingAggregate>() {
-          
+
             // pane for the details and its interface
             Node detailsPane;
             {
@@ -106,10 +105,11 @@ public class ParkingAggregatesTableFactory {
                 });
 
             }
-            
+
             /**
-             * overrides the default method and this computes the preferred height
-             * according to width
+             * overrides the default method and this computes the preferred height according to
+             * width
+             * 
              * @param width double
              * @return height double
              */
@@ -121,7 +121,7 @@ public class ParkingAggregatesTableFactory {
                     return super.computePrefHeight(width);
                 }
             }
-            
+
             /**
              * lays out the children in this parent
              */
@@ -137,7 +137,7 @@ public class ParkingAggregatesTableFactory {
         });
         return table;
     }
-    
+
     /**
      * This method creates the inline Parking Instances table
      * 

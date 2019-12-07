@@ -17,8 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * LicenseOCR uses the OpenALPR API to perform optical character recognition in order
- * to read license plate from each photo.
+ * LicenseOCR uses the OpenALPR API to perform optical character recognition in order to read
+ * license plate from each photo.
  */
 class LicenseOCR {
 	final static String urlStr = "https://api.openalpr.com/v2/recognize_bytes?recognize_"
@@ -33,7 +33,7 @@ class LicenseOCR {
 	 * @return Car
 	 */
 	public Car getCarWithOpenALPR(Photo photo) {
-	    
+
 		String jsonContent = "";
 
 		try {
@@ -106,8 +106,7 @@ class LicenseOCR {
 		// gets values associated with "results" key
 		JSONArray result = obj.getJSONArray("results");
 		/**
-		 *  gets values associated with "plate" key from the first index
-		 *  which has highest confidence
+		 * gets values associated with "plate" key from the first index which has highest confidence
 		 */
 		String licensePlate = result.getJSONObject(0).getString("plate");
 		String state = result.getJSONObject(0).getString("region").toUpperCase();

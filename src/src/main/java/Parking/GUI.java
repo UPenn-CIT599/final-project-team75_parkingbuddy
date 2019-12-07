@@ -80,7 +80,7 @@ public class GUI extends Application {
 					new FileChooser.ExtensionFilter("JPG", "*.jpg"),
 					new FileChooser.ExtensionFilter("PNG", "*.png"),
 					new FileChooser.ExtensionFilter("All Files", "*.*"));
-			
+
 			// create event handler in case of upload with folder button pressed
 			button1.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent event) {
@@ -105,26 +105,26 @@ public class GUI extends Application {
 					}
 				}
 			});
-			
+
 			// create event handler in case of upload with files button pressed
-            button2.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent event) {
-                    textArea.clear();
-                    List<File> files = fileChooser.showOpenMultipleDialog(stage);
-                    try {
-                        if (files == null || files.size() == 0) {
-                            return;
-                        }
-                        ArrayList<ParkingInstance> parkings = parkingController.uploadPhotos(files);
-                        ParkingInstancesPopup(parkings);
-                        if (parkings == null || parkings.size() == 0) {
-                            return;
-                        }
-                    } catch (ParkingException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+			button2.setOnAction(new EventHandler<ActionEvent>() {
+				public void handle(ActionEvent event) {
+					textArea.clear();
+					List<File> files = fileChooser.showOpenMultipleDialog(stage);
+					try {
+						if (files == null || files.size() == 0) {
+							return;
+						}
+						ArrayList<ParkingInstance> parkings = parkingController.uploadPhotos(files);
+						ParkingInstancesPopup(parkings);
+						if (parkings == null || parkings.size() == 0) {
+							return;
+						}
+					} catch (ParkingException e) {
+						e.printStackTrace();
+					}
+				}
+			});
 
 			// create a direction label #3
 			Label label3 = new Label("Generate report");
@@ -142,7 +142,7 @@ public class GUI extends Application {
 			labelStart.setTextFill(Color.web("#ffff"));
 			labelEnd.setFont(Font.font("Verdana", 15));
 			labelEnd.setTextFill(Color.web("#ffff"));
-			
+
 			// empty labels for spacing
 			Label empty1 = new Label("");
 			Label empty2 = new Label("");
@@ -180,7 +180,7 @@ public class GUI extends Application {
 			HBox datePickers = new HBox(40, dateStart, dateEnd);
 			dates.setAlignment(Pos.CENTER);
 			datePickers.setAlignment(Pos.CENTER);
-			
+
 			// warning style setting
 			Label warning = new Label("");
 			warning.setFont(Font.font("Verdana", 15));
@@ -217,7 +217,7 @@ public class GUI extends Application {
 			vBox.setAlignment(Pos.CENTER);
 
 			// set background image for the window
-			InputStream input = getClass().getResourceAsStream("/images/darkParking.jpg"); 
+			InputStream input = getClass().getResourceAsStream("/images/darkParking.jpg");
 			if (input == null) {
 				input = new FileInputStream("src/main/resources/images/darkParking.jpg");
 			}
@@ -242,13 +242,13 @@ public class GUI extends Application {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * This method sets up the parking aggregate pop up window upon clicking button.
 	 * 
 	 * @param parkings (ArrayList of ParkingAggregate)
-	 * @param start (LocalDate)
-	 * @param end (LocalDate)
+	 * @param start    (LocalDate)
+	 * @param end      (LocalDate)
 	 */
 	private void ParkingAggregatesPopup(ArrayList<ParkingAggregate> parkings, LocalDate start,
 			LocalDate end) {
@@ -262,7 +262,7 @@ public class GUI extends Application {
 				.createParkingAggregatesTableScene(parkings, start, end));
 		popupwindow.show();
 	}
-	
+
 	/**
 	 * This method sets up the parking instance popup windwo upon clicking the button
 	 * 

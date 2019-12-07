@@ -3,26 +3,26 @@ package Parking;
 import java.util.ArrayList;
 
 /**
- * ParkingAggregate models the history of parking instances for a given car,
- * for the main purpose of counting the times the car was parked overnight.
+ * ParkingAggregate models the history of parking instances for a given car, for the main purpose of
+ * counting the times the car was parked overnight.
  */
 public class ParkingAggregate {
     // instance variables
     Car car;
     int overnightCount;
     ArrayList<ParkingInstance> ParkingInstances;
-    
+
     /**
      * Constructor for the ParkingAggregate class
      * 
-     * @param car (Car)
+     * @param car            (Car)
      * @param overnightCount (int)
      */
     public ParkingAggregate(Car car, int overnightCount) {
         this.car = car;
         this.overnightCount = overnightCount;
     }
-    
+
     /**
      * Getter method for car instance variable
      * 
@@ -40,7 +40,7 @@ public class ParkingAggregate {
     public String getState() {
         return car.getState();
     }
-    
+
     /**
      * Getter method for the license value in car instance variable
      * 
@@ -49,7 +49,7 @@ public class ParkingAggregate {
     public String getLicense() {
         return car.getLicense();
     }
-    
+
     /**
      * Getter method for the overnightCount instance variable
      * 
@@ -58,7 +58,7 @@ public class ParkingAggregate {
     public int getOvernightCount() {
         return overnightCount;
     }
-    
+
     /**
      * Getter method for the ParkingInstances instance variable
      * 
@@ -67,7 +67,7 @@ public class ParkingAggregate {
     public ArrayList<ParkingInstance> getParkingInstances() {
         return ParkingInstances;
     }
-    
+
     /**
      * Setter method for the ParkingInstances instance variable
      * 
@@ -76,10 +76,10 @@ public class ParkingAggregate {
     public void setParkingInstance(ArrayList<ParkingInstance> parkingInstance) {
         ParkingInstances = parkingInstance;
     }
-    
+
     /**
-     * This method concatenates a car's state, license number and overnight count
-     * to a string.
+     * This method concatenates a car's state, license number and overnight count to a string.
+     * 
      * @return String
      */
     @Override

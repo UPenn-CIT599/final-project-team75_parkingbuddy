@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ParkingController directs the program based on user input on whether to add 
- * parking instances or to pull parking violation report. If user chooses to 
- * pull a violation reports, this class contains the logic to call all relevant
- * classes to process tickets or add parking instances to the SQL database.
+ * ParkingController directs the program based on user input on whether to add parking instances or
+ * to pull parking violation report. If user chooses to pull a violation reports, this class
+ * contains the logic to call all relevant classes to process tickets or add parking instances to
+ * the SQL database.
  */
 public class ParkingController {
     // instance variables
@@ -28,7 +28,7 @@ public class ParkingController {
         db = new Database();
         pip = new ParkingInstanceProcessor(db);
     }
-    
+
     /**
      * Another constructor for the Parking Controller class with a given database.
      * 
@@ -38,7 +38,7 @@ public class ParkingController {
         this.db = db;
         pip = new ParkingInstanceProcessor(db);
     }
-    
+
     /**
      * Method that captures the instance of the ParkingController object.
      * 
@@ -51,10 +51,9 @@ public class ParkingController {
         }
         return parkingController;
     }
-    
+
     /**
-     * This method adds parking instances to the database from  
-     * photos based on the file path
+     * This method adds parking instances to the database from photos based on the file path
      * 
      * @param filePath (Path)
      * @return ArrayList of Parking Instance
@@ -63,10 +62,9 @@ public class ParkingController {
     public ArrayList<ParkingInstance> uploadPhotos(Path filePath) throws ParkingException {
         return pip.addParkingInstances(filePath);
     }
-    
+
     /**
-     * This methods adds parking instances to the database from photos
-     * based on the list of files
+     * This methods adds parking instances to the database from photos based on the list of files
      * 
      * @param files (List of file)
      * @return ArrayList of ParkingInstance
@@ -80,7 +78,7 @@ public class ParkingController {
      * This method creates a violation report based on the user input time frame.
      * 
      * @param startDate (LocalDate)
-     * @param endDate (LocalDate)
+     * @param endDate   (LocalDate)
      * @return ArrayList of ParkingAggregate
      */
     public ArrayList<ParkingAggregate> getParkingAggregates(LocalDate startDate,
