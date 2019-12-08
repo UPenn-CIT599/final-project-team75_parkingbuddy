@@ -55,6 +55,7 @@ cd src
 ./gradlew jar
 java -jar build/libs/Parking.jar 
 ```
+TestPhotos contains sample car photos for intructors to test upload flow. 
 ___
 ## Usage
 
