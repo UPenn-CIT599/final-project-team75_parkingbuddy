@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+/**
+ * JUnit tests for the LicenseOCR class.
+ */
 public class LicenseOCRTest {
   LicenseOCR test = new LicenseOCR();
   ArrayList<Photo> photoArrayList = new ArrayList<Photo>();

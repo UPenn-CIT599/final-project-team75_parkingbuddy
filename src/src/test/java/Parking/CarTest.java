@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * JUnit test for the Car class.
+ */
 public class CarTest {
   Car newCar1 = new Car("CA", "1234567");
   Car newCar2 = new Car("", "1234567");

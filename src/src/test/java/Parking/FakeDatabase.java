@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
 
+/**
+ * This is a fake database that will be used to test the classes.
+ */
 public class FakeDatabase {
   @Rule
   public TemporaryFolder tmpFolder = new TemporaryFolder();

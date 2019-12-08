@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * JUnit tests for the ParkingController class and extends FakeDatabase class.
+ */
 public class ParkingControllerTest extends FakeDatabase {
   ParkingController pc;
   ArrayList<ParkingAggregate> results = new ArrayList<ParkingAggregate>();
