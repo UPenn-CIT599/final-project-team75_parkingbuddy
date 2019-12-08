@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 /*
- * This class tests the JPEGReader class by testing the readDates method specifically, to ensure the
- * LocalDateTime date data is extracted correctly from each image's EXIF metadata.
+ * This class tests the PhotoFactory class by testing the readDates method specifically,
+ * to ensure the LocalDateTime date data is extracted correctly from each image's EXIF metadata.
  */
 public class PhotoFactoryTest {
   /**

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * JUnit tests for the ParkingInstanceProcessor class.
+ */
 public class ParkingInstanceProcessorTest {
 	ArrayList<ParkingInstance> parkingInstanceArrayList = new ArrayList<ParkingInstance>();
 

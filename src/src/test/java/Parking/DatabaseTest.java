@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import org.junit.Test;
 
+/**
+ * JUnit test for Database class by extending the FakeDatabase class.
+ */
 public class DatabaseTest extends FakeDatabase {
   @Test
   public void testInsert() throws ParkingException {
