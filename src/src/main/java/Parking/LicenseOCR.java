@@ -23,7 +23,7 @@ import org.json.JSONObject;
 class LicenseOCR {
   final static String urlStr =
       "https://api.openalpr.com/v2/recognize_bytes?recognize_" + "vehicle=1&country=us&secret_key=";
-  final static String secretKey = "sk_b54c60658f3340d99b2d0531";
+  final static String secretKey = "insert key here";
 
   /**
    * This method returns a car object by taking in a photo object and extracting the necessary data
